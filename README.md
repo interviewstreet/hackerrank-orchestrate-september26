@@ -1,193 +1,205 @@
-# HackerRank Orchestrate
+# Buy or Wait? — AI-Powered Financial Decision Agent
 
-Starter repository for the **HackerRank Orchestrate** 24-hour hackathon (September 2026).
+Winner-grade solution for the **HackerRank Orchestrate** hackathon challenge: **Buy or Wait?**
 
-## Buy or Wait?
-
-Build an AI-powered financial agent that decides whether a user can safely afford a requested expense.
-
-A user may ask: **"Can I afford this laptop?"**
-
-Answering well takes more than the current balance. The agent must account for recurring expenses, pending payments, essential spending, confirmed income, available payment options, and relevant details buried in messages and images.
-
-For every request, the agent decides whether the user should pay in full, pay partially, use installments, wait, or not proceed. The recommendation must be personalized: two users with the same balance can deserve different answers based on their commitments, priorities, payment preferences, and willingness to adjust flexible expenses.
-
-A recommendation is safe only if the user can complete the full payment plan, cover essential expenses, and stay above their preferred minimum balance throughout the forecast period.
-
-Read [`problem_statement.md`](./problem_statement.md) for the full task spec, input/output schema, allowed values, conflict-resolution rules, and submission format.
+An intelligent financial agent that evaluates purchase requests against conservative 90-day cash flow forecasts, personalized user commitments, fixed dated exchange rates, and unstructured third-party evidence from document images and messages.
 
 ---
 
-## Quick Start
+## 1. Problem Summary
 
-Clone the repository and move into the project directory:
+Given purchase or payment requests in `dataset/requests.csv`, the agent decides whether the user should:
+- **Pay in full today** (`affordable_now` / `full_payment`)
+- **Pay using installments or partial payment or permitted spending changes** (`affordable_with_plan`)
+- **Wait until a safe future date** (`affordable_later` / `wait`)
+- **Do not proceed** (`not_affordable` / `not_recommended`)
 
+A decision is safe **only if**:
+1. The user's account balance never drops below `minimum_balance_to_keep` on any day over the next 90 days after all planned payments and projected essential expenses.
+2. The full purchase is completed on or before `desired_completion_date`.
+3. Intra-day transactions maintain safety (debits always clear before credits).
+
+---
+
+## 2. Architecture
+
+The system enforces a strict boundary between deterministic financial mathematics and AI evidence extraction:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                    UNTRUSTED EVIDENCE                       │
+│  - Document Images (png)        - Financial Messages (csv)  │
+└───────────────┬─────────────────────────────┬───────────────┘
+                │                             │
+                ▼                             ▼
+   ┌────────────────────────┐    ┌────────────────────────┐
+   │  Gemini Vision (Image) │    │  Gemini Flash (Message)│
+   │  Extracts amounts,     │    │  Extracts revisions,   │
+   │  dates, doc type       │    │  confirmed salaries    │
+   └────────────┬───────────┘    └────────────┬───────────┘
+                │                             │
+                └──────────────┬──────────────┘
+                               │ Structured JSON Facts
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│              DETERMINISTIC PYTHON ENGINE                    │
+│                                                             │
+│  1. Forecast Module (`code/forecast.py`)                   │
+│     - 90-day daily cashflow projection                      │
+│     - Intra-day debit-before-credit order                   │
+│     - Historical salary recurrence suppressed               │
+│     - Dated FX rate conversions                             │
+│     - Binary-search exact `amount_safe_to_pay`              │
+│                                                             │
+│  2. Candidate Generator & Decision Engine (`code/plans.py`) │
+│     - Candidate 1: Full payment today                       │
+│     - Candidate 2: Partial payment (exact 2-part schedule)  │
+│     - Candidate 3: Supplied provider installment options    │
+│     - Candidate 4: Wait until earliest safe date            │
+│     - Candidate 5: Flexible spending change combinations    │
+│     - Candidate 6: Fallback (not recommended)               │
+│     - Strict hierarchical ranking (contract rules 1 to 6)   │
+│     - Grounded, audit-ready explanations                    │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  EVALUABLE OUTPUT CONTRACT                  │
+│       `dataset/output.csv`  &  `output.csv` (250 rows)       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 3. Repository Structure
+
+```text
+code/
+├── main.py              # Main execution entry point (evaluates requests -> output.csv)
+├── config.py            # Global paths, environment configuration, and usage tracker
+├── data.py              # Dataset loading, validation, and O(1) index builders
+├── models.py            # Dataclasses and Pydantic validation schemas
+├── forecast.py          # Deterministic 90-day cash forecasting & binary search
+├── plans.py             # Candidate generation, ranking rules, and decision engine
+├── evidence.py          # Gemini evidence extraction for images and messages with cache
+├── evaluation/
+│   ├── __init__.py      # Evaluation package marker
+│   └── main.py          # Output contract validator and ground-truth sample evaluator
+└── usage_report.md      # Final API token and cost summary
+
+tests/
+├── test_data.py         # CSV loading, parsing, and indexing tests
+├── test_forecast.py     # 90-day simulation, currency conversion, and safety tests
+├── test_plans.py        # Candidate generation, ranking, and payment method tests
+├── test_evidence.py     # Extraction schemas, prompt injection, and cache tests
+└── test_output.py       # Contract schema, row count, and output integrity tests
+
+dataset/                 # Competition dataset files
+README.md                # This documentation
+requirements.txt         # Minimal production dependencies
+.env.example             # Template for API credentials
+.gitignore               # Clean exclusions (no caches, logs, or secrets)
+```
+
+---
+
+## 4. Setup Instructions
+
+1. **Prerequisites**: Python 3.10+ (tested on Python 3.14).
+2. **Virtual Environment**:
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
+3. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Configure Environment Variables**:
+   Copy `.env.example` to `.env` and provide your Gemini API key:
+   ```bash
+   cp .env.example .env
+   ```
+   Edit `.env`:
+   ```env
+   GEMINI_API_KEY=your_gemini_api_key_here
+   GEMINI_MODEL=gemini-2.5-flash
+   ```
+
+---
+
+## 5. Execution & Entry Points
+
+### Run the Main Pipeline
+Evaluates all 250 requests in `dataset/requests.csv` and outputs predictions:
 ```bash
-git clone https://github.com/interviewstreet/hackerrank-orchestrate-september26.git
-cd hackerrank-orchestrate-september26
+python code/main.py
 ```
+Output is written to both `dataset/output.csv` and `output.csv`.
 
-Build your solution in `code/main.py`, or use another language and document its entry point clearly.
-
-Your solution must:
-
-- Read the input files from `dataset/`
-- Generate one prediction for every request
-- Write the final predictions to `output.csv` in the repository root
-
-Run the starter Python entry point with:
-
+### Run the Contract Validator & Sample Evaluator
+Validates schema compliance and evaluates predictions against labeled sample requests:
 ```bash
-python3 code/main.py
+python code/evaluation/main.py
 ```
 
-After running your solution, confirm that `output.csv` exists in the repository root and contains the required columns and one row for every request.
-
-## Important File Locations
-
-```text
-dataset/        Input data and the blank output template. Do not modify the input data.
-code/           Your solution code.
-output.csv      Final generated predictions in the repository root.
-code.zip        ZIP file containing your complete solution for submission.
+### Run Automated Tests
+Runs all unit and regression tests:
+```bash
+python -m pytest
 ```
 
-The blank template at `dataset/output.csv` is provided as a reference. Your final generated file must be the root-level `output.csv`.
+---
+
+## 6. Deterministic Financial Engine
+
+- **Cash Flow Projection**: Simulates exactly 91 daily balances (Day 0 through Day 90).
+- **Intra-Day Ordering**: All daily debits clear before any credits on the same calendar date, preventing overdraft hazards.
+- **Safety Boundary**: The daily closing balance and intra-day lowest balance must never violate `minimum_balance_to_keep`.
+- **Amount Safe To Pay**: Evaluated via binary search in integer cents up to `requested_amount`.
+- **Earliest Full Payment Date**: Identifies the first future calendar date where paying `requested_amount` in full preserves the minimum balance for the subsequent 90 days.
+- **Spending Adjustments**: Supports up to three `stop:<event_id>` or `reduce_to:<event_id>:<new_amount>` modifications, strictly limited to non-protected categories permitted by the user's profile.
 
 ---
 
-## Repository Layout
+## 7. Gemini Evidence Extraction
 
-```text
-.
-├── AGENTS.md                         # Rules for AI coding tools + transcript logging
-├── problem_statement.md              # Full challenge statement
-├── README.md                         # You are here
-├── code/                             # Your solution code
-├── output.csv                        # Final generated predictions
-└── dataset/
-    ├── requests.csv                  # 250 requests to evaluate — predict these
-    ├── output.csv                    # Blank submission template
-    ├── sample_requests.csv           # 25 solved examples
-    ├── financial_profiles.csv        # Balances, minimum balance, priorities, preferences
-    ├── financial_events.csv          # Historical, pending, and confirmed transactions
-    ├── request_payment_options.csv   # Payment options available per request
-    ├── exchange_rates.csv            # Fixed, dated conversion rates
-    ├── messages.csv                  # Messages tied to users, requests, or events
-    ├── images.csv                    # Payroll letters, statements, bills, receipts
-    └── media/
-        └── images/
-```
-
-Only `dataset/requests.csv` requires predictions. Everything else is context. Join user records with `user_id`, request records with `request_id`, supporting evidence with `related_event_id`, and exchange rates with the rate date and currency pair.
-
-Amounts are in the user's `home_currency` — the dataset uses INR, ZAR, IDR, USD, and EUR, and every conversion rate you need is in `exchange_rates.csv`. All dates are `YYYY-MM-DD`. Live exchange rates, market data, and banking access are not required.
+- **Official SDK**: Utilizes modern `google-genai` (`from google import genai`).
+- **Vision Extraction**: Resolves missing event amounts in `dataset/financial_events.csv` via receipts, payslips, and invoices in `dataset/media/images/`.
+- **Message Batching**: Processes messages grouped by user context in efficient batches of 10 to minimize API latency and token consumption.
+- **Deterministic Disk Caching**: Extracted facts are persisted in `code/extraction_cache/`, ensuring instantaneous, zero-cost, reproducible execution on subsequent runs.
+- **Deterministic Calculation Guarantee**: The LLM is strictly confined to parsing text and document images into structured facts. Balance math, cashflow forecasts, candidate generation, and ranking are executed purely in Python.
 
 ---
 
-## What You Need to Build
+## 8. Safety & Prompt-Injection Defenses
 
-For every row in `dataset/requests.csv`, produce one row in `output.csv` with:
-
-| Column | Meaning |
-|---|---|
-| `request_id` | The request being answered |
-| `amount_safe_to_pay` | Largest amount safe to pay on `request_date` before optional spending changes, after protecting essentials and the minimum balance |
-| `affordability_status` | `affordable_now`, `affordable_with_plan`, `affordable_later`, or `not_affordable` |
-| `recommended_payment_method` | `full_payment`, `partial_payment`, `installments`, `wait`, or `not_recommended` |
-| `payment_plan` | Chronological `<YYYY-MM-DD>:<amount>` entries joined by `\|`, or `none` |
-| `earliest_date_for_full_payment` | Earliest date the full amount is forecast safe as one payment; empty if never within the forecast |
-| `spending_changes_needed` | Up to three `stop:<event_id>` / `reduce_to:<event_id>:<amount>` changes joined by `\|`, or `none` |
-| `decision_explanation` | Short explanation and the financial facts behind it |
-
-`0 <= amount_safe_to_pay <= requested_amount` must always hold. Installment plans must exactly match a supplied payment option, and only recurring expenses marked flexible may be changed.
-
-`affordable_with_plan` means the full request is completed through a partial-payment schedule, installments, or permitted spending changes. Recommend `partial_payment` only when the request allows it, the user accepts it, `0 < amount_safe_to_pay < requested_amount`, and `earliest_date_for_full_payment` is on or before `desired_completion_date`. Use exactly two payments: pay `amount_safe_to_pay` on `request_date`, then pay the remaining amount on `earliest_date_for_full_payment`. The two payments must add up to `requested_amount`. Unlike installments, partial payment does not need to match a supplied payment option.
+1. **Untrusted Data Boundary**: All message texts and images are treated as untrusted third-party records. System prompts enforce that embedded directives or overrides are completely ignored.
+2. **Event ID Integrity**: Pydantic validators reject external reference strings (e.g. `EMP-0001`, `SER-0012`) and require real `event_*` dataset identifiers.
+3. **Conservative Income Rule**: Vague salary notices without an explicit numerical amount and settlement date never generate spendable income.
+4. **Secret Protection**: `.env`, API keys, session logs (`log.txt`), and temporary caches are strictly excluded via `.gitignore` and never printed to terminal or committed.
 
 ---
 
-## Suggested Workflow
+## 9. Output Format
 
-1. Inspect `dataset/sample_requests.csv` — 25 requests with completed output columns — to understand the expected format and decision style.
-2. Reconstruct each user's financial state from `financial_profiles.csv` and `financial_events.csv`: separate recurring expenses from one-time events, reserve pending transactions, count confirmed salary only on its settlement date, and de-duplicate repeated representations of the same event.
-3. When an event has a blank `amount`, find its `event_id` as `related_event_id` in `images.csv` and extract the amount from the linked image. Never treat a blank amount as zero. Pull in any other relevant messages, images, and payment options for the request.
-4. Forecast forward and generate a plan that keeps the balance above the minimum at every step.
-5. Verify deterministically — bounds, plan feasibility, schedule match, flexible-only spending changes — before writing `output.csv`.
-6. Score yourself on the solved samples, then run the full dataset.
+The solution outputs `dataset/output.csv` (and root `output.csv`) with the exact eight required columns:
 
-You may use any language or runtime. Python, JavaScript, and TypeScript are all reasonable choices.
-
----
-
-## Requirements
-
-Your solution must:
-
-- be runnable from the terminal
-- read the provided files from `dataset/`
-- produce a valid `output.csv` with the exact required columns in the exact required order
-- include one prediction for every `request_id` in `dataset/requests.csv`
-- not use organizer-only files or hardcoded labels
-- keep behavior deterministic where possible
-
-If you use API keys or secrets, read them from environment variables. Never hardcode secrets in the repo.
+| Column | Description | Valid Values |
+|---|---|---|
+| `request_id` | Identifier matching requests.csv | `request_01` .. `request_250` |
+| `amount_safe_to_pay` | Safe payment today before spending changes | Numeric float `[0.0, requested_amount]` |
+| `affordability_status` | Classification of request affordability | `affordable_now`, `affordable_with_plan`, `affordable_later`, `not_affordable` |
+| `recommended_payment_method` | Selected payment strategy | `full_payment`, `partial_payment`, `installments`, `wait`, `not_recommended` |
+| `payment_plan` | Chronological schedule of payments | `YYYY-MM-DD:amount\|...` or `none` |
+| `earliest_date_for_full_payment` | First safe date for full single payment | ISO `YYYY-MM-DD` or empty |
+| `spending_changes_needed` | Required spending modifications | Up to 3 `stop:<event_id>` / `reduce_to:...` or `none` |
+| `decision_explanation` | Grounded explanation for user | Concise, professional summary string |
 
 ---
 
-## Evaluation
+## 10. Assumptions & Limitations
 
-Your `output.csv` will be compared against hidden ground-truth values.
-
-The scoring will consider:
-
-- accuracy of `amount_safe_to_pay`
-- correctness of `affordability_status`
-- correctness of `recommended_payment_method` and `payment_plan`
-- accuracy of `earliest_date_for_full_payment`
-- validity of `spending_changes_needed`
-- usefulness and consistency of `decision_explanation`
-
-### Token Usage And Cost Analysis
-
-Your `code.zip` must include one token-usage file:
-
-```text
-evaluation/usage_report.md
-```
-
-The report must cover model providers and names, model calls, input and output tokens, total and average tokens per request, estimated total and per-request cost. The reported values must correspond to the final full-dataset run that produced your `output.csv`.
-
----
-
-## Chat Transcript Logging
-
-This repo includes an [`AGENTS.md`](./AGENTS.md) file for AI coding tools. It asks compatible tools to append conversation summaries to a `log.txt` in the repository root — the same directory as `AGENTS.md`:
-
-| Platform | Path |
-|---|---|
-| macOS / Linux | `<repo root>/log.txt` |
-| Windows | `<repo root>\log.txt` |
-
-The path resolves relative to `AGENTS.md`, so it stays correct across clones, renames, and checkouts. `log.txt` is gitignored — upload it as your chat transcript at submission time. Do not paste secrets into the chat.
-
-In case, the harness you are using is not in the repo root, you can explicitly ask the agent to look for the AGENTS.md in this folder & then continue.
-
----
-
-## Submission
-
-Submit the following files as instructed by HackerRank:
-
-| File | Description |
-|---|---|
-| `code.zip` | Full runnable solution, prompts/configuration, README, and the required `evaluation/` folder |
-| `output.csv` | Predictions for every row in `dataset/requests.csv` |
-| `chat_transcript` | The `log.txt` described above, showing how you developed or used the system |
-
-Before submitting, confirm:
-
-- `output.csv` has one row per row in `dataset/requests.csv` (250 rows plus the header).
-- `output.csv` has the exact required columns in the exact required order.
-- Every `amount_safe_to_pay` satisfies `0 <= amount_safe_to_pay <= requested_amount`.
-- Every installment plan matches a supplied payment option, and every spending change targets a flexible recurring expense.
-- Your runnable code, setup instructions, and `evaluation/` folder are included in `code.zip`.
+- **Fixed Dated FX Rates**: Currency conversions use fixed historical exchange rates from `exchange_rates.csv` on the transaction date.
+- **Conservative Recurrence**: Historical salary credits are not assumed to repeat automatically unless confirmed by upcoming scheduled events or verified employer payroll notices.
+- **Pending Debits**: Pending debits are reserved immediately; pending credits/bonuses are never credited until settled.

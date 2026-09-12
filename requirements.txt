@@ -1,0 +1,30 @@
+# ── LLM Gateway & Primary Model (Gemini via LiteLLM) ─────────────────────────
+litellm>=1.40.0           # Unified LLM interface: Gemini, OpenAI, Anthropic, etc.
+google-generativeai>=0.7.0 # Gemini SDK (used by LiteLLM for gemini/* models)
+
+# ── Data Validation & Config ──────────────────────────────────────────────────
+pydantic>=2.7.0            # Strongly-typed domain models (Rust-backed, strict mode)
+pydantic-settings>=2.3.0   # BaseSettings: env vars + .env validation at startup
+
+# ── Environment & Secrets ─────────────────────────────────────────────────────
+python-dotenv>=1.0.0       # Loads .env file into os.environ
+
+# ── Retry & Resilience ────────────────────────────────────────────────────────
+tenacity>=8.3.0            # Declarative retry: exponential backoff for LLM API calls
+
+# ── Data Processing ───────────────────────────────────────────────────────────
+pandas>=2.2.0              # CSV ingestion & data wrangling
+
+# ── Image Handling (OCR preprocessing) ───────────────────────────────────────
+Pillow>=10.4.0             # Load/inspect PNG receipt images before sending to Gemini
+
+# ── Structured Logging ────────────────────────────────────────────────────────
+structlog>=24.2.0          # JSON-structured per-request audit logs
+
+# ── CLI Progress & UX ─────────────────────────────────────────────────────────
+rich>=13.7.0               # Live progress bars, result tables, formatted tracebacks
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+pytest>=8.2.0
+pytest-asyncio>=0.23.0     # Test async LLM call wrappers
+pytest-cov>=5.0.0          # Coverage gate: --cov-fail-under=85

@@ -1,2 +1,63 @@
+# ── Project-specific ──────────────────────────────────────────────────────────
 extras/
-log.txt
+log.txt
+output.csv
+
+# ── Python virtual environments ───────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+venv.bak/
+
+# ── Python cache & build artifacts ────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Testing & coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+
+# ── Type checkers & linters ───────────────────────────────────────────────────
+.mypy_cache/
+.ruff_cache/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── IDE / Editor ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── OS files ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.log
+*.tmp
+*.bak
+

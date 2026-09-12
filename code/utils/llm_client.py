@@ -161,7 +161,7 @@ class LLMClient:
         """One assistant turn, which may return tool calls or a final answer."""
         self.tracker.reserve(model)
         budget = max_tokens or self.settings.max_output_tokens
-        estimate = estimate_tokens(messages, budget)
+        estimate = estimate_tokens(messages, budget, tools)
 
         for attempt in range(self.settings.max_retries + 2):
             reservation = self.limiter.acquire(model, estimate)

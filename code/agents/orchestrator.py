@@ -17,10 +17,11 @@ from dataclasses import dataclass, field
 from hashlib import sha1
 from typing import Any, Callable
 
-from agents.prompts import ORCHESTRATOR_SYSTEM, TOOL_DEFINITIONS
+from agents.prompts import ORCHESTRATOR_SYSTEM, tools_for
 from config import Settings
 from tools.balance_forecaster import ForecastConfig, ForecastModel, build_forecast_model
 from tools.decision_engine import decide
+from tools.evidence_cache import EvidenceCache
 from tools.exchange_converter import ExchangeConverter
 from tools.image_extractor import ImageExtractor
 from tools.message_resolver import MessageResolver, apply_modifications
@@ -72,6 +73,11 @@ class AgentState:
     resolved_amounts: dict[str, float] = field(default_factory=dict)
     spending_changes: list[SpendingChange] = field(default_factory=list)
     plans: list[CandidatePlan] = field(default_factory=list)
+    # Tracked explicitly rather than inferred from `plans`: when no plan is safe
+    # that list is legitimately empty, and inferring from it would keep offering
+    # load_context after it had already run.
+    context_loaded: bool = False
+    spending_searched: bool = False
 
 
 class OrchestratorAgent:
@@ -88,6 +94,7 @@ class OrchestratorAgent:
         gate: SafetyGate,
         retriever: SampleRetriever | None = None,
         forecast_config: ForecastConfig | None = None,
+        evidence: EvidenceCache | None = None,
         logger: Any = None,
     ) -> None:
         self.settings = settings
@@ -99,6 +106,7 @@ class OrchestratorAgent:
         self.gate = gate
         self.retriever = retriever
         self.forecast_config = forecast_config or ForecastConfig()
+        self.evidence = evidence
         self.log = logger
 
     # ---- entry point -------------------------------------------------------
@@ -144,10 +152,19 @@ class OrchestratorAgent:
             reply = self.client.converse(
                 model=model_name,
                 messages=messages,
-                tools=TOOL_DEFINITIONS,
+                tools=tools_for(
+                    has_blank_amounts=any(e.amount is None for e in bundle.events),
+                    has_messages=bool(bundle.messages),
+                    context_loaded=state.context_loaded,
+                    spending_searched=state.spending_searched,
+                ),
                 request_id=bundle.request.request_id,
             )
             if reply is None:
+                # A failed call is not an exception, so without this the row
+                # would quietly fall back to the deterministic answer with
+                # nothing in the log to say it had happened.
+                self._note(f"model call failed on {model_name}; using deterministic")
                 return None
 
             calls = getattr(reply, "tool_calls", None)
@@ -283,6 +300,7 @@ class OrchestratorAgent:
         }
 
     def _tool_load_context(self, bundle: RequestBundle, state: AgentState) -> dict:
+        state.context_loaded = True
         profile = bundle.profile
         missing = [
             {
@@ -368,6 +386,8 @@ class OrchestratorAgent:
             }
 
         state.resolved_amounts[event_id] = amount
+        if self.evidence is not None:
+            self.evidence.record_amount(bundle.request.request_id, event_id, amount)
         state.model = self._build_model(bundle, state.resolved_amounts)
         return {
             "event_id": event_id,
@@ -385,6 +405,10 @@ class OrchestratorAgent:
         analysis = self.resolver.resolve(
             bundle.messages, state.model, bundle.request.request_id
         )
+        if self.evidence is not None:
+            self.evidence.record_modifications(
+                bundle.request.request_id, analysis.modifications
+            )
         state.model = apply_modifications(state.model, analysis.modifications)
         result = {
             "modifications": [
@@ -595,11 +619,28 @@ class OrchestratorAgent:
     def _with_explanation(
         self, bundle: RequestBundle, output: AgentOutput
     ) -> AgentOutput:
-        if output.decision_explanation:
-            return output
-        return output.model_copy(
-            update={"decision_explanation": _template_explanation(bundle, output)}
+        """Finish the deterministic answer, and hold it to the same checks.
+
+        The fallback used to bypass validation entirely, which let an
+        internally inconsistent row reach output.csv unchallenged. It now faces
+        the validator like any other answer, and a failure is logged rather than
+        shipped in silence.
+        """
+        if not output.decision_explanation:
+            output = output.model_copy(
+                update={"decision_explanation": _template_explanation(bundle, output)}
+            )
+        result = validate_output(
+            output,
+            bundle.request,
+            bundle.profile,
+            bundle.options,
+            bundle.events,
+            self._build_model(bundle),
         )
+        if not result.ok:
+            self._note(f"deterministic answer failed validation: {result.errors[0]}")
+        return output
 
     def _build_model(
         self, bundle: RequestBundle, resolved: dict[str, float] | None = None
@@ -687,10 +728,19 @@ def _template_explanation(bundle: RequestBundle, output: AgentOutput) -> str:
             f"{currency} {floor:,.2f}."
         )
     if method is PaymentMethod.WAIT:
+        when = output.earliest_date_for_full_payment.strip()
+        if not when:
+            # Should be unreachable now that `wait` always carries its date, but
+            # a blank here would read as "pay in full on ." to the user.
+            return (
+                f"Hold off on {currency} {amount:,.2f} for now. Paying today "
+                f"would take the balance below the {currency} {floor:,.2f} "
+                f"minimum you want to keep."
+            )
         return (
-            f"Wait and pay {currency} {amount:,.2f} in full on "
-            f"{output.earliest_date_for_full_payment}. Paying sooner would take "
-            f"the balance below the {currency} {floor:,.2f} minimum."
+            f"Wait and pay {currency} {amount:,.2f} in full on {when}. Paying "
+            f"sooner would take the balance below the {currency} {floor:,.2f} "
+            f"minimum."
         )
     return (
         f"Do not commit {currency} {amount:,.2f} by "

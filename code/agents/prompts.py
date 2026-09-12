@@ -83,6 +83,35 @@ plain. No preamble, no restating the question, no mention of tools or \
 forecasts. At most two sentences."""
 
 
+def tools_for(
+    *,
+    has_blank_amounts: bool,
+    has_messages: bool,
+    context_loaded: bool,
+    spending_searched: bool,
+) -> list[dict]:
+    """The tools that apply to this request, at this point in the loop.
+
+    Schemas are resent with every turn, so offering all seven throughout costs
+    over a thousand tokens per call against a per-minute budget. Withholding the
+    ones that cannot apply -- a receipt reader when no amount is blank, a message
+    resolver when there are no messages, a loader that has already run -- also
+    removes the chance of a wasted call. Routing stays the model's decision: it
+    still chooses freely among everything that could help.
+    """
+    skip: set[str] = set()
+    if context_loaded:
+        skip.add("load_context")
+    if not has_blank_amounts:
+        skip.add("read_receipt")
+    if not has_messages:
+        skip.add("resolve_messages")
+    if not spending_searched:
+        # Offered only once a plan has been shown to fall short.
+        skip.add("evaluate_plans")
+    return [t for t in TOOL_DEFINITIONS if t["function"]["name"] not in skip]
+
+
 TOOL_DEFINITIONS: list[dict] = [
     {
         "type": "function",

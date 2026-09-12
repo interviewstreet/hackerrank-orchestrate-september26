@@ -66,9 +66,15 @@ class PlanGenerator:
         if partial is not None:
             out.append(partial)
 
-        waiting = self._wait(earliest_full, changes)
-        if waiting is not None:
-            out.append(waiting)
+        # `wait` means "the same full payment, just later" -- it is a statement
+        # about time, not about cutting spending. Offering it alongside spending
+        # changes produced plans whose payment date came from the changed
+        # forecast while the reported earliest date (which must exclude optional
+        # changes) stayed empty, leaving the two contradicting each other.
+        if not changes:
+            waiting = self._wait(earliest_full)
+            if waiting is not None:
+                out.append(waiting)
 
         return [plan for plan in out if plan.is_safe]
 
@@ -178,10 +184,8 @@ class PlanGenerator:
             is_safe=self.model.is_safe_with(flows, changes),
         )
 
-    def _wait(
-        self, earliest_full: date | None, changes: list[SpendingChange]
-    ) -> CandidatePlan | None:
-        """Pay the full amount later, once it becomes safe."""
+    def _wait(self, earliest_full: date | None) -> CandidatePlan | None:
+        """Pay the full amount later, once it becomes safe without any changes."""
         if not self.profile.accepts(PaymentMethod.FULL_PAYMENT):
             return None
         if earliest_full is None or earliest_full <= self.request.request_date:
@@ -191,12 +195,10 @@ class PlanGenerator:
             method=PaymentMethod.WAIT,
             payments=[PaymentPlanEntry(payment_date=earliest_full, amount=total)],
             total_cost=total,
-            spending_changes=list(changes),
             completes_by_deadline=earliest_full <= self.request.desired_completion_date,
             completes_request=True,
             is_safe=self.model.is_safe_with(
-                [CashFlow(on=earliest_full, amount=-total, label="deferred full", sequence=1)],
-                changes,
+                [CashFlow(on=earliest_full, amount=-total, label="deferred full", sequence=1)]
             ),
         )
 

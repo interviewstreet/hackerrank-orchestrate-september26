@@ -60,17 +60,24 @@ def _is_changeable(series: Series, profile: FinancialProfile) -> bool:
 
 
 def _best_change(series: Series, profile: FinancialProfile) -> SpendingChange | None:
-    """Stopping frees more cash than reducing, so prefer it when permitted."""
+    """Stopping frees more cash than reducing, so prefer it when permitted.
+
+    The change is attached to an event that actually carries the permission. A
+    category can mix flexibilities, so the series' most recent row may be fixed
+    even when the series as a whole is reducible.
+    """
     if series.can_stop and profile.may_stop(series.category):
-        return SpendingChange(change_type="stop", event_id=series.exemplar_event_id)
+        target = series.stoppable_event_id or series.exemplar_event_id
+        return SpendingChange(change_type="stop", event_id=target)
 
     if series.can_reduce and profile.may_reduce(series.category):
+        target = series.reducible_event_id
         floor = series.minimum_allowed_amount
-        if floor is None or floor >= series.amount:
+        if target is None or floor is None or floor >= series.amount:
             return None
         return SpendingChange(
             change_type="reduce_to",
-            event_id=series.exemplar_event_id,
+            event_id=target,
             new_amount=round(floor, 2),
         )
     return None

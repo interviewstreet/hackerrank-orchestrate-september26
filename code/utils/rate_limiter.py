@@ -23,6 +23,7 @@ the pacing it skipped.
 
 from __future__ import annotations
 
+import json
 import re
 import threading
 import time
@@ -116,11 +117,16 @@ def suggested_wait(error: Exception) -> float:
     return DEFAULT_BACKOFF
 
 
-def estimate_tokens(messages: list, max_output: int) -> int:
+def estimate_tokens(
+    messages: list, max_output: int, tools: list | None = None
+) -> int:
     """Estimate what Groq will charge: ~4 characters per token, images ~1900.
 
-    ``max_output`` is included because the server charges the requested ceiling
-    up front, not the completion it ends up returning.
+    Three things are easy to leave out and each one causes 429s:
+    ``max_output``, because the server charges the requested ceiling up front
+    rather than the completion it returns; the tool schemas, which are resent
+    with every turn and can run to a thousand tokens; and image parts, which
+    cost a flat rate regardless of their text.
     """
     characters = 0
     images = 0
@@ -134,4 +140,8 @@ def estimate_tokens(messages: list, max_output: int) -> int:
                 images += 1
             else:
                 characters += len(part.get("text") or "")
+        for call in message.get("tool_calls") or []:
+            characters += len(json.dumps(call))
+    if tools:
+        characters += len(json.dumps(tools))
     return characters // 4 + images * 1900 + max_output

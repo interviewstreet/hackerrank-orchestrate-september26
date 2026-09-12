@@ -12,7 +12,11 @@ Checks performed:
 4. Ranges      -- 0 <= amount_safe_to_pay <= requested_amount.
 5. Formats     -- payment_plan and spending_changes_needed shapes.
 6. Consistency -- status, method and plan agree with one another.
-7. Safety      -- every plan is re-simulated against the 90-day forecast.
+7. Safety      -- every plan is re-simulated against the 90-day forecast, with
+                  the evidence it was decided on replayed from the run's cache.
+                  A request whose evidence is unavailable is reported as
+                  unverified rather than failed: an evidence-blind forecast
+                  misses a salary a message raised and would cry breach.
 """
 
 from __future__ import annotations
@@ -25,10 +29,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from config import OUTPUT_COLUMNS, REPO_ROOT  # noqa: E402
+from config import CODE_DIR, OUTPUT_COLUMNS, REPO_ROOT  # noqa: E402
 from tools.balance_forecaster import ForecastConfig, build_forecast_model  # noqa: E402
 from tools.dataset_loader import DatasetLoader  # noqa: E402
+from tools.evidence_cache import EvidenceCache  # noqa: E402
 from tools.exchange_converter import ExchangeConverter  # noqa: E402
+from tools.message_resolver import apply_modifications  # noqa: E402
 from validators.output_validator import validate_output  # noqa: E402
 from validators.schemas import AgentOutput  # noqa: E402
 
@@ -66,9 +72,18 @@ def check_coverage(rows: list[dict[str, str]], expected: list[str]) -> list[str]
 
 def check_rows(
     rows: list[dict[str, str]], loader: DatasetLoader, use_samples: bool
-) -> tuple[list[str], int]:
-    """Re-validate every row, including an independent safety re-simulation."""
+) -> tuple[list[str], list[str], int]:
+    """Re-validate every row, including an independent safety re-simulation.
+
+    The safety check only means something if the forecast it runs against is the
+    one the recommendation was judged on. Rebuilding from raw CSV rows alone is
+    evidence-blind: it misses a salary a payroll message raised, or an amount
+    recovered from a receipt, and then reports a breach that never existed. So
+    the evidence recorded during the run is replayed here, and any request whose
+    evidence is unavailable is reported as unverified rather than failed.
+    """
     converter = ExchangeConverter(loader.exchange_rates)
+    evidence = EvidenceCache(CODE_DIR / ".cache" / "evidence.json")
     source = (
         {loader._request(r).request_id: loader._request(r) for r in loader.sample_requests}
         if use_samples
@@ -76,6 +91,7 @@ def check_rows(
     )
 
     errors: list[str] = []
+    unverified: list[str] = []
     checked = 0
     for row in rows:
         request = source.get(row["request_id"])
@@ -86,9 +102,35 @@ def check_rows(
             continue
         events = loader.events_by_user.get(request.user_id, [])
         options = loader.options_by_request.get(request.request_id, [])
+
+        # Replay the evidence this request was decided with.
+        amounts = evidence.amounts(request.request_id)
+        if amounts:
+            events = [
+                e.model_copy(update={"amount": amounts[e.event_id]})
+                if e.amount is None and e.event_id in amounts
+                else e
+                for e in events
+            ]
         model = build_forecast_model(
             profile, events, request.request_date, converter, ForecastConfig()
         )
+        model = apply_modifications(model, evidence.modifications(request.request_id))
+
+        # Messages can change the position materially, so a plan cannot be
+        # safety-checked against a forecast that never saw them.
+        messages = [
+            m
+            for m in loader.messages_by_user.get(request.user_id, [])
+            if m.request_id in (None, request.request_id)
+        ]
+        blind = bool(messages) and not evidence.messages_resolved(request.request_id)
+        if blind:
+            unverified.append(
+                f"{row['request_id']}: safety not re-simulated -- "
+                f"{len(messages)} message(s) were not replayable "
+                f"(no evidence record; was this row produced with --no-llm?)"
+            )
         try:
             output = AgentOutput(
                 request_id=row["request_id"],
@@ -108,8 +150,11 @@ def check_rows(
         result = validate_output(output, request, profile, options, events, model)
         checked += 1
         for problem in result.errors:
+            # A breach claim is only trustworthy when the evidence was replayed.
+            if blind and "breaches minimum balance" in problem:
+                continue
             errors.append(f"{row['request_id']}: {problem}")
-    return errors, checked
+    return errors, unverified, checked
 
 
 def score_against_samples(rows: list[dict[str, str]], loader: DatasetLoader) -> None:
@@ -172,10 +217,19 @@ def main() -> None:
 
     problems = check_schema(header)
     problems += check_coverage(rows, expected)
-    row_errors, checked = check_rows(rows, loader, args.against_samples)
+    row_errors, unverified, checked = check_rows(rows, loader, args.against_samples)
     problems += row_errors
 
     print(f"{args.output}: {len(rows)} rows, {checked} re-simulated")
+    if unverified:
+        print(
+            f"\n{len(unverified)} row(s) could not have their safety re-simulated "
+            f"(evidence unavailable, not a failure):"
+        )
+        for note in unverified[:10]:
+            print(f"  - {note}")
+        if len(unverified) > 10:
+            print(f"  ... and {len(unverified) - 10} more")
     if problems:
         print(f"\n{len(problems)} problem(s):")
         for problem in problems[:40]:

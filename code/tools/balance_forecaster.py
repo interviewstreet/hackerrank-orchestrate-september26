@@ -94,6 +94,13 @@ class Series:
     flexibility: Flexibility = Flexibility.FIXED
     minimum_allowed_amount: float | None = None
     descriptions: tuple[str, ...] = field(default_factory=tuple)
+    # A category can mix flexibilities -- "shopping" may hold both reducible and
+    # fixed rows. The series-level flexibility is the most permissive one seen,
+    # so the event a change is attached to must be one that genuinely carries
+    # that permission, not merely the most recent row.
+    stoppable_event_id: str | None = None
+    reducible_event_id: str | None = None
+    member_event_ids: frozenset[str] = field(default_factory=frozenset)
 
     @property
     def is_variable(self) -> bool:
@@ -139,11 +146,15 @@ class ForecastModel:
                 flow.amount = -abs(reduced[flow.event_id])
 
         for s in self.series:
-            if s.exemplar_event_id in stopped:
+            # A change may name any of the series' own events, not only its
+            # exemplar, so match against the whole membership.
+            ids = s.member_event_ids | {s.exemplar_event_id}
+            if ids & stopped:
                 continue
             amount = s.amount
-            if s.exemplar_event_id in reduced:
-                amount = abs(reduced[s.exemplar_event_id])
+            reduced_here = ids & set(reduced)
+            if reduced_here:
+                amount = abs(min(reduced[i] for i in reduced_here))
             signed = amount if s.direction is Direction.CREDIT else -amount
             for when in _occurrences(s, self.request_date, horizon_end):
                 out.append(
@@ -370,6 +381,9 @@ def _detect_series(
                 flexibility=_series_flexibility(recent),
                 minimum_allowed_amount=_series_minimum(recent, profile, converter),
                 descriptions=tuple(e.description for e in recent),
+                stoppable_event_id=_latest_matching(recent, lambda e: e.can_stop),
+                reducible_event_id=_latest_matching(recent, lambda e: e.can_reduce),
+                member_event_ids=frozenset(e.event_id for e in recent),
             )
         )
     series.sort(key=lambda s: s.key)
@@ -435,15 +449,24 @@ def _series_flexibility(rows: list[FinancialEvent]) -> Flexibility:
 def _series_minimum(
     rows: list[FinancialEvent], profile: FinancialProfile, converter: ExchangeConverter
 ) -> float | None:
+    """The highest floor any reducible row in the series declares."""
     floors = [
         converter.convert(
             e.minimum_allowed_amount, e.currency or profile.home_currency,
             profile.home_currency, e.cash_date,
         )
         for e in rows
-        if e.minimum_allowed_amount is not None
+        if e.minimum_allowed_amount is not None and e.can_reduce
     ]
     return max(floors) if floors else None
+
+
+def _latest_matching(rows: list[FinancialEvent], predicate) -> str | None:
+    """The most recent event satisfying `predicate`, by cash date."""
+    for event in sorted(rows, key=lambda e: e.cash_date, reverse=True):
+        if predicate(event):
+            return event.event_id
+    return None
 
 
 def _occurrences(series: Series, after: date, until: date) -> list[date]:

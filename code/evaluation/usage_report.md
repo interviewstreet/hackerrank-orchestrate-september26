@@ -4,27 +4,25 @@ Final full-dataset run that produced `output.csv`.
 
 ## Run Summary
 
-- Date (UTC): 2026-09-12 14:03:45
+- Date (UTC): 2026-09-12 16:27:08
 - Provider: Groq (OpenAI-compatible API)
-- Requests processed: 1
-- Duration: 1m 2s
-- Total model calls: 4
+- Requests processed: 250
+- Duration: 0m 0s
+- Total model calls: 0
 
 ## Per-Model Breakdown
 
 | Model | Calls | Input tokens | Output tokens | Total tokens | Est. cost (USD) |
 | --- | --: | --: | --: | --: | --: |
-| `openai/gpt-oss-20b` | 1 | 1,781 | 670 | 2,451 | $0.0003 |
-| `qwen/qwen3.8-27b` | 3 | 8,282 | 291 | 8,573 | $0.0014 |
 
 ## Overall Totals
 
-- Total model calls: 4
-- Total tokens: 11,024
-- Average tokens per request: 11,024
-- Average calls per request: 4.00
-- Estimated total cost: $0.0018
-- Estimated cost per request: $0.001751
+- Total model calls: 0
+- Total tokens: 0
+- Average tokens per request: 0
+- Average calls per request: 0.00
+- Estimated total cost: $0.0000
+- Estimated cost per request: $0.000000
 
 ## Notes
 

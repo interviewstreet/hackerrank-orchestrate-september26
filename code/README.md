@@ -32,8 +32,26 @@ python main.py --request-id request_42
 python main.py --samples              # the 25 labelled samples instead
 python main.py --resume               # continue after an interruption
 python main.py --workers 3            # requests in flight at once (default 3)
+python main.py --lean                 # evidence tools + deterministic engine
 python main.py --no-llm               # deterministic engine only, zero API calls
 ```
+
+### Three engines, one pipeline
+
+| Mode | What runs | Tokens/request | When to use |
+| --- | --- | --: | --- |
+| default | full orchestrator tool-calling loop | ~10,000 | when daily token budget allows |
+| `--lean` | receipts + message resolution, then the deterministic engine | ~1,600 | a full 250-request run in one day |
+| `--no-llm` | deterministic engine only | 0 | calibration, regression checks |
+
+`--lean` exists for a measured reason. On the labelled samples, resolving payroll
+messages moved `recommended_payment_method` from 73% to 91%; the orchestrator's
+multi-turn routing sat on top of that, costing about four calls per request
+without moving the score. Lean mode keeps the evidence work — receipts are still
+read by the vision model, messages still resolved — and hands the decision to the
+deterministic engine, which needs no tokens at all. A request with no messages
+and no missing amounts costs nothing whatsoever, because there is no evidence for
+a model to interpret.
 
 Requests are processed concurrently because the limits below are *per model*
 and the orchestrator alternates across a pool of them, so concurrent requests
@@ -73,7 +91,13 @@ and refuses to build if anything resembling a credential is present.
 
 `evaluation/main.py` re-checks schema, coverage, enums, ranges, formats,
 internal consistency, and re-simulates every recommended plan against the
-90-day forecast. `evaluation/calibrate.py` scores the deterministic engine
+90-day forecast. The re-simulation replays the evidence each decision was made
+with, read from `code/.cache/evidence.json`, which the run writes as it resolves
+receipts and messages. Without that replay the check is evidence-blind — it
+rebuilds the forecast from the raw CSV rows, misses a salary a payroll message
+raised, and reports a breach that never existed. Where a request's evidence is
+unavailable the safety result is reported as *unverified* rather than as a
+failure. `evaluation/calibrate.py` scores the deterministic engine
 against the labelled samples using no API calls at all, which is what made
 forecast tuning affordable under the rate limits described below.
 
@@ -118,6 +142,7 @@ errors go back to the model to correct.
 | `tools/message_resolver.py` | Messages → typed event modifications |
 | `tools/image_extractor.py` | Receipt OCR, cached by `image_id` |
 | `tools/exchange_converter.py` | Dated FX with nearest-date fallback |
+| `tools/evidence_cache.py` | Records resolved receipts and amendments for free replay |
 | `tools/safety_gate.py` | Prompt-injection screening and delimiting |
 | `tools/retriever.py` | Local FAISS few-shot and series matching |
 | `validators/schemas.py` | Pydantic models for every boundary |
@@ -163,8 +188,16 @@ not need.
 ## Rate limits shape the design
 
 Measured from `x-ratelimit-*` response headers on this account: about **1000
-requests per day per model**, an **8000-token-per-minute** bucket, and the
+requests per day per model** and an **8000-token-per-minute** bucket, plus the
 `qwen3.6` output ceiling noted above. Cost is not the constraint — quota is.
+
+There is a fourth limit that the headers do **not** expose: **200,000 tokens per
+day, per model**. It surfaces only as a 429 reading
+`on tokens per day (TPD): Limit 200000`. At roughly 10,000 tokens per request the
+full orchestrator loop needs ~2.5M tokens for 250 requests, which exceeds the
+entire account's daily allowance across every model — so a one-day full run has
+to go through `--lean`. Work is spread across models because this cap, like the
+others, is per model rather than per account.
 
 Four consequences, all visible in the code:
 

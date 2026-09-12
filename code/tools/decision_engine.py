@@ -75,6 +75,19 @@ def decide(
             else:
                 changes = []
 
+    # A change the validator would reject must never reach the output. Rather
+    # than ship an invalid row, drop the changes and take the best plan that
+    # stands without them.
+    if best is not None and best.spending_changes:
+        if not _changes_are_permitted(best.spending_changes, events, profile):
+            best = generator.rank(
+                generator.candidates(
+                    forecast.amount_safe_to_pay,
+                    forecast.earliest_full_payment_date,
+                )
+            )
+            changes = []
+
     status = classify(best, request, profile, forecast.earliest_full_payment_date)
     method = best.method if best is not None else PaymentMethod.NOT_RECOMMENDED
     output = AgentOutput(
@@ -97,6 +110,29 @@ def decide(
         considered=considered,
         spending_changes=best.spending_changes if best else [],
     )
+
+
+def _changes_are_permitted(
+    changes: list[SpendingChange],
+    events: list[FinancialEvent],
+    profile: FinancialProfile,
+) -> bool:
+    """Whether every change names an event that genuinely allows it."""
+    by_id = {event.event_id: event for event in events}
+    for change in changes:
+        event = by_id.get(change.event_id)
+        if event is None or profile.is_protected(event.category):
+            return False
+        if change.change_type == "stop":
+            if not (event.can_stop and profile.may_stop(event.category)):
+                return False
+            continue
+        if not (event.can_reduce and profile.may_reduce(event.category)):
+            return False
+        floor = event.minimum_allowed_amount
+        if floor is not None and (change.new_amount or 0.0) < floor - 0.02:
+            return False
+    return True
 
 
 def _prefer(candidate: CandidatePlan, incumbent: CandidatePlan | None) -> bool:

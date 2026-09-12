@@ -8,6 +8,7 @@ model's allowance is spent, so a full run cannot silently exhaust the quota.
 
 from __future__ import annotations
 
+import json
 import threading
 import time
 from collections import defaultdict
@@ -42,13 +43,75 @@ class ModelUsage:
 
 @dataclass
 class TokenTracker:
-    """Thread-safe usage ledger."""
+    """Thread-safe usage ledger, optionally persisted across runs.
+
+    A run that is resumed -- or split across several segments because a daily
+    token cap intervened -- still produces one output.csv, so the usage report
+    has to describe the whole of it. Held only in memory, each segment would
+    overwrite the report with its own share, and a final zero-token replay would
+    reduce it to zeroes.
+    """
 
     max_calls_per_model: int = 1000
+    ledger_path: Path | None = None
     by_model: dict[str, ModelUsage] = field(default_factory=lambda: defaultdict(ModelUsage))
     requests_seen: set[str] = field(default_factory=set)
+    carried_seconds: float = 0.0
     started_at: float = field(default_factory=time.time)
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
+
+    def __post_init__(self) -> None:
+        self._load_ledger()
+
+    # ---- persistence -------------------------------------------------------
+
+    def _load_ledger(self) -> None:
+        if self.ledger_path is None or not self.ledger_path.exists():
+            return
+        try:
+            stored = json.loads(self.ledger_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return
+        for model, row in (stored.get("by_model") or {}).items():
+            usage = self.by_model[model]
+            usage.calls += int(row.get("calls", 0))
+            usage.input_tokens += int(row.get("input_tokens", 0))
+            usage.output_tokens += int(row.get("output_tokens", 0))
+            usage.failures += int(row.get("failures", 0))
+        self.requests_seen |= set(stored.get("requests_seen") or [])
+        self.carried_seconds = float(stored.get("elapsed_seconds", 0.0))
+
+    def _save_ledger(self) -> None:
+        if self.ledger_path is None:
+            return
+        try:
+            self.ledger_path.parent.mkdir(parents=True, exist_ok=True)
+            self.ledger_path.write_text(
+                json.dumps(
+                    {
+                        "by_model": {
+                            model: {
+                                "calls": u.calls,
+                                "input_tokens": u.input_tokens,
+                                "output_tokens": u.output_tokens,
+                                "failures": u.failures,
+                            }
+                            for model, u in self.by_model.items()
+                        },
+                        "requests_seen": sorted(self.requests_seen),
+                        "elapsed_seconds": self.elapsed_seconds,
+                    },
+                    indent=2,
+                    sort_keys=True,
+                ),
+                encoding="utf-8",
+            )
+        except OSError:
+            pass
+
+    @property
+    def elapsed_seconds(self) -> float:
+        return self.carried_seconds + (time.time() - self.started_at)
 
     def reserve(self, model: str) -> None:
         """Claim one call against `model`'s allowance before issuing it."""
@@ -72,10 +135,12 @@ class TokenTracker:
             usage.output_tokens += output_tokens
             if request_id:
                 self.requests_seen.add(request_id)
+        self._save_ledger()
 
     def record_failure(self, model: str) -> None:
         with self._lock:
             self.by_model[model].failures += 1
+        self._save_ledger()
 
     # ---- reporting ---------------------------------------------------------
 
@@ -100,7 +165,7 @@ class TokenTracker:
     def write_usage_report(self, path: Path, request_count: int | None = None) -> None:
         """Emit the evaluation/usage_report.md required by the submission."""
         n = request_count or len(self.requests_seen) or 1
-        elapsed = time.time() - self.started_at
+        elapsed = self.elapsed_seconds
         lines = [
             "# Token Usage Report",
             "",

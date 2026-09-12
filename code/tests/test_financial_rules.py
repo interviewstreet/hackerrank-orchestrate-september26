@@ -508,6 +508,121 @@ def test_partial_payment_shape() -> None:
     check("two payments that do not sum to the request are rejected", not wrong_total.ok)
 
 
+def test_wait_must_name_its_date() -> None:
+    """Regression: a `wait` row once shipped with an empty earliest date.
+
+    The spending-changes pass built the wait plan from the *changed* forecast
+    while the reported earliest date correctly excluded optional changes and so
+    stayed empty. Plan and date then contradicted each other, and the templated
+    explanation read "pay in full on ." to the user.
+    """
+    print("\nwait consistency")
+    req = request()
+    prof = profile()
+    model = model_for([], prof, req)
+
+    inconsistent = validate_output(
+        AgentOutput(
+            request_id="r1",
+            amount_safe_to_pay=0.0,
+            affordability_status="affordable_later",
+            recommended_payment_method="wait",
+            payment_plan="2026-04-15:30000",
+            earliest_date_for_full_payment="",
+            spending_changes_needed="none",
+            decision_explanation="x",
+            requested_amount=30_000.0,
+        ),
+        req, prof, [], [], model,
+    )
+    check(
+        "wait with an empty earliest date is rejected",
+        not inconsistent.ok
+        and any("non-empty earliest_date" in e for e in inconsistent.errors),
+        str(inconsistent.errors),
+    )
+
+    mismatched = validate_output(
+        AgentOutput(
+            request_id="r1",
+            amount_safe_to_pay=0.0,
+            affordability_status="affordable_later",
+            recommended_payment_method="wait",
+            payment_plan="2026-04-15:30000",
+            earliest_date_for_full_payment="2026-04-20",
+            spending_changes_needed="none",
+            decision_explanation="x",
+            requested_amount=30_000.0,
+        ),
+        req, prof, [], [], model,
+    )
+    check(
+        "wait paying on a different date than it reports is rejected",
+        not mismatched.ok
+        and any("must pay on earliest_date" in e for e in mismatched.errors),
+        str(mismatched.errors),
+    )
+
+    # And the generator must not offer `wait` alongside spending changes.
+    from tools.plan_generator import PlanGenerator
+    from validators.schemas import SpendingChange
+
+    generator = PlanGenerator(req, prof, [], model)
+    with_changes = generator.candidates(
+        1_000.0,
+        date(2026, 4, 15),
+        [SpendingChange(change_type="stop", event_id="e1")],
+    )
+    check(
+        "wait is never produced from the spending-changes pass",
+        not any(p.method.value == "wait" for p in with_changes),
+    )
+
+
+def test_evidence_cache_roundtrip() -> None:
+    """The cache must survive a round trip, or replay validation is blind."""
+    print("\nevidence cache")
+    import tempfile
+    from tools.evidence_cache import EvidenceCache
+    from validators.schemas import EventModification
+
+    with tempfile.TemporaryDirectory() as tmp:
+        path = Path(tmp) / "evidence.json"
+        cache = EvidenceCache(path)
+        check("an unseen request has no entry", not cache.has_entry("r1"))
+        check("an unseen request is not marked resolved", not cache.messages_resolved("r1"))
+
+        cache.record_amount("r1", "event_9", 1234.5)
+        cache.record_modifications(
+            "r1",
+            [
+                EventModification(
+                    action="AMEND_AMOUNT",
+                    series_key="credit:salary",
+                    new_amount=42_750_000.0,
+                    source_message_id="message_01",
+                )
+            ],
+        )
+
+        reloaded = EvidenceCache(path)
+        check("a recovered amount survives reload", reloaded.amounts("r1") == {"event_9": 1234.5})
+        mods = reloaded.modifications("r1")
+        check(
+            "a modification survives reload with its amount",
+            len(mods) == 1 and mods[0].new_amount == 42_750_000.0,
+        )
+        check(
+            "resolution is recorded, so validation is not treated as blind",
+            reloaded.messages_resolved("r1"),
+        )
+
+        corrupt = Path(tmp) / "bad.json"
+        corrupt.write_text("{not json", encoding="utf-8")
+        check("a corrupt cache degrades to empty rather than raising",
+              EvidenceCache(corrupt).amounts("r1") == {})
+
+
 def main() -> None:
     for test in (
         test_cash_states,
@@ -521,6 +636,8 @@ def main() -> None:
         test_spending_changes_respect_permissions,
         test_validator_catches_bad_rows,
         test_partial_payment_shape,
+        test_wait_must_name_its_date,
+        test_evidence_cache_roundtrip,
     ):
         test()
 

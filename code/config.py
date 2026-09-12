@@ -39,8 +39,21 @@ class Settings(BaseSettings):
     # was measurably provoking 429s. Both pool models were verified to support
     # multi-turn tool calling.
     orchestrator_pool: tuple[str, ...] = ("qwen/qwen3.8-27b", "openai/gpt-oss-120b")
-    vision_model: str = "qwen/qwen3.8-27b"
+    # qwen3.6 rather than qwen3.8 for vision: it is the only other model here
+    # with image support, so it keeps receipt OCR on a separate daily bucket
+    # from the text work. Its 1000 output-token ceiling is ample for a receipt.
+    vision_model: str = "qwen/qwen3.6-27b"
+    # Spread resolver calls across models: the daily token cap is per model
+    # (200k), so one bucket cannot carry the whole dataset. gpt-oss-120b is
+    # deliberately absent -- it is an orchestrator, and sharing it between both
+    # roles exhausted it. safeguard-20b is moderation-tuned but handles the
+    # resolver's nested schema correctly in JSON mode, and qwen3.6 does not
+    # (it manages the flat receipt schema only), which is why it stays on vision.
     resolver_model: str = "openai/gpt-oss-20b"
+    resolver_pool: tuple[str, ...] = (
+        "openai/gpt-oss-safeguard-20b",
+        "openai/gpt-oss-20b",
+    )
     escalation_model: str = "openai/gpt-oss-120b"
     safety_model: str = "meta-llama/llama-prompt-guard-2-86m"
     safety_policy_model: str = "openai/gpt-oss-safeguard-20b"
@@ -58,15 +71,25 @@ class Settings(BaseSettings):
     max_iterations: int = 6
     max_retries: int = 2
     temperature: float = 0.0
-    max_output_tokens: int = 900
+    # Charged in full against TPM whether used or not, and measured orchestrator
+    # turns return 30-220 tokens, so a tight ceiling buys real throughput. The
+    # largest turn is submit_answer, which also writes the explanation.
+    max_output_tokens: int = 400
+    vision_max_tokens: int = 900
     # The resolver returns a nested list and runs on a reasoning model, so it
     # needs more headroom than a leaf extraction; below this it truncates
     # mid-JSON and the whole answer is lost.
     resolver_max_tokens: int = 2000
 
-    # ---- Rate-limit budget (measured from x-ratelimit headers) -------------
+    # ---- Rate-limit budget -------------------------------------------------
+    # RPD and TPM come from the x-ratelimit-* response headers. TPD is NOT
+    # exposed there and was found only by hitting it: a 429 reading
+    # "tokens per day (TPD): Limit 200000". At roughly 10k tokens per request
+    # the full agent loop cannot cover 250 requests within one day's allowance
+    # on any single model, which is what --lean exists to solve.
     requests_per_day_per_model: int = 1000
     tokens_per_minute: int = 8000
+    tokens_per_day_per_model: int = 200_000
     budget_warn_fraction: float = 0.75
 
     # ---- Forecast ----------------------------------------------------------
@@ -92,6 +115,10 @@ class Settings(BaseSettings):
     def output_paths(self) -> tuple[Path, ...]:
         """Spec fills dataset/output.csv; submission expects output.csv."""
         return (REPO_ROOT / "output.csv", self.dataset_dir / "output.csv")
+
+    @property
+    def evidence_cache_path(self) -> Path:
+        return self.cache_dir / "evidence.json"
 
     @property
     def usage_report_path(self) -> Path:

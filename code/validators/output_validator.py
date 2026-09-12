@@ -126,6 +126,19 @@ def _check_method_consistency(
         errors.append("affordable_now requires full_payment")
     if method is PaymentMethod.WAIT and status is not AffordabilityStatus.AFFORDABLE_LATER:
         errors.append("wait requires affordable_later")
+    if method is PaymentMethod.WAIT:
+        earliest = output.earliest_date_for_full_payment.strip()
+        if not earliest:
+            errors.append("wait requires a non-empty earliest_date_for_full_payment")
+        elif payments and payments[0][0].isoformat() != earliest:
+            errors.append(
+                "wait must pay on earliest_date_for_full_payment "
+                f"({payments[0][0].isoformat()} != {earliest})"
+            )
+        if len(payments) != 1:
+            errors.append("wait must be a single payment")
+        if payments and abs(payments[0][1] - request.requested_amount) > CENT:
+            errors.append("wait must pay the whole requested_amount")
     if method is PaymentMethod.NOT_RECOMMENDED and status not in (
         AffordabilityStatus.NOT_AFFORDABLE,
         AffordabilityStatus.AFFORDABLE_LATER,

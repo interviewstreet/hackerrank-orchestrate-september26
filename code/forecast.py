@@ -222,12 +222,126 @@ def _regular_amount_cluster(amounts: list[float]) -> list[float]:
     return cluster if len(cluster) >= MIN_RECURRENCE_OCCURRENCES else amounts
 
 
+def _detect_salary_streams(
+    events: pd.DataFrame,
+    request_date: date,
+    home_currency: str,
+    rate_lookup: dict[tuple[str, str, str], float],
+    skipped: list[str],
+    blank_amounts: dict[str, float] | None = None,
+    user_id: str | None = None,
+    user_salary_info: dict[str, dict[str, Any]] | None = None,
+) -> list[RecurringStream]:
+    u_info = (user_salary_info or {}).get(str(user_id), {}) if user_id else {}
+    if u_info.get("has_ended") or u_info.get("is_unconfirmed"):
+        return []
+
+    override_amt = u_info.get("override_amount")
+    override_day = u_info.get("override_day")
+
+    # Check future scheduled salary events
+    future_sal = pd.DataFrame()
+    if not events.empty and "category" in events.columns and "direction" in events.columns:
+        future_sal = events[
+            (events["category"] == "salary")
+            & (events["direction"] == "credit")
+            & (events["settlement_date"] >= request_date.isoformat())
+        ]
+    if not future_sal.empty and override_amt is None:
+        fs = future_sal.iloc[0]
+        amt = event_home_amount(fs, home_currency, rate_lookup, skipped, blank_amounts=blank_amounts)
+        sdt = parse_date(getattr(fs, "settlement_date", None))
+        if amt and amt > 0:
+            override_amt = amt
+            if sdt and override_day is None:
+                override_day = sdt.day
+
+    # Check settled historical salary events
+    settled_sal = pd.DataFrame()
+    if not events.empty and "category" in events.columns and "direction" in events.columns:
+        settled_sal = events[
+            (events["category"] == "salary")
+            & (events["direction"] == "credit")
+            & (events["status"] == "settled")
+            & (events["settlement_date"] < request_date.isoformat())
+        ]
+
+    # If the last historical payroll is marked "Final employer payroll", contract ended
+    if not settled_sal.empty and override_amt is None:
+        last_desc = str(settled_sal.iloc[-1].get("description", "")).lower()
+        if "final" in last_desc:
+            return []
+
+    if settled_sal.empty and override_amt is None:
+        return []
+
+    if override_amt is not None:
+        day = override_day if override_day is not None else 15
+        return [
+            RecurringStream(
+                event_type="income",
+                category="salary",
+                direction="credit",
+                amount=override_amt,
+                interval="monthly",
+                interval_days=None,
+                day_of_month=day,
+                last_date=request_date - timedelta(days=20),
+                occurrences=5,
+                source_event_id="salary_stream",
+                flexibility="fixed",
+            )
+        ]
+
+    # Cluster settled history by day of month (filtering out unconfirmed commission events)
+    day_groups: dict[int, list[tuple[date, float]]] = defaultdict(list)
+    for row in settled_sal.itertuples(index=False):
+        desc = str(getattr(row, "description", "")).lower()
+        if "commission" in desc:
+            continue
+        c_on = cash_date_for_row(row)
+        amt = event_home_amount(row, home_currency, rate_lookup, skipped, blank_amounts=blank_amounts)
+        if c_on and amt and amt > 0:
+            matched_day = None
+            for existing_day in day_groups:
+                if abs(existing_day - c_on.day) <= 2:
+                    matched_day = existing_day
+                    break
+            target_day = matched_day if matched_day is not None else c_on.day
+            day_groups[target_day].append((c_on, amt))
+
+    streams: list[RecurringStream] = []
+    for day, items in day_groups.items():
+        if len(items) >= 2 or not future_sal.empty:
+            amounts = [x[1] for x in items]
+            stream_amt = median(amounts[-3:]) if len(amounts) >= 3 else amounts[-1]
+            streams.append(
+                RecurringStream(
+                    event_type="income",
+                    category="salary",
+                    direction="credit",
+                    amount=stream_amt,
+                    interval="monthly",
+                    interval_days=None,
+                    day_of_month=day,
+                    last_date=items[-1][0],
+                    occurrences=len(items),
+                    source_event_id=f"salary_stream_{day}",
+                    flexibility="fixed",
+                )
+            )
+    return streams
+
+
 def detect_recurring_streams(
     events: pd.DataFrame,
     request_date: date,
     home_currency: str,
     rate_lookup: dict[tuple[str, str, str], float],
     skipped: list[str],
+    blank_amounts: dict[str, float] | None = None,
+    user_id: str | None = None,
+    user_salary_info: dict[str, dict[str, Any]] | None = None,
 ) -> list[RecurringStream]:
     """Infer recurring streams from settled history before the request date."""
     grouped: dict[tuple[str, str, str], list[tuple]] = defaultdict(list)
@@ -244,7 +358,7 @@ def detect_recurring_streams(
         cash_on = cash_date_for_row(row)
         if cash_on is None or cash_on >= request_date:
             continue
-        amount = event_home_amount(row, home_currency, rate_lookup, skipped)
+        amount = event_home_amount(row, home_currency, rate_lookup, skipped, blank_amounts=blank_amounts)
         if amount is None:
             continue
         min_allowed = None
@@ -289,12 +403,8 @@ def detect_recurring_streams(
             continue
 
         cadence_amounts = [item[1] for item in cadence_items]
-        if direction == "debit":
-            # Conservative: assume the highest typical spend continues.
-            stream_amount = max(cadence_amounts)
-        else:
-            # Conservative income: do not assume the largest paycheck repeats.
-            stream_amount = min(cadence_amounts)
+        cluster = _regular_amount_cluster(cadence_amounts)
+        stream_amount = median(cluster) if cluster else median(cadence_amounts)
 
         last_item = cadence_items[-1]
         source_event_id = str(last_item[2])
@@ -344,6 +454,13 @@ def detect_recurring_streams(
                     minimum_allowed_amount=min_allowed,
                 )
             )
+
+    # Detect salary streams
+    sal_streams = _detect_salary_streams(
+        events, request_date, home_currency, rate_lookup, skipped, blank_amounts, user_id, user_salary_info
+    )
+    streams.extend(sal_streams)
+
     return streams
 
 

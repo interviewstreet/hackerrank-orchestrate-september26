@@ -379,3 +379,50 @@ def build_evidence_lookups() -> tuple[
                     amended_events[aid] = amend
 
     return blank_amounts, confirmed_incomes_by_user, cancelled_events, amended_events
+
+
+def build_salary_lookups() -> dict[str, dict[str, Any]]:
+    """Extract user-level salary information from cached message evidence."""
+    msg_cache = load_message_cache()
+    salary_info: dict[str, dict[str, Any]] = {}
+    for v in msg_cache.values():
+        uid = str(v.get("user_id", "")).strip()
+        if not uid:
+            continue
+        info = salary_info.setdefault(
+            uid,
+            {
+                "has_ended": False,
+                "is_unconfirmed": False,
+                "override_amount": None,
+                "override_day": None,
+            },
+        )
+        etype = v.get("event_type", "")
+        notes = str(v.get("notes", "")).lower()
+        amt = v.get("amended_amount") or v.get("confirmed_income_amount")
+        d_str = v.get("amended_date") or v.get("confirmed_income_date")
+        raw = str(v.get("raw_text", ""))
+
+        if etype == "contract_ended" or "contract ended" in notes:
+            info["has_ended"] = True
+        elif etype == "unconfirmed_earnings" or ("pending" in notes and "payout" in notes):
+            info["is_unconfirmed"] = True
+        elif etype in {"salary_revision", "salary_confirmation", "invoice_confirmed"}:
+            if amt is not None:
+                try:
+                    info["override_amount"] = float(amt)
+                except (ValueError, TypeError):
+                    pass
+            else:
+                match = re.search(r"(?:IDR|EUR|USD|ZAR|INR)\s*([0-9]+(?:[.,][0-9]+)?)", raw)
+                if match:
+                    try:
+                        info["override_amount"] = float(match.group(1).replace(",", ""))
+                    except ValueError:
+                        pass
+            if d_str:
+                d = parse_date(d_str)
+                if d:
+                    info["override_day"] = d.day
+    return salary_info

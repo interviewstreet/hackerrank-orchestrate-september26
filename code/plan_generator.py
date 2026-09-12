@@ -243,10 +243,24 @@ def generate_candidates(
     max_months = user_max_installment_months(profile)
 
     safe_today, unpaid_forecast = amount_safe_to_pay(
-        request, profile, events, exchange_rates=exchange_rates
+        request,
+        profile,
+        events,
+        exchange_rates=exchange_rates,
+        blank_amounts=blank_amounts,
+        confirmed_incomes=confirmed_incomes,
+        cancelled_events=cancelled_events,
+        amended_events=amended_events,
     )
     earliest = earliest_full_payment_date(
-        request, profile, events, exchange_rates=exchange_rates
+        request,
+        profile,
+        events,
+        exchange_rates=exchange_rates,
+        blank_amounts=blank_amounts,
+        confirmed_incomes=confirmed_incomes,
+        cancelled_events=cancelled_events,
+        amended_events=amended_events,
     )
     change_sets = spending_change_sets(
         eligible_spending_actions(unpaid_forecast.recurring_streams, profile)
@@ -269,6 +283,10 @@ def generate_candidates(
                 deadline,
                 accepted,
                 notes="full payment on request_date",
+                blank_amounts=blank_amounts,
+                confirmed_incomes=confirmed_incomes,
+                cancelled_events=cancelled_events,
+                amended_events=amended_events,
             )
         )
 
@@ -298,6 +316,10 @@ def generate_candidates(
                 accepted,
                 total_paid=requested,
                 notes="two-part plan using amount_safe_to_pay",
+                blank_amounts=blank_amounts,
+                confirmed_incomes=confirmed_incomes,
+                cancelled_events=cancelled_events,
+                amended_events=amended_events,
             )
         )
 
@@ -337,6 +359,10 @@ def generate_candidates(
                     payment_option_id=option_id,
                     total_paid=total_payable,
                     notes=f"supplied option {option_id}",
+                    blank_amounts=blank_amounts,
+                    confirmed_incomes=confirmed_incomes,
+                    cancelled_events=cancelled_events,
+                    amended_events=amended_events,
                 )
             )
 
@@ -344,8 +370,6 @@ def generate_candidates(
     if earliest is not None and earliest > request_date:
         wait_payments = [Payment(earliest, requested)]
         for changes in change_sets:
-            # Wait capacity is measured without spending changes; only the empty
-            # change-set is a true wait. Extra change-sets still tested if they help.
             candidates.append(
                 _evaluate(
                     "wait",
@@ -359,6 +383,10 @@ def generate_candidates(
                     accepted,
                     total_paid=requested,
                     notes="wait for earliest safe full payment",
+                    blank_amounts=blank_amounts,
+                    confirmed_incomes=confirmed_incomes,
+                    cancelled_events=cancelled_events,
+                    amended_events=amended_events,
                 )
             )
 

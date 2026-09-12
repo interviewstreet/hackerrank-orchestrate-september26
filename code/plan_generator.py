@@ -49,6 +49,10 @@ def plan_is_safe(
     payments: list[Payment],
     spending_changes: list[SpendingChange],
     exchange_rates: pd.DataFrame | None,
+    blank_amounts: dict[str, float] | None = None,
+    confirmed_incomes: list[dict[str, Any]] | None = None,
+    cancelled_events: set[str] | None = None,
+    amended_events: dict[str, dict[str, Any]] | None = None,
 ) -> bool:
     result = forecast_90_days(
         request,
@@ -57,6 +61,10 @@ def plan_is_safe(
         extra_payments=extra_payments_from(payments),
         spending_changes=spending_changes,
         exchange_rates=exchange_rates,
+        blank_amounts=blank_amounts,
+        confirmed_incomes=confirmed_incomes,
+        cancelled_events=cancelled_events,
+        amended_events=amended_events,
     )
     return result.is_safe
 
@@ -171,6 +179,10 @@ def _evaluate(
     payment_option_id: str | None = None,
     total_paid: float | None = None,
     notes: str = "",
+    blank_amounts: dict[str, float] | None = None,
+    confirmed_incomes: list[dict[str, Any]] | None = None,
+    cancelled_events: set[str] | None = None,
+    amended_events: dict[str, dict[str, Any]] | None = None,
 ) -> CandidatePlan:
     last = max((payment.pay_date for payment in payments), default=None)
     meets_deadline = last is not None and last <= deadline
@@ -184,7 +196,16 @@ def _evaluate(
     safe = False
     if payments:
         safe = plan_is_safe(
-            request, profile, events, payments, spending_changes, exchange_rates
+            request,
+            profile,
+            events,
+            payments,
+            spending_changes,
+            exchange_rates,
+            blank_amounts=blank_amounts,
+            confirmed_incomes=confirmed_incomes,
+            cancelled_events=cancelled_events,
+            amended_events=amended_events,
         )
     eligible = eligible_method and safe and bool(payments)
     return CandidatePlan(
@@ -206,6 +227,10 @@ def generate_candidates(
     events: pd.DataFrame,
     payment_options: pd.DataFrame,
     exchange_rates: pd.DataFrame | None = None,
+    blank_amounts: dict[str, float] | None = None,
+    confirmed_incomes: list[dict[str, Any]] | None = None,
+    cancelled_events: set[str] | None = None,
+    amended_events: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[list[CandidatePlan], float, date | None]:
     request_date = parse_date(request["request_date"])
     deadline = parse_date(request["desired_completion_date"])

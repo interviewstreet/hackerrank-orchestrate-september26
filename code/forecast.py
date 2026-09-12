@@ -162,18 +162,25 @@ def event_home_amount(
     home_currency: str,
     rate_lookup: dict[tuple[str, str, str], float],
     skipped: list[str],
+    blank_amounts: dict[str, float] | None = None,
 ) -> float | None:
     """Return the event amount in home currency, or None if it cannot be used."""
-    if pd.isna(getattr(row, "amount", None)):
-        skipped.append(
-            f"{row.event_id}: blank amount skipped (not treated as zero; image OCR is later)"
-        )
-        return None
-    try:
-        amount = float(row.amount)
-    except (TypeError, ValueError):
-        skipped.append(f"{row.event_id}: invalid amount {row.amount!r}")
-        return None
+    raw_amount = getattr(row, "amount", None)
+    if raw_amount is None or (isinstance(raw_amount, float) and pd.isna(raw_amount)):
+        event_id = str(getattr(row, "event_id", ""))
+        if blank_amounts and event_id in blank_amounts:
+            amount = float(blank_amounts[event_id])
+        else:
+            skipped.append(
+                f"{event_id}: blank amount skipped (not treated as zero; image OCR is later)"
+            )
+            return None
+    else:
+        try:
+            amount = float(raw_amount)
+        except (TypeError, ValueError):
+            skipped.append(f"{row.event_id}: invalid amount {raw_amount!r}")
+            return None
 
     on_date = cash_date_for_row(row)
     currency = str(getattr(row, "currency", home_currency))
@@ -232,7 +239,7 @@ def detect_recurring_streams(
             continue
         if str(row.category) in ONE_OFF_CATEGORIES:
             continue
-        if str(row.direction) not in {"debit", "credit"}:
+        if str(row.direction) != "debit":
             continue
         cash_on = cash_date_for_row(row)
         if cash_on is None or cash_on >= request_date:
@@ -261,13 +268,7 @@ def detect_recurring_streams(
     streams: list[RecurringStream] = []
     for (event_type, category, direction), items in grouped.items():
         items = sorted(items, key=lambda item: item[0])
-        # For income, drop bonus/arrears amounts before reading the cycle.
-        # For expenses, keep every dated spend so weekly groceries still look weekly.
-        if direction == "credit":
-            cluster_amounts = set(_regular_amount_cluster([item[1] for item in items]))
-            cadence_items = [item for item in items if item[1] in cluster_amounts]
-        else:
-            cadence_items = items
+        cadence_items = items
         if len(cadence_items) < MIN_RECURRENCE_OCCURRENCES:
             continue
 
@@ -390,6 +391,10 @@ def explicit_cashflows(
     home_currency: str,
     rate_lookup: dict[tuple[str, str, str], float],
     skipped: list[str],
+    blank_amounts: dict[str, float] | None = None,
+    confirmed_incomes: list[dict[str, Any]] | None = None,
+    cancelled_events: set[str] | None = None,
+    amended_events: dict[str, dict[str, Any]] | None = None,
 ) -> dict[date, list[tuple[float, str, str]]]:
     """
     Outstanding / future rows that are not already inside opening balance.
@@ -398,11 +403,24 @@ def explicit_cashflows(
     Debits are negative. Credits are positive.
     """
     flows: dict[date, list[tuple[float, str, str]]] = defaultdict(list)
+    seen_event_ids: set[str] = set()
 
     for row in events.itertuples(index=False):
+        event_id = str(getattr(row, "event_id", "")).strip()
+        if event_id:
+            if event_id in seen_event_ids:
+                continue
+            seen_event_ids.add(event_id)
+
+        if cancelled_events and event_id in cancelled_events:
+            continue
+
         if should_ignore_row(row):
             continue
-        amount = event_home_amount(row, home_currency, rate_lookup, skipped)
+
+        amount = event_home_amount(
+            row, home_currency, rate_lookup, skipped, blank_amounts=blank_amounts
+        )
         if amount is None:
             continue
 
@@ -410,8 +428,17 @@ def explicit_cashflows(
         direction = str(row.direction)
         cash_on = cash_date_for_row(row)
         event_on = parse_date(row.event_date)
+
+        # Apply amendments from evidence if present
+        if amended_events and event_id in amended_events:
+            amend = amended_events[event_id]
+            if "amount" in amend and amend["amount"] is not None:
+                amount = float(amend["amount"])
+            if "date" in amend and amend["date"] is not None:
+                cash_on = amend["date"]
+
         if cash_on is None:
-            skipped.append(f"{row.event_id}: missing cash date")
+            skipped.append(f"{event_id}: missing cash date")
             continue
 
         # Opening balance already includes settled history on/before request_date.
@@ -430,7 +457,18 @@ def explicit_cashflows(
             continue
 
         signed = amount if direction == "credit" else -amount
-        flows[apply_on].append((signed, str(row.category), str(row.event_id)))
+        flows[apply_on].append((signed, str(row.category), event_id))
+
+    # Add any extra confirmed incomes from evidence
+    if confirmed_incomes:
+        for inc in confirmed_incomes:
+            inc_date = inc.get("date")
+            inc_amt = inc.get("amount")
+            inc_cat = inc.get("category", "salary")
+            inc_id = inc.get("event_id", "confirmed_income")
+            if inc_date and inc_amt is not None and inc_amt > 0:
+                if request_date <= inc_date <= end_date:
+                    flows[inc_date].append((float(inc_amt), str(inc_cat), str(inc_id)))
 
     return flows
 
@@ -558,6 +596,10 @@ def forecast_90_days(
     exchange_rates: pd.DataFrame | None = None,
     extra_payments: dict[date, float] | None = None,
     spending_changes: list[Any] | None = None,
+    blank_amounts: dict[str, float] | None = None,
+    confirmed_incomes: list[dict[str, Any]] | None = None,
+    cancelled_events: set[str] | None = None,
+    amended_events: dict[str, dict[str, Any]] | None = None,
 ) -> ForecastResult:
     """Simulate balances from request_date through the next 90 days."""
     request_date = parse_date(request["request_date"])
@@ -581,7 +623,16 @@ def forecast_90_days(
     )
     streams = apply_spending_changes(streams, spending_changes)
     explicit = explicit_cashflows(
-        events, request_date, end_date, home_currency, rate_lookup, skipped
+        events,
+        request_date,
+        end_date,
+        home_currency,
+        rate_lookup,
+        skipped,
+        blank_amounts=blank_amounts,
+        confirmed_incomes=confirmed_incomes,
+        cancelled_events=cancelled_events,
+        amended_events=amended_events,
     )
     flows = merge_projected_flows(streams, explicit, request_date, end_date)
 
@@ -615,6 +666,10 @@ def earliest_full_payment_date(
     profile: pd.Series,
     events: pd.DataFrame,
     exchange_rates: pd.DataFrame | None = None,
+    blank_amounts: dict[str, float] | None = None,
+    confirmed_incomes: list[dict[str, Any]] | None = None,
+    cancelled_events: set[str] | None = None,
+    amended_events: dict[str, dict[str, Any]] | None = None,
 ) -> date | None:
     """First date a single full payment is 90-day-safe, with no spending changes."""
     requested = to_number(request["requested_amount"], "requested_amount")
@@ -630,6 +685,11 @@ def earliest_full_payment_date(
             events,
             extra_payments={cursor: requested},
             exchange_rates=exchange_rates,
+            spending_changes=None,
+            blank_amounts=blank_amounts,
+            confirmed_incomes=confirmed_incomes,
+            cancelled_events=cancelled_events,
+            amended_events=amended_events,
         )
         if result.is_safe:
             return cursor
@@ -642,6 +702,10 @@ def amount_safe_to_pay(
     profile: pd.Series,
     events: pd.DataFrame,
     exchange_rates: pd.DataFrame | None = None,
+    blank_amounts: dict[str, float] | None = None,
+    confirmed_incomes: list[dict[str, Any]] | None = None,
+    cancelled_events: set[str] | None = None,
+    amended_events: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[float, ForecastResult]:
     """
     Largest payment on request_date that still keeps every forecast day
@@ -651,7 +715,15 @@ def amount_safe_to_pay(
     requested = max(0.0, requested)
 
     zero_case = forecast_90_days(
-        request, profile, events, payment_on_request_date=0.0, exchange_rates=exchange_rates
+        request,
+        profile,
+        events,
+        payment_on_request_date=0.0,
+        exchange_rates=exchange_rates,
+        blank_amounts=blank_amounts,
+        confirmed_incomes=confirmed_incomes,
+        cancelled_events=cancelled_events,
+        amended_events=amended_events,
     )
     if requested == 0 or not zero_case.is_safe:
         zero_case.amount_safe_to_pay = 0.0
@@ -663,6 +735,10 @@ def amount_safe_to_pay(
         events,
         payment_on_request_date=requested,
         exchange_rates=exchange_rates,
+        blank_amounts=blank_amounts,
+        confirmed_incomes=confirmed_incomes,
+        cancelled_events=cancelled_events,
+        amended_events=amended_events,
     )
     if full.is_safe:
         full.amount_safe_to_pay = requested
@@ -681,6 +757,10 @@ def amount_safe_to_pay(
             events,
             payment_on_request_date=trial,
             exchange_rates=exchange_rates,
+            blank_amounts=blank_amounts,
+            confirmed_incomes=confirmed_incomes,
+            cancelled_events=cancelled_events,
+            amended_events=amended_events,
         )
         if result.is_safe:
             best_cents = mid_cents

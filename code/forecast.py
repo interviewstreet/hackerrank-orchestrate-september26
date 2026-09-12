@@ -54,6 +54,9 @@ class RecurringStream:
     day_of_month: int | None
     last_date: date
     occurrences: int
+    source_event_id: str = ""
+    flexibility: str = "fixed"
+    minimum_allowed_amount: float | None = None
 
 
 @dataclass
@@ -220,7 +223,7 @@ def detect_recurring_streams(
     skipped: list[str],
 ) -> list[RecurringStream]:
     """Infer recurring streams from settled history before the request date."""
-    grouped: dict[tuple[str, str, str], list[tuple[date, float]]] = defaultdict(list)
+    grouped: dict[tuple[str, str, str], list[tuple]] = defaultdict(list)
 
     for row in events.itertuples(index=False):
         if str(row.status) != "settled":
@@ -237,8 +240,23 @@ def detect_recurring_streams(
         amount = event_home_amount(row, home_currency, rate_lookup, skipped)
         if amount is None:
             continue
+        min_allowed = None
+        raw_min = getattr(row, "minimum_allowed_amount", None)
+        if raw_min is not None and not (isinstance(raw_min, float) and pd.isna(raw_min)):
+            try:
+                min_allowed = float(raw_min)
+            except (TypeError, ValueError):
+                min_allowed = None
         key = (str(row.event_type), str(row.category), str(row.direction))
-        grouped[key].append((cash_on, amount))
+        grouped[key].append(
+            (
+                cash_on,
+                amount,
+                str(row.event_id),
+                str(getattr(row, "flexibility", "fixed") or "fixed"),
+                min_allowed,
+            )
+        )
 
     streams: list[RecurringStream] = []
     for (event_type, category, direction), items in grouped.items():
@@ -277,6 +295,15 @@ def detect_recurring_streams(
             # Conservative income: do not assume the largest paycheck repeats.
             stream_amount = min(cadence_amounts)
 
+        last_item = cadence_items[-1]
+        source_event_id = str(last_item[2])
+        flexibility = str(last_item[3] or "fixed")
+        min_allowed = last_item[4]
+        for item in reversed(cadence_items):
+            if item[4] is not None:
+                min_allowed = item[4]
+                break
+
         if is_monthly:
             day_counts = Counter(item.day for item in dates)
             day_of_month = day_counts.most_common(1)[0][0]
@@ -291,6 +318,9 @@ def detect_recurring_streams(
                     day_of_month=day_of_month,
                     last_date=dates[-1],
                     occurrences=len(cadence_items),
+                    source_event_id=source_event_id,
+                    flexibility=flexibility,
+                    minimum_allowed_amount=min_allowed,
                 )
             )
         else:
@@ -308,6 +338,9 @@ def detect_recurring_streams(
                     day_of_month=None,
                     last_date=dates[-1],
                     occurrences=len(cadence_items),
+                    source_event_id=source_event_id,
+                    flexibility=flexibility,
+                    minimum_allowed_amount=min_allowed,
                 )
             )
     return streams
@@ -429,8 +462,46 @@ def merge_projected_flows(
             if already_covered:
                 continue
             signed = stream.amount if stream.direction == "credit" else -stream.amount
-            merged[hit].append((signed, stream.category, f"projected:{stream.category}"))
+            merged[hit].append((signed, stream.category, stream.source_event_id or f"projected:{stream.category}"))
     return merged
+
+
+def apply_spending_changes(
+    streams: list[RecurringStream],
+    spending_changes: list[Any] | None,
+) -> list[RecurringStream]:
+    """Stop or reduce matching recurring debit streams. Unknown change IDs are ignored."""
+    if not spending_changes:
+        return list(streams)
+    by_id = {change.event_id: change for change in spending_changes}
+    adjusted: list[RecurringStream] = []
+    for stream in streams:
+        change = by_id.get(stream.source_event_id)
+        if change is None:
+            adjusted.append(stream)
+            continue
+        if change.action == "stop":
+            continue
+        if change.action == "reduce" and change.new_amount is not None:
+            adjusted.append(
+                RecurringStream(
+                    event_type=stream.event_type,
+                    category=stream.category,
+                    direction=stream.direction,
+                    amount=float(change.new_amount),
+                    interval=stream.interval,
+                    interval_days=stream.interval_days,
+                    day_of_month=stream.day_of_month,
+                    last_date=stream.last_date,
+                    occurrences=stream.occurrences,
+                    source_event_id=stream.source_event_id,
+                    flexibility=stream.flexibility,
+                    minimum_allowed_amount=stream.minimum_allowed_amount,
+                )
+            )
+        else:
+            adjusted.append(stream)
+    return adjusted
 
 
 def simulate_daily_balances(
@@ -440,11 +511,16 @@ def simulate_daily_balances(
     flows: dict[date, list[tuple[float, str, str]]],
     payment_on_request_date: float,
     protected_categories: set[str],
+    extra_payments: dict[date, float] | None = None,
 ) -> tuple[dict[date, float], float, float, float, date]:
     """
-    Walk each date. Payment is taken on the request date first.
+    Walk each date. Planned request payments are extra debits.
     Debits are applied before credits on the same day (safer intra-day check).
     """
+    extra_payments = dict(extra_payments or {})
+    if payment_on_request_date > 0:
+        extra_payments[start] = extra_payments.get(start, 0.0) + payment_on_request_date
+
     balance = starting_balance
     closing: dict[date, float] = {}
     total_income = 0.0
@@ -452,14 +528,11 @@ def simulate_daily_balances(
     lowest = starting_balance
     lowest_date = start
 
-    if payment_on_request_date > 0:
-        balance -= payment_on_request_date
-        if balance < lowest:
-            lowest = balance
-            lowest_date = start
-
     cursor = start
     while cursor <= end:
+        pay = extra_payments.get(cursor, 0.0)
+        if pay:
+            balance -= pay
         day_items = list(flows.get(cursor, []))
         day_items.sort(key=lambda item: item[0])  # negatives (debits) first
         for signed, category, _event_id in day_items:
@@ -483,6 +556,8 @@ def forecast_90_days(
     events: pd.DataFrame,
     payment_on_request_date: float = 0.0,
     exchange_rates: pd.DataFrame | None = None,
+    extra_payments: dict[date, float] | None = None,
+    spending_changes: list[Any] | None = None,
 ) -> ForecastResult:
     """Simulate balances from request_date through the next 90 days."""
     request_date = parse_date(request["request_date"])
@@ -504,6 +579,7 @@ def forecast_90_days(
     streams = detect_recurring_streams(
         events, request_date, home_currency, rate_lookup, skipped
     )
+    streams = apply_spending_changes(streams, spending_changes)
     explicit = explicit_cashflows(
         events, request_date, end_date, home_currency, rate_lookup, skipped
     )
@@ -516,6 +592,7 @@ def forecast_90_days(
         flows=flows,
         payment_on_request_date=payment_on_request_date,
         protected_categories=protected,
+        extra_payments=extra_payments,
     )
 
     is_safe = lowest + FLOAT_TOLERANCE >= minimum_balance
@@ -531,6 +608,33 @@ def forecast_90_days(
         skipped_events=skipped,
         recurring_streams=streams,
     )
+
+
+def earliest_full_payment_date(
+    request: pd.Series,
+    profile: pd.Series,
+    events: pd.DataFrame,
+    exchange_rates: pd.DataFrame | None = None,
+) -> date | None:
+    """First date a single full payment is 90-day-safe, with no spending changes."""
+    requested = to_number(request["requested_amount"], "requested_amount")
+    start = parse_date(request["request_date"])
+    if start is None:
+        raise ValueError("request_date is missing")
+    end = start + timedelta(days=FORECAST_DAYS)
+    cursor = start
+    while cursor <= end:
+        result = forecast_90_days(
+            request,
+            profile,
+            events,
+            extra_payments={cursor: requested},
+            exchange_rates=exchange_rates,
+        )
+        if result.is_safe:
+            return cursor
+        cursor += timedelta(days=1)
+    return None
 
 
 def amount_safe_to_pay(

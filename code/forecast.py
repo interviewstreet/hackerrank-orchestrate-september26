@@ -243,13 +243,17 @@ def detect_recurring_streams(
     streams: list[RecurringStream] = []
     for (event_type, category, direction), items in grouped.items():
         items = sorted(items, key=lambda item: item[0])
-        amounts = [item[1] for item in items]
-        cluster_amounts = set(_regular_amount_cluster(amounts))
-        clustered = [item for item in items if item[1] in cluster_amounts]
-        if len(clustered) < MIN_RECURRENCE_OCCURRENCES:
+        # For income, drop bonus/arrears amounts before reading the cycle.
+        # For expenses, keep every dated spend so weekly groceries still look weekly.
+        if direction == "credit":
+            cluster_amounts = set(_regular_amount_cluster([item[1] for item in items]))
+            cadence_items = [item for item in items if item[1] in cluster_amounts]
+        else:
+            cadence_items = items
+        if len(cadence_items) < MIN_RECURRENCE_OCCURRENCES:
             continue
 
-        dates = [item[0] for item in clustered]
+        dates = [item[0] for item in cadence_items]
         diffs = [(dates[index] - dates[index - 1]).days for index in range(1, len(dates))]
         if not diffs:
             continue
@@ -265,13 +269,13 @@ def detect_recurring_streams(
         if close_count / len(diffs) < 0.75:
             continue
 
-        clustered_amounts = [item[1] for item in clustered]
+        cadence_amounts = [item[1] for item in cadence_items]
         if direction == "debit":
-            # Conservative: assume the highest recent typical spend continues.
-            stream_amount = max(clustered_amounts)
+            # Conservative: assume the highest typical spend continues.
+            stream_amount = max(cadence_amounts)
         else:
             # Conservative income: do not assume the largest paycheck repeats.
-            stream_amount = min(clustered_amounts)
+            stream_amount = min(cadence_amounts)
 
         if is_monthly:
             day_counts = Counter(item.day for item in dates)
@@ -286,7 +290,7 @@ def detect_recurring_streams(
                     interval_days=None,
                     day_of_month=day_of_month,
                     last_date=dates[-1],
-                    occurrences=len(clustered),
+                    occurrences=len(cadence_items),
                 )
             )
         else:
@@ -303,7 +307,7 @@ def detect_recurring_streams(
                     interval_days=interval_days,
                     day_of_month=None,
                     last_date=dates[-1],
-                    occurrences=len(clustered),
+                    occurrences=len(cadence_items),
                 )
             )
     return streams

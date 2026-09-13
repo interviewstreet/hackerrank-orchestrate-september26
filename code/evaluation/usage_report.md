@@ -1,13 +1,21 @@
 # Token Usage & Cost Report
 
-Generated: 2026-09-13 04:50:13 UTC — from the run that produced `output.csv`.
+Generated: 2026-09-13 04:57:52 UTC — from the run that produced `output.csv`.
 
 **No LLM calls were made in this run** (no `ANTHROPIC_API_KEY`/`LLM_API_KEY` was set, or no users had messages/images). `facts=[]` throughout and every `decision_explanation` used plan_selector's deterministic template.
 
 ## How to run
 
+Requires **Python 3.8 or newer** (tested on 3.10.2). Do not use Python 3.6.x —
+the code relies on `from __future__ import annotations` (added in Python 3.7)
+and dataclasses throughout.
+
 ```bash
 cd hackerrank-orchestrate-september26
+
+# Optional but recommended: create a virtual environment with Python 3.8+
+python3.10 -m venv venv
+source venv/bin/activate   # Windows: venv\Scriptsctivate
 
 # 1. Install dependencies
 pip install -r code/requirements.txt

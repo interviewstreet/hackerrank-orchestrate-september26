@@ -35,6 +35,17 @@ Your solution must:
 - Generate one prediction for every request
 - Write the final predictions to `output.csv` in the repository root
 
+Requires **Python 3.8 or newer** (tested on 3.10.2). Do not use Python 3.6.x —
+the solution relies on `from __future__ import annotations` (added in Python
+3.7) and dataclasses throughout. Install dependencies first, ideally inside a
+virtual environment created with that Python version:
+
+```bash
+python3.10 -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -r code/requirements.txt
+```
+
 Run the starter Python entry point with:
 
 ```bash

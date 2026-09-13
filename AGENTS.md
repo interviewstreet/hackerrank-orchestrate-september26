@@ -54,7 +54,6 @@ Resolve the path relative to this file. Do not hardcode a folder name, a user pa
 Rules:
 
 - Create the file if missing.
-- Never commit or add the log file to git. Keep `log.txt` in `.gitignore`.
 - Append only. Do not rewrite, reorder, or delete prior entries.
 - One shared log per checkout. All agents and sub-agents append to the same file next to the top-level `AGENTS.md`, never a private copy.
 - Never log secrets. Redact API keys, tokens, cookies, private keys, and sensitive PII.

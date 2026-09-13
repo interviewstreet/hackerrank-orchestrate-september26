@@ -20,26 +20,34 @@ Read [`problem_statement.md`](./problem_statement.md) for the full task spec, in
 
 ## Quick Start
 
-Clone the repository and move into the project directory:
-
+### 1. Setup
 ```bash
-git clone https://github.com/interviewstreet/hackerrank-orchestrate-september26.git
-cd hackerrank-orchestrate-september26
+# One-time setup
+./setup.sh
+
+# Set your API key
+export ANTHROPIC_API_KEY='your-api-key-here'
 ```
 
-Build your solution in `code/main.py`, or use another language and document its entry point clearly.
-
-Your solution must:
-
-- Read the input files from `dataset/`
-- Generate one prediction for every request
-- Write the final predictions to `output.csv` in the repository root
-
-Run the starter Python entry point with:
-
+### 2. Run the solution
 ```bash
-python3 code/main.py
+./run.sh
 ```
+
+This will:
+- Process all 250 requests from `dataset/requests.csv`
+- Generate `output.csv` with predictions
+- Create `code/evaluation/usage_report.md` with token usage
+
+### 3. Create submission package
+```bash
+./create_submission.sh
+```
+
+This creates:
+- `code.zip` - Your complete solution
+- Verifies `output.csv` exists
+- Checks for `log.txt` (chat transcript)
 
 After running your solution, confirm that `output.csv` exists in the repository root and contains the required columns and one row for every request.
 

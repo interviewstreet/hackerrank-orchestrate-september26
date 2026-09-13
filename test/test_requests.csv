@@ -1,0 +1,26 @@
+request_id,user_id,request_date,request_type,requested_amount,desired_completion_date,allows_partial_payment,request_text
+request_01,user_01,2024-03-03,purchase,25256,2024-03-20,true,"Would paying for the laptop today leave enough for my regular expenses? The laptop I'm looking at is ZAR 25,256."
+request_02,user_02,2025-08-05,travel,46018000,2025-10-10,false,"The current quote for the trip is IDR 46,018,000. I need to complete it by 10 October 2025. Can I afford the full trip without putting upcoming bills at risk?"
+request_03,user_03,2019-09-03,education,5491000,2019-11-15,false,"Should I pay for the course now, use installments, or wait? I need to decide by 15 November 2019. The course I want to take is IDR 5,491,000."
+request_04,user_04,2024-06-04,family_transfer,12693000,2024-06-19,true,"The amount I want to send is IDR 12,693,000. Would sending the money now leave enough for my upcoming expenses?"
+request_05,user_05,2025-11-06,debt_repayment,15488,2026-01-12,false,"Can I clear this additional amount without putting upcoming bills at risk? The extra repayment I'm considering is ZAR 15,488."
+request_06,user_06,2026-01-03,investment,620.4,2026-01-14,false,"I want to put EUR 620.40 into an investment. I need to complete it by 14 January 2026. Is it safer to invest now, invest a smaller amount, or wait?"
+request_07,user_07,2024-09-05,housing,197400,2024-11-14,true,"How much of the rental deposit can I safely pay today? I need to decide by 14 November 2024. The rental deposit is INR 197,400."
+request_08,user_08,2025-02-07,emergency_expense,996.6,2025-04-15,false,The repair I need is priced at EUR 996.60. Can I cover the full repair now and still manage my essential expenses?
+request_09,user_09,2026-07-04,other,166.61,2026-07-23,true,"Is the full membership fee affordable today, or should I wait? The annual membership costs EUR 166.61."
+request_10,user_10,2024-12-06,purchase,266700,2025-02-10,true,"The price of the laptop is INR 266,700. I need to complete it by 10 February 2025. How much of the laptop price can I safely cover today?"
+request_11,user_11,2025-05-03,travel,13110000,2025-06-12,false,"Does paying for the trip now leave enough for the rest of the month? I need to decide by 12 June 2025. I'm planning a family trip that costs IDR 13,110,000."
+request_12,user_12,2026-04-05,education,65164,2026-06-20,false,"The professional course costs ZAR 65,164. Can I pay for the course before enrolment closes?"
+request_13,user_13,2024-03-07,family_transfer,941.6,2024-05-15,true,Can I complete this family transfer and still keep my minimum balance? I want to send EUR 941.60 to my family.
+request_14,user_14,2025-08-04,debt_repayment,5414.2,2025-10-04,true,"I'm planning an extra loan payment of EUR 5,414.20. I need to complete it by 4 October 2025. Would paying this much toward the loan leave enough for the rest of the month?"
+request_15,user_15,2026-01-06,investment,3685,2026-02-01,false,"How much can I invest now without affecting essential payments? I need to decide by 1 February 2026. I have an opportunity to invest EUR 3,685."
+request_16,user_16,2023-08-12,housing,122500,2023-10-11,true,"The landlord has asked for a deposit of INR 122,500. Can I pay the rental deposit by the requested date?"
+request_17,user_17,2026-03-01,emergency_expense,274600,2026-05-04,false,"What is the most I can put toward this repair right now? The latest estimate for the repair is INR 274,600."
+request_18,user_18,2026-07-07,other,3246.1,2026-09-15,false,"The annual plan comes to EUR 3,246.10. I need to complete it by 15 September 2026. Can I take the membership and still keep my minimum balance intact?"
+request_19,user_19,2024-09-04,purchase,39660,2024-10-04,true,"Can I buy the laptop now without making next month's bills tight? I need to decide by 4 October 2024. I've been quoted INR 39,660 for the laptop."
+request_20,user_20,2026-02-07,travel,303700,2026-02-22,false,"I can book the family trip for INR 303,700. Would it be safer to book the trip now or wait until more money comes in?"
+request_21,user_21,2026-04-03,education,1574.4,2026-04-14,false,"Is it safe to cover the full course fee by the deadline? Enrolment for the course comes to USD 1,574.40."
+request_22,user_22,2024-12-05,family_transfer,731.5,2025-02-10,true,The transfer I have in mind is EUR 731.50. I need to complete it by 10 February 2025. Can I make the full transfer without falling short on my own bills?
+request_23,user_23,2025-05-07,debt_repayment,38016,2025-07-15,false,"How much extra can I put toward the loan today? I need to decide by 15 July 2025. The additional loan payment would be ZAR 38,016."
+request_24,user_24,2026-01-04,investment,109600,2026-02-08,true,"I'm considering setting aside INR 109,600 for an investment. Would investing this amount leave my upcoming bills covered?"
+request_25,user_25,2024-03-06,housing,60496000,2024-04-17,true,"Is the deposit affordable now, or do I need more time? I need IDR 60,496,000 for the rental deposit."

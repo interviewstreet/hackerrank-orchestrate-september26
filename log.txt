@@ -45,3 +45,22 @@ branch=claude/exciting-knuth-w6kejh
 repo_root=/home/user/hackerrank-orchestrate-september26
 worktree=main
 parent_agent=none
+
+## [2026-09-13T04:10:00+00:00] Implement Module 3 (event_normalizer) per PLAN.md §8 / AGENTS.md §6.3
+
+User Prompt (verbatim, secrets redacted):
+Làm luôn Module 3 đi
+
+Agent Response Summary:
+Implemented code/event_normalizer.py: normalize_events(events, facts=()) drops cancelled/failed events outright, then resolves any Fact (Module 6's future output; empty for now) targeting an event through the AGENTS.md §6.3 cascade — explicit cancellation/amendment beats mere confirmation, then newer record from the same source, then whichever implies settled, then the financially safer interpretation (don't count an unconfirmed credit; keep a debit reserved). A Fact naming no target and no new_event is logged and dropped rather than invented into the timeline. Verified against the full dataset (25,342 -> 25,299 events after dropping 22 cancelled + 21 failed) and against the exact 3 acceptance cases from PLAN.md §8 using hand-built Facts standing in for Module 6's not-yet-built LLM extraction: (1) event_1785/message_14 pending refund stays 'pending' (not counted) despite the event existing; (2) two conflicting employer facts about user_14's salary resolve to the newer one (2717 EUR from 2025-08-15) plus a brand-new childcare event gets merged in; (3) message_16's ambiguous prize-claim fact with no related_event_id is dropped rather than inventing a credit. All 3 matched expected behavior.
+
+Actions:
+* Created code/event_normalizer.py
+* Ran ad-hoc verification script covering the full-dataset filter and all 3 PLAN.md §8 acceptance cases
+
+Context:
+tool=claude-code
+branch=claude/exciting-knuth-w6kejh
+repo_root=/home/user/hackerrank-orchestrate-september26
+worktree=main
+parent_agent=none

@@ -28,7 +28,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, replace
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from typing import Literal, Optional
 
 from loaders import FinancialEvent
@@ -65,14 +65,26 @@ def _is_explicit(fact: Fact) -> bool:
     return fact.kind in ("cancel_event", "amend_event")
 
 
+_MIN_DATETIME = datetime.min.replace(tzinfo=timezone.utc)
+
+
+def _comparable_sent_at(fact: Fact) -> datetime:
+    """Normalize to an aware datetime so facts with/without tzinfo (or none
+    at all) can always be compared, even though real Message.sent_at values
+    are UTC-aware and a hand-built or missing one might not be."""
+    sent_at = fact.source_sent_at
+    if sent_at is None:
+        return _MIN_DATETIME
+    if sent_at.tzinfo is None:
+        return sent_at.replace(tzinfo=timezone.utc)
+    return sent_at
+
+
 def _newest_per_source(facts: list[Fact]) -> list[Fact]:
     by_source: dict[str, list[Fact]] = {}
     for fact in facts:
         by_source.setdefault(fact.source_type, []).append(fact)
-    return [
-        max(group, key=lambda f: f.source_sent_at or datetime.min)
-        for group in by_source.values()
-    ]
+    return [max(group, key=_comparable_sent_at) for group in by_source.values()]
 
 
 def _safer_fact(facts: list[Fact], base_event: FinancialEvent) -> Fact:

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy or Wait? — AI Financial Co-Pilot</title>
+    <title>Buy or Wait? 🇮🇳 — AI Financial Co-Pilot (India)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js CDN -->
@@ -16,15 +16,15 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20 text-xl font-bold">
-                    🛡️
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white shadow-md shadow-orange-500/20 text-xl font-bold">
+                    🇮🇳
                 </div>
                 <div>
                     <h1 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                         Buy or Wait?
-                        <span class="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-semibold uppercase tracking-wider">Co-Pilot</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-orange-100 text-orange-800 font-semibold uppercase tracking-wider">India Co-Pilot</span>
                     </h1>
-                    <p class="text-xs text-slate-500">Autonomous Financial Headroom & Safe Purchase Assistant</p>
+                    <p class="text-xs text-slate-500">Autonomous Bank Cash Flow & Safe Purchase Assistant (₹ INR)</p>
                 </div>
             </div>
 
@@ -41,8 +41,8 @@
                     ⚙️ <span>Profile & Cushion</span>
                 </button>
 
-                <button id="btnAddEvent" class="text-xs sm:text-sm font-medium px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition flex items-center gap-1.5 shadow-sm shadow-blue-600/20">
-                    ➕ <span>Add Bill/Income</span>
+                <button id="btnAddEvent" class="text-xs sm:text-sm font-medium px-3 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-white transition flex items-center gap-1.5 shadow-sm shadow-orange-600/20">
+                    ➕ <span>Add EMI / Income</span>
                 </button>
             </div>
         </div>
@@ -53,16 +53,16 @@
 
         <!-- Top KPIs -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- Balance Card -->
+            <!-- Bank Balance Card -->
             <div class="glass-card p-5 rounded-2xl shadow-sm border border-slate-200/80 hover:border-slate-300 transition">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Available Balance</span>
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Bank Balance</span>
                     <span class="p-2 rounded-xl bg-blue-50 text-blue-600 text-base">🏦</span>
                 </div>
                 <div class="mt-2 flex items-baseline gap-2">
                     <span id="kpiBalance" class="text-2xl font-bold text-slate-900">--</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-1">Current liquid cash in checking account</p>
+                <p class="text-xs text-slate-400 mt-1">Current liquid cash in savings account</p>
             </div>
 
             <!-- Emergency Cushion Floor -->
@@ -74,13 +74,13 @@
                 <div class="mt-2 flex items-baseline gap-2">
                     <span id="kpiCushion" class="text-2xl font-bold text-slate-900">--</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-1">Protected floor (never breached)</p>
+                <p class="text-xs text-slate-400 mt-1">Protected FD / buffer (never breached)</p>
             </div>
 
             <!-- Safe Headroom Today -->
             <div id="cardHeadroom" class="glass-card p-5 rounded-2xl shadow-sm border-2 border-emerald-500 hover:border-emerald-600 transition">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-emerald-700 uppercase tracking-wider">Safe Headroom Today</span>
+                    <span class="text-xs font-semibold text-emerald-700 uppercase tracking-wider">Safe UPI / Headroom Today</span>
                     <span class="p-2 rounded-xl bg-emerald-50 text-emerald-600 text-base">✨</span>
                 </div>
                 <div class="mt-2 flex items-baseline gap-2">
@@ -92,13 +92,13 @@
             <!-- Upcoming 30D Debits -->
             <div class="glass-card p-5 rounded-2xl shadow-sm border border-slate-200/80 hover:border-slate-300 transition">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">30-Day Obligations</span>
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">30-Day Obligations & EMIs</span>
                     <span class="p-2 rounded-xl bg-rose-50 text-rose-600 text-base">🗓️</span>
                 </div>
                 <div class="mt-2 flex items-baseline gap-2">
                     <span id="kpiDebits" class="text-2xl font-bold text-rose-600">--</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-1">Rent, EMIs, utilities & scheduled bills</p>
+                <p class="text-xs text-slate-400 mt-1">Rent, EMIs, card bills & utilities</p>
             </div>
         </section>
 
@@ -113,29 +113,30 @@
                         <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
                             <span>🛍️</span> Can I Afford This?
                         </h2>
-                        <span class="text-xs text-slate-400">90-Day Simulation</span>
+                        <span class="text-xs text-slate-400">90-Day Bank Simulation</span>
                     </div>
 
                     <form id="evalForm" class="space-y-4">
                         <div>
                             <label class="block text-xs font-medium text-slate-700 mb-1">What do you want to buy?</label>
-                            <input type="text" id="itemName" required placeholder="e.g. Sony Noise-Canceling Headphones" value="Sony WH-1000XM5" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <input type="text" id="itemName" required placeholder="e.g. Apple iPhone 16 (128GB)" value="Apple iPhone 16 (128GB)" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-xs font-medium text-slate-700 mb-1">Price / Amount ($)</label>
-                                <input type="number" step="0.01" min="1" id="itemAmount" required placeholder="350.00" value="350" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Price / Amount (₹ INR)</label>
+                                <input type="number" step="1" min="1" id="itemAmount" required placeholder="79900" value="79900" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                             </div>
                             <div>
                                 <label class="block text-xs font-medium text-slate-700 mb-1">Category</label>
-                                <select id="itemCategory" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                    <option value="electronics">Electronics</option>
-                                    <option value="shopping">Shopping</option>
-                                    <option value="travel">Travel</option>
-                                    <option value="appliances">Appliances</option>
-                                    <option value="entertainment">Entertainment</option>
-                                    <option value="education">Education</option>
+                                <select id="itemCategory" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                                    <option value="electronics">Electronics & Gadgets</option>
+                                    <option value="shopping">Shopping & Fashion</option>
+                                    <option value="travel">Travel & Vacation (Goa/Flights)</option>
+                                    <option value="appliances">Home Appliances</option>
+                                    <option value="dining">Food & Dining (Swiggy/Zomato)</option>
+                                    <option value="gold">Gold & Jewellery</option>
+                                    <option value="education">Upskilling & Courses</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
@@ -143,17 +144,19 @@
 
                         <div>
                             <label class="block text-xs font-medium text-slate-700 mb-1">Financing / Installment Option</label>
-                            <select id="installmentOption" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                <option value="">Pay in Full (No Financing)</option>
-                                <option value="3">3 Months Split (Equal Installments)</option>
-                                <option value="6">6 Months Split (Equal Installments)</option>
+                            <select id="installmentOption" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                                <option value="">Pay in Full (UPI / NetBanking / Debit Card)</option>
+                                <option value="3">3 Months No-Cost EMI</option>
+                                <option value="6" selected>6 Months No-Cost EMI</option>
+                                <option value="9">9 Months Low-Cost EMI</option>
+                                <option value="12">12 Months Low-Cost EMI</option>
                             </select>
                         </div>
 
                         <div class="flex items-center gap-2 pt-1">
-                            <input type="checkbox" id="willingAdjust" checked class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300">
+                            <input type="checkbox" id="willingAdjust" checked class="w-4 h-4 rounded text-orange-600 focus:ring-orange-500 border-slate-300">
                             <label for="willingAdjust" class="text-xs text-slate-600 cursor-pointer">
-                                Suggest smart budget trade-offs if tight today
+                                Suggest smart budget cuts (Swiggy, shopping) if tight today
                             </label>
                         </div>
 
@@ -177,11 +180,11 @@
                     <!-- Metrics Grid -->
                     <div class="grid grid-cols-2 gap-3 pt-1">
                         <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                            <span class="text-xs text-slate-400 block">Safe Today</span>
+                            <span class="text-xs text-slate-400 block">Safe Today (UPI)</span>
                             <span id="evalSafeToday" class="text-sm font-bold text-slate-800">--</span>
                         </div>
                         <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                            <span class="text-xs text-slate-400 block">Earliest Safe Date</span>
+                            <span class="text-xs text-slate-400 block">Earliest Full Date</span>
                             <span id="evalEarliestDate" class="text-sm font-bold text-slate-800">--</span>
                         </div>
                         <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
@@ -189,7 +192,7 @@
                             <span id="evalMethod" class="text-sm font-semibold text-slate-800 capitalize">--</span>
                         </div>
                         <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                            <span class="text-xs text-slate-400 block">Plan Schedule</span>
+                            <span class="text-xs text-slate-400 block">Recommended EMI Plan</span>
                             <span id="evalPlan" class="text-xs font-mono font-medium text-slate-800 truncate block">--</span>
                         </div>
                     </div>
@@ -209,14 +212,14 @@
                 <!-- Chat Header -->
                 <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                     <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">
+                        <div class="w-8 h-8 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-sm">
                             AI
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold text-slate-900">Personal Financial Assistant</h3>
+                            <h3 class="text-sm font-bold text-slate-900">Personal Financial Assistant (India)</h3>
                             <p class="text-xs text-emerald-600 flex items-center gap-1">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Active Cash Flow Engine
+                                Active 90-Day Cash Flow Engine (₹)
                             </p>
                         </div>
                     </div>
@@ -226,17 +229,20 @@
                 <!-- Quick Prompts -->
                 <div class="px-6 py-2.5 bg-slate-50/70 border-b border-slate-100 flex items-center gap-2 overflow-x-auto text-xs whitespace-nowrap">
                     <span class="text-slate-400 font-medium">Try:</span>
-                    <button onclick="sendQuickPrompt('Can I buy a laptop for $950?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 transition shadow-2xs">
-                        💻 Can I buy laptop for $950?
+                    <button onclick="sendQuickPrompt('Can I buy iPhone 16 for ₹79,900 on 6-month EMI?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-orange-400 hover:text-orange-600 transition shadow-2xs">
+                        📱 Can I buy iPhone 16 on EMI?
                     </button>
-                    <button onclick="sendQuickPrompt('How much can I safely spend today?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 transition shadow-2xs">
-                        📊 How much can I spend today?
+                    <button onclick="sendQuickPrompt('How much safe UPI budget do I have today?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-orange-400 hover:text-orange-600 transition shadow-2xs">
+                        📊 Safe UPI spending today?
                     </button>
-                    <button onclick="sendQuickPrompt('What bills are coming up in next 30 days?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 transition shadow-2xs">
-                        🗓️ What bills are due?
+                    <button onclick="sendQuickPrompt('What bills and EMIs are due this month?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-orange-400 hover:text-orange-600 transition shadow-2xs">
+                        🗓️ What EMIs are due?
                     </button>
-                    <button onclick="sendQuickPrompt('How does my emergency cushion protect me?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 transition shadow-2xs">
+                    <button onclick="sendQuickPrompt('How does my emergency cushion protect me?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-orange-400 hover:text-orange-600 transition shadow-2xs">
                         🛡️ Emergency fund protection
+                    </button>
+                    <button onclick="sendQuickPrompt('Can I afford a Goa trip for ₹35,000?')" class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-orange-400 hover:text-orange-600 transition shadow-2xs">
+                        🌴 Goa trip for ₹35,000?
                     </button>
                 </div>
 
@@ -248,8 +254,8 @@
                 <!-- Chat Input Bar -->
                 <div class="p-4 border-t border-slate-100 bg-white rounded-b-2xl">
                     <form id="chatForm" class="flex items-center gap-2">
-                        <input type="text" id="chatInput" placeholder="Ask anything: 'Can I afford $400 for concert tickets?'" class="flex-1 px-4 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <button type="submit" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-xl transition shadow-sm flex items-center gap-1.5">
+                        <input type="text" id="chatInput" placeholder="Ask anything: 'Can I afford ₹25,000 for a weekend trip?'" class="flex-1 px-4 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        <button type="submit" class="px-4 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-medium text-sm rounded-xl transition shadow-sm flex items-center gap-1.5">
                             <span>Send</span>
                             <span>➤</span>
                         </button>
@@ -267,9 +273,9 @@
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                            <span>📈</span> 90-Day Cash Flow Trajectory & Safety Cushion
+                            <span>📈</span> 90-Day Bank Cash Flow Trajectory & Emergency Cushion (₹)
                         </h3>
-                        <p class="text-xs text-slate-500">Visual proof: See where account balance stays above or dips below the emergency reserve.</p>
+                        <p class="text-xs text-slate-500">Visual proof: See where your balance stays above or dips below your protected emergency buffer.</p>
                     </div>
                 </div>
 
@@ -282,7 +288,7 @@
             <div class="lg:col-span-4 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
-                        <span>🗓️</span> 30-Day Obligations
+                        <span>🗓️</span> 30-Day Obligations & EMIs
                     </h3>
                     <span class="text-xs text-slate-400">Fixed & Essential</span>
                 </div>
@@ -292,7 +298,7 @@
                         <thead>
                             <tr class="border-b border-slate-200 text-xs font-semibold text-slate-400 uppercase">
                                 <th class="py-2 px-3">Date</th>
-                                <th class="py-2 px-3">Item</th>
+                                <th class="py-2 px-3">Obligation / EMI</th>
                                 <th class="py-2 px-3">Category</th>
                                 <th class="py-2 px-3 text-right">Amount</th>
                             </tr>
@@ -310,37 +316,37 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 mt-8 text-center text-xs text-slate-400">
-        Personal Financial Decision Co-Pilot • Built with deterministic cash flow simulation and grounded intelligence.
+        Buy or Wait? AI Financial Co-Pilot (India 🇮🇳) • Designed to protect Indian consumers from impulse credit card debt and unmanageable EMIs.
     </footer>
 
     <!-- Profile & Cushion Modal -->
     <div id="profileModal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-base font-bold text-slate-900">⚙️ Edit Profile & Emergency Cushion</h3>
+                <h3 class="text-base font-bold text-slate-900">⚙️ Edit Profile & Emergency Cushion (₹)</h3>
                 <button id="btnCloseProfileModal" class="text-slate-400 hover:text-slate-600 text-lg">&times;</button>
             </div>
 
             <form id="profileForm" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-medium text-slate-700 mb-1">Current Available Balance ($)</label>
-                    <input type="number" step="0.01" id="editBalance" required class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-xs font-medium text-slate-700 mb-1">Current Bank Balance (₹ INR)</label>
+                    <input type="number" step="1" id="editBalance" required class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-medium text-slate-700 mb-1">Emergency Safety Cushion / Minimum Balance ($)</label>
-                    <input type="number" step="0.01" id="editCushion" required class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <p class="text-xs text-slate-400 mt-1">This is your non-negotiable emergency floor. The assistant will never recommend violating it.</p>
+                    <label class="block text-xs font-medium text-slate-700 mb-1">Emergency Safety Cushion / Minimum Buffer (₹ INR)</label>
+                    <input type="number" step="1" id="editCushion" required class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                    <p class="text-xs text-slate-400 mt-1">This is your non-negotiable emergency reserve. The assistant will never recommend violating it.</p>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-medium text-slate-700 mb-1">Maximum Installment Months Allowed</label>
-                    <input type="number" min="0" max="24" id="editMaxInstallments" placeholder="e.g. 6 or 12 (leave blank if none)" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-xs font-medium text-slate-700 mb-1">Maximum No-Cost EMI Months Allowed</label>
+                    <input type="number" min="0" max="24" id="editMaxInstallments" placeholder="e.g. 6 or 12 (leave blank if none)" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500">
                 </div>
 
                 <div class="flex items-center justify-end gap-2 pt-2">
                     <button type="button" onclick="closeProfileModal()" class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-xl transition">Cancel</button>
-                    <button type="submit" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition shadow-sm">Save Changes</button>
+                    <button type="submit" class="px-4 py-2 text-sm bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-xl transition shadow-sm">Save Changes</button>
                 </div>
             </form>
         </div>
@@ -350,52 +356,54 @@
     <div id="eventModal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-base font-bold text-slate-900">➕ Add Upcoming Bill or Income</h3>
+                <h3 class="text-base font-bold text-slate-900">➕ Add Upcoming EMI, Bill, or Salary</h3>
                 <button id="btnCloseEventModal" class="text-slate-400 hover:text-slate-600 text-lg">&times;</button>
             </div>
 
             <form id="eventForm" class="space-y-4">
                 <div>
                     <label class="block text-xs font-medium text-slate-700 mb-1">Description</label>
-                    <input type="text" id="eventDesc" required placeholder="e.g. Car Insurance EMI or Freelance Payment" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" id="eventDesc" required placeholder="e.g. Car EMI, Credit Card Due, or Salary" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-medium text-slate-700 mb-1">Type</label>
-                        <select id="eventType" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="expense">Expense / Bill</option>
-                            <option value="income">Income / Deposit</option>
+                        <select id="eventType" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            <option value="expense">Expense / EMI</option>
+                            <option value="income">Salary / Inflow</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Amount ($)</label>
-                        <input type="number" step="0.01" min="1" id="eventAmount" required placeholder="200.00" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Amount (₹ INR)</label>
+                        <input type="number" step="1" min="1" id="eventAmount" required placeholder="15000" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-medium text-slate-700 mb-1">Category</label>
-                        <select id="eventCategory" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="rent">Rent / Housing</option>
-                            <option value="utilities">Utilities</option>
-                            <option value="debt">Loan / EMI / Credit Card</option>
+                        <select id="eventCategory" class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            <option value="rent">House Rent</option>
+                            <option value="debt">Loan EMI / Credit Card</option>
+                            <option value="investments">Mutual Fund SIP / Investment</option>
+                            <option value="utilities">Electricity / WiFi / Bills</option>
                             <option value="salary">Salary / Income</option>
-                            <option value="subscription">Subscription</option>
-                            <option value="dining">Dining / Food</option>
+                            <option value="subscriptions">OTT / Subscriptions</option>
+                            <option value="dining">Swiggy / Zomato / Dining</option>
+                            <option value="shopping">Shopping (Myntra/Amazon)</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-slate-700 mb-1">Due Date</label>
-                        <input type="date" id="eventDate" required class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input type="date" id="eventDate" required class="w-full px-3 py-2 text-sm rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-500">
                     </div>
                 </div>
 
                 <div class="flex items-center justify-end gap-2 pt-2">
                     <button type="button" onclick="closeEventModal()" class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-xl transition">Cancel</button>
-                    <button type="submit" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition shadow-sm">Add Event</button>
+                    <button type="submit" class="px-4 py-2 text-sm bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-xl transition shadow-sm">Add Event</button>
                 </div>
             </form>
         </div>

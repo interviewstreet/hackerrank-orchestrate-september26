@@ -1,5 +1,5 @@
-// Buy or Wait? AI Financial Co-Pilot Frontend Application
-let activeUserId = "user_01";
+// Buy or Wait? AI Financial Co-Pilot (India 🇮🇳) Frontend Application
+let activeUserId = "aarav_in";
 let currentSummary = null;
 let cashChart = null;
 
@@ -65,7 +65,8 @@ async function loadUsers() {
         data.users.forEach(u => {
             const opt = document.createElement("option");
             opt.value = u.user_id;
-            opt.textContent = `${u.user_id} (${u.home_currency} ${u.balance.toLocaleString()} | Cushion: ${u.min_balance.toLocaleString()})`;
+            const curSym = u.home_currency === "INR" ? "₹" : `${u.home_currency} `;
+            opt.textContent = `${u.display_name || u.user_id} (${curSym}${formatCur(u.balance)} | Cushion: ${curSym}${formatCur(u.min_balance)})`;
             if (u.user_id === data.active_user_id) {
                 opt.selected = true;
                 activeUserId = u.user_id;
@@ -91,7 +92,6 @@ async function selectUser(userId) {
         if (data.success) {
             activeUserId = userId;
             renderSummary(data.summary);
-            // Run a sample initial evaluation to populate chart
             evaluatePurchase(true);
         }
     } catch (err) {
@@ -105,7 +105,6 @@ async function loadSummary(userId) {
         const res = await fetch(`/api/summary?user_id=${userId}`);
         const data = await res.json();
         renderSummary(data);
-        // Trigger initial baseline chart
         evaluatePurchase(true);
     } catch (err) {
         console.error("Failed to load summary:", err);
@@ -115,12 +114,13 @@ async function loadSummary(userId) {
 // Render financial KPI summary
 function renderSummary(summary) {
     currentSummary = summary;
-    const cur = summary.home_currency || "USD";
+    const cur = summary.home_currency || "INR";
+    const curSym = cur === "INR" ? "₹" : `${cur} `;
 
-    document.getElementById("kpiBalance").textContent = `${formatCur(summary.current_balance)} ${cur}`;
-    document.getElementById("kpiCushion").textContent = `${formatCur(summary.emergency_cushion)} ${cur}`;
-    document.getElementById("kpiHeadroom").textContent = `${formatCur(summary.safe_headroom_today)} ${cur}`;
-    document.getElementById("kpiDebits").textContent = `${formatCur(summary.upcoming_30d_debits_total)} ${cur}`;
+    document.getElementById("kpiBalance").textContent = `${curSym}${formatCur(summary.current_balance)}`;
+    document.getElementById("kpiCushion").textContent = `${curSym}${formatCur(summary.emergency_cushion)}`;
+    document.getElementById("kpiHeadroom").textContent = `${curSym}${formatCur(summary.safe_headroom_today)}`;
+    document.getElementById("kpiDebits").textContent = `${curSym}${formatCur(summary.upcoming_30d_debits_total)}`;
 
     // Headroom badge color
     const headroomCard = document.getElementById("cardHeadroom");
@@ -133,11 +133,11 @@ function renderSummary(summary) {
     }
 
     // Render upcoming commitments table
-    renderCommitmentsTable(summary.upcoming_commitments, cur);
+    renderCommitmentsTable(summary.upcoming_commitments, curSym);
 }
 
 // Render obligations table
-function renderCommitmentsTable(commitments, cur) {
+function renderCommitmentsTable(commitments, curSym) {
     const tbody = document.getElementById("commitmentsTbody");
     tbody.innerHTML = "";
 
@@ -153,10 +153,10 @@ function renderCommitmentsTable(commitments, cur) {
             <td class="py-2.5 px-3 text-sm font-medium text-slate-700">${c.settlement_date}</td>
             <td class="py-2.5 px-3 text-sm text-slate-800">
                 <span class="font-medium">${escapeHtml(c.description)}</span>
-                ${c.is_recurring ? '<span class="ml-1 text-xs px-1.5 py-0.5 rounded bg-blue-50 text-blue-600">Recurring</span>' : ''}
+                ${c.is_recurring ? '<span class="ml-1 text-xs px-1.5 py-0.5 rounded bg-blue-50 text-blue-600">Auto-Debit</span>' : ''}
             </td>
             <td class="py-2.5 px-3 text-sm text-slate-500 capitalize">${escapeHtml(c.category)}</td>
-            <td class="py-2.5 px-3 text-sm font-semibold text-rose-600 text-right">-${formatCur(c.amount)} ${cur}</td>
+            <td class="py-2.5 px-3 text-sm font-semibold text-rose-600 text-right">-${curSym}${formatCur(c.amount)}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -164,21 +164,21 @@ function renderCommitmentsTable(commitments, cur) {
 
 // Evaluate purchase
 async function evaluatePurchase(isInitial = false) {
-    const itemName = document.getElementById("itemName").value.trim() || "Sample Purchase";
-    const amount = parseFloat(document.getElementById("itemAmount").value) || (isInitial ? 250 : 0);
+    const itemName = document.getElementById("itemName").value.trim() || (isInitial ? "Apple iPhone 16 (128GB)" : "Sample Item");
+    const amount = parseFloat(document.getElementById("itemAmount").value) || (isInitial ? 79900 : 0);
     const category = document.getElementById("itemCategory").value;
     const customInstallments = document.getElementById("installmentOption").value;
     const willingAdjust = document.getElementById("willingAdjust").checked;
 
     if (amount <= 0 && !isInitial) {
-        alert("Please enter a valid purchase amount.");
+        alert("Please enter a valid purchase amount in Rupees (₹).");
         return;
     }
 
     const btn = document.getElementById("btnEvaluate");
     if (!isInitial) {
         btn.disabled = true;
-        btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Evaluating...`;
+        btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Simulating 90-Day Cash Flow...`;
     }
 
     try {
@@ -221,29 +221,30 @@ function renderEvaluationResult(res, isInitial) {
     const changesList = document.getElementById("evalChangesList");
     const changesContainer = document.getElementById("evalChangesContainer");
 
+    const curSym = res.currency === "INR" ? "₹" : `${res.currency} `;
+
     // Clear badge classes
     badge.className = "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5";
 
     if (res.affordability_status === "affordable_now") {
         badge.classList.add("badge-affordable-now");
-        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Affordable Now (Full Payment)`;
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Affordable Now (UPI / Pay in Full)`;
     } else if (res.affordability_status === "affordable_with_plan") {
         badge.classList.add("badge-affordable-with-plan");
-        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> Affordable With Plan`;
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> Affordable with No-Cost EMI / Plan`;
     } else if (res.affordability_status === "affordable_later") {
         badge.classList.add("badge-affordable-later");
-        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-orange-500"></span> Affordable Later (Wait)`;
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-orange-500"></span> Affordable Later (Wait for Salary)`;
     } else {
         badge.classList.add("badge-not-affordable");
-        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-500"></span> Not Recommended (Unsafe)`;
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-500"></span> Not Recommended (Violates Cushion)`;
     }
 
     methodSpan.textContent = res.recommended_payment_method;
-    safeTodaySpan.textContent = `${formatCur(res.amount_safe_to_pay_today)} ${res.currency}`;
+    safeTodaySpan.textContent = `${curSym}${formatCur(res.amount_safe_to_pay_today)}`;
     earliestDateSpan.textContent = res.earliest_date_for_full_payment || "N/A";
     planSpan.textContent = res.payment_plan_summary !== "none" ? res.payment_plan_summary : "None (Pay in full or wait)";
-    
-    // Markdown-like format for explanation
+
     explanationDiv.innerHTML = formatMarkdown(res.explanation);
 
     // Trade-off changes
@@ -265,6 +266,7 @@ function renderEvaluationResult(res, isInitial) {
 function renderCashChart(timeline, currency) {
     if (!timeline || timeline.length === 0) return;
 
+    const curSym = currency === "INR" ? "₹" : `${currency} `;
     const ctx = document.getElementById("cashFlowChart").getContext("2d");
 
     const labels = timeline.map(p => p.date.substring(5)); // MM-DD
@@ -283,7 +285,7 @@ function renderCashChart(timeline, currency) {
             labels: labels,
             datasets: [
                 {
-                    label: "Baseline Balance (No Purchase)",
+                    label: "Baseline Bank Balance (No Purchase)",
                     data: baselineData,
                     borderColor: "#3b82f6", // Blue
                     backgroundColor: "rgba(59, 130, 246, 0.05)",
@@ -301,7 +303,7 @@ function renderCashChart(timeline, currency) {
                     pointRadius: 1,
                 },
                 {
-                    label: "With Co-Pilot Recommendation",
+                    label: "With Co-Pilot Recommendation (EMI / Safe Plan)",
                     data: planData,
                     borderColor: "#10b981", // Emerald
                     borderWidth: 2.5,
@@ -309,7 +311,7 @@ function renderCashChart(timeline, currency) {
                     pointRadius: 1,
                 },
                 {
-                    label: "Emergency Cushion Floor (Strict Min)",
+                    label: "Emergency Reserve Floor (Protected Cushion)",
                     data: cushionData,
                     borderColor: "#ef4444", // Red
                     borderDash: [4, 4],
@@ -337,7 +339,7 @@ function renderCashChart(timeline, currency) {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return `${context.dataset.label}: ${context.parsed.y.toLocaleString()} ${currency}`;
+                            return `${context.dataset.label}: ${curSym}${formatCur(context.parsed.y)}`;
                         }
                     }
                 }
@@ -351,7 +353,7 @@ function renderCashChart(timeline, currency) {
                     grid: { color: "#f1f5f9" },
                     ticks: {
                         callback: function(value) {
-                            return `${value} ${currency}`;
+                            return `${curSym}${Number(value).toLocaleString("en-IN")}`;
                         }
                     }
                 }
@@ -391,7 +393,7 @@ async function sendChatMessage() {
         }
     } catch (err) {
         removeTypingIndicator(typingId);
-        appendChatMessage("assistant", "⚠️ Sorry, I encountered an issue evaluating your question. Please try again.");
+        appendChatMessage("assistant", "⚠️ Sorry, I encountered an issue analyzing your cash flow. Please try again.");
     }
 }
 
@@ -427,7 +429,7 @@ function appendTypingIndicator() {
             <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-pulse"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-pulse delay-75"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-pulse delay-150"></span>
-            <span>Simulating cash flow...</span>
+            <span>Simulating bank cash flow...</span>
         </div>
     `;
     container.appendChild(div);
@@ -489,7 +491,7 @@ async function saveProfile() {
             closeProfileModal();
             renderSummary(data.summary);
             evaluatePurchase(true);
-            appendChatMessage("assistant", `✅ Updated your profile: Available Balance set to **${formatCur(bal)}**, Emergency Cushion set to **${formatCur(cushion)}**.`);
+            appendChatMessage("assistant", `✅ Updated your Indian financial profile: Bank Balance set to **₹${formatCur(bal)}**, Emergency Cushion set to **₹${formatCur(cushion)}**.`);
         }
     } catch (err) {
         alert("Failed to save profile.");
@@ -528,7 +530,7 @@ async function saveEvent() {
                 event_type: type,
                 category: cat,
                 settlement_date: sDate,
-                currency: currentSummary ? currentSummary.home_currency : "USD",
+                currency: "INR",
             })
         });
         const data = await res.json();
@@ -536,17 +538,17 @@ async function saveEvent() {
             closeEventModal();
             renderSummary(data.summary);
             evaluatePurchase(true);
-            appendChatMessage("assistant", `🗓️ Added scheduled ${type}: **${desc}** (${formatCur(amount)} on ${sDate}).`);
+            appendChatMessage("assistant", `🗓️ Added scheduled ${type}: **${desc}** (₹${formatCur(amount)} on ${sDate}).`);
         }
     } catch (err) {
         alert("Failed to add event.");
     }
 }
 
-// Utilities
+// Indian Number Formatting Utility (en-IN)
 function formatCur(val) {
     if (val === undefined || val === null || isNaN(val)) return "0.00";
-    return Number(val).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return Number(val).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function escapeHtml(str) {
@@ -557,14 +559,14 @@ function escapeHtml(str) {
 function formatMarkdown(text) {
     if (!text) return "";
     let html = escapeHtml(text);
-    
+
     // Bold **text**
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     // Italic *text*
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     // Inline code `code`
     html = html.replace(/`(.*?)`/g, '<code class="bg-slate-100 text-slate-800 px-1 py-0.5 rounded text-xs">$1</code>');
-    
+
     // Headers
     html = html.replace(/^### (.*$)/gim, '<h4 class="font-bold text-slate-900 text-base mt-2 mb-1">$1</h4>');
     html = html.replace(/^#### (.*$)/gim, '<h5 class="font-semibold text-slate-800 text-sm mt-2 mb-1">$1</h5>');
@@ -581,7 +583,7 @@ function formatMarkdown(text) {
 
         for (let line of lines) {
             if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
-                if (line.includes('---')) continue; // Skip separator
+                if (line.includes('---')) continue;
                 inTable = true;
                 const cells = line.split('|').filter((c, idx, arr) => idx > 0 && idx < arr.length - 1);
                 tableHtml += '<tr class="border-b border-slate-100">';

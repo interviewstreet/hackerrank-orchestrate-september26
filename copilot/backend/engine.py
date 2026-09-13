@@ -253,6 +253,32 @@ class CopilotEngine:
                     financing_fee=0.0,
                     total_payable_amount=amount,
                 ))
+            if max_months >= 9:
+                inst9_amt = round(amount / 9, 2)
+                payment_options.append(PaymentOption(
+                    payment_option_id="opt_9mo",
+                    request_id="copilot_req",
+                    payment_method="installments",
+                    payment_amount=inst9_amt,
+                    number_of_payments=9,
+                    first_payment_date=req_d,
+                    payment_frequency_days=30,
+                    financing_fee=0.0,
+                    total_payable_amount=amount,
+                ))
+            if max_months >= 12:
+                inst12_amt = round(amount / 12, 2)
+                payment_options.append(PaymentOption(
+                    payment_option_id="opt_12mo",
+                    request_id="copilot_req",
+                    payment_method="installments",
+                    payment_amount=inst12_amt,
+                    number_of_payments=12,
+                    first_payment_date=req_d,
+                    payment_frequency_days=30,
+                    financing_fee=0.0,
+                    total_payable_amount=amount,
+                ))
 
         # Request context
         req_context = RequestContext(
@@ -438,25 +464,26 @@ class CopilotEngine:
         changes: list[SpendingChange],
         min_balance: float,
     ) -> str:
+        cur_sym = "₹" if currency == "INR" else f"{currency} "
         if status == "affordable_now":
             return (
-                f"✅ **Safe to Buy in Full Today!**\n\n"
-                f"Your cash flow easily supports paying **{amount:,.2f} {currency}** for *{item_name}* immediately. "
-                f"Even after this purchase, your projected balance remains comfortably above your **{min_balance:,.2f} {currency}** emergency safety cushion throughout the next 90 days."
+                f"✅ **Safe to Buy in Full Today (UPI / Debit / NetBanking)!**\n\n"
+                f"Your bank cash flow easily supports paying **{cur_sym}{amount:,.2f}** for *{item_name}* immediately. "
+                f"Even after this purchase, your projected balance remains comfortably above your **{cur_sym}{min_balance:,.2f}** emergency safety cushion throughout the next 90 days."
             )
         elif status == "affordable_with_plan":
             if method == "installments" and plan_str != "none":
                 return (
-                    f"💳 **Affordable with Installments!**\n\n"
-                    f"Paying {amount:,.2f} {currency} in a single lump-sum today would violate your safety cushion. "
-                    f"However, splitting it into structured payments ({plan_str}) keeps your account safely above your **{min_balance:,.2f} {currency}** emergency floor."
+                    f"💳 **Affordable with No-Cost EMI / Installments!**\n\n"
+                    f"Paying {cur_sym}{amount:,.2f} in a single lump-sum today would deplete your emergency reserve. "
+                    f"However, splitting it into structured EMI payments ({plan_str}) keeps your bank account safely above your **{cur_sym}{min_balance:,.2f}** emergency cushion."
                 )
             elif changes:
                 cuts_summary = ", ".join([f"{c.action} on {c.event_id}" for c in changes])
                 return (
                     f"💡 **Affordable with Targeted Budget Adjustments!**\n\n"
-                    f"You currently have only **{amount_safe:,.2f} {currency}** safe to spend today. "
-                    f"However, by temporarily adjusting flexible non-essential spending ({cuts_summary}), you can safely purchase *{item_name}* today without compromising your emergency fund."
+                    f"You currently have only **{cur_sym}{amount_safe:,.2f}** in safe UPI headroom today. "
+                    f"However, by temporarily adjusting flexible non-essential spending like Swiggy, dining, or shopping ({cuts_summary}), you can safely purchase *{item_name}* today without compromising your emergency fund."
                 )
             else:
                 return (
@@ -464,16 +491,16 @@ class CopilotEngine:
                     f"Recommended schedule: {plan_str}."
                 )
         elif status == "affordable_later":
-            wait_date = earliest_date_str if earliest_date_str else "a later date"
+            wait_date = earliest_date_str if earliest_date_str else "your next salary credit"
             return (
                 f"⏳ **Recommendation: WAIT until {wait_date}.**\n\n"
-                f"You only have **{amount_safe:,.2f} {currency}** in safe discretionary headroom today. "
-                f"Buying *{item_name}* for {amount:,.2f} {currency} now would cause your balance to dip below your emergency reserve of **{min_balance:,.2f} {currency}**. "
-                f"Waiting until **{wait_date}** ensures your confirmed incoming income arrives before making the purchase."
+                f"You only have **{cur_sym}{amount_safe:,.2f}** in safe discretionary headroom today. "
+                f"Buying *{item_name}* for {cur_sym}{amount:,.2f} now would cause your account to dip below your emergency reserve of **{cur_sym}{min_balance:,.2f}**. "
+                f"Waiting until **{wait_date}** ensures your confirmed salary credit arrives before making this commitment."
             )
         else:
             return (
                 f"⚠️ **Not Recommended (Unsafe Spending).**\n\n"
-                f"Purchasing *{item_name}* ({amount:,.2f} {currency}) exceeds your 90-day safe cash flow. "
-                f"You have upcoming non-negotiable obligations (rent, debt, or bills), and buying this would severely deplete your **{min_balance:,.2f} {currency}** emergency fund."
+                f"Purchasing *{item_name}* ({cur_sym}{amount:,.2f}) exceeds your 90-day safe cash flow. "
+                f"You have upcoming non-negotiable obligations (rent, loan EMIs, or credit card bills), and buying this would severely deplete your **{cur_sym}{min_balance:,.2f}** emergency cushion."
             )

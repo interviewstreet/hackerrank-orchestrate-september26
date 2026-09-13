@@ -1,0 +1,251 @@
+request_id,amount_safe_to_pay,affordability_status,recommended_payment_method,payment_plan,earliest_date_for_full_payment,spending_changes_needed,decision_explanation
+request_26,15656000,affordable_now,full_payment,2025-08-03:15656000,2025-08-03,none,Pay IDR 15656000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_27,6670,affordable_now,full_payment,2026-07-05:6670,2026-07-05,none,Pay ZAR 6670 today; the verified 90-day forecast keeps the minimum balance protected.
+request_28,456.4,affordable_later,wait,2024-06-15:1302.4,2024-06-15,none,Use the verified full payment schedule; it completes by 2024-06-15 while preserving the minimum balance.
+request_29,51524,affordable_now,full_payment,2025-11-04:51524,2025-11-04,none,Pay ZAR 51524 today; the verified 90-day forecast keeps the minimum balance protected.
+request_30,775.2,affordable_with_plan,installments,2026-04-06:268.74|2026-05-06:268.74|2026-06-05:268.74,2026-04-06,none,Use the verified installments schedule; it completes by 2026-06-05 while preserving the minimum balance.
+request_31,7161860,affordable_later,wait,2024-09-15:18164000,2024-09-15,none,Use the verified full payment schedule; it completes by 2024-09-15 while preserving the minimum balance.
+request_32,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the ZAR 35700 minimum protected over the forecast.
+request_33,55570,affordable_later,wait,2026-01-15:118000,2026-01-15,none,Use the verified full payment schedule; it completes by 2026-01-15 while preserving the minimum balance.
+request_34,129400,affordable_now,full_payment,2024-12-04:129400,2024-12-04,none,Pay INR 129400 today; the verified 90-day forecast keeps the minimum balance protected.
+request_35,68250,affordable_later,wait,2025-12-15:212000,2025-12-15,none,Use the verified full payment schedule; it completes by 2025-12-15 while preserving the minimum balance.
+request_36,1280.6,affordable_later,wait,2026-08-15:3954,2026-08-15,none,Use the verified full payment schedule; it completes by 2026-08-15 while preserving the minimum balance.
+request_37,8595600,affordable_later,wait,2024-03-15:14649000,2024-03-15,none,Use the verified full payment schedule; it completes by 2024-03-15 while preserving the minimum balance.
+request_38,298.4,affordable_later,wait,2025-09-15:971.3,2025-09-15,none,Use the verified full payment schedule; it completes by 2025-09-15 while preserving the minimum balance.
+request_39,108060,affordable_later,wait,2026-04-15:208600,2026-04-15,none,Use the verified full payment schedule; it completes by 2026-04-15 while preserving the minimum balance.
+request_40,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the EUR 1500 minimum protected over the forecast.
+request_41,18665600,affordable_later,wait,2025-11-15:38760000,2025-11-15,none,Use the verified full payment schedule; it completes by 2025-11-15 while preserving the minimum balance.
+request_42,52100,affordable_now,full_payment,2026-01-05:52100,2026-01-05,none,Pay INR 52100 today; the verified 90-day forecast keeps the minimum balance protected.
+request_43,11485500,affordable_later,wait,2024-10-15:43339000,2024-10-15,none,Use the verified full payment schedule; it completes by 2024-10-15 while preserving the minimum balance.
+request_44,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 82900 minimum protected over the forecast.
+request_45,7607600,affordable_later,wait,2026-08-15:21983000,2026-08-15,none,Use the verified full payment schedule; it completes by 2026-08-15 while preserving the minimum balance.
+request_46,49450,affordable_with_plan,installments,2024-12-03:25714|2024-12-31:25714,2024-12-03,none,Use the verified installments schedule; it completes by 2024-12-31 while preserving the minimum balance.
+request_47,38114000,affordable_now,full_payment,2025-05-05:38114000,2025-05-05,none,Pay IDR 38114000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_48,45700,affordable_now,full_payment,2026-07-25:45700,2026-07-25,none,Pay INR 45700 today; the verified 90-day forecast keeps the minimum balance protected.
+request_49,18805693.34,affordable_with_plan,installments,2024-03-18:11902106.67|2024-04-18:11902106.67|2024-05-19:11902106.67,2024-03-15,none,Use the verified installments schedule; it completes by 2024-05-19 while preserving the minimum balance.
+request_50,43900,affordable_now,full_payment,2025-08-06:43900,2025-08-06,none,Pay INR 43900 today; the verified 90-day forecast keeps the minimum balance protected.
+request_51,2191000,affordable_now,full_payment,2026-01-03:2191000,2026-01-03,none,Pay IDR 2191000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_52,26530,affordable_later,wait,2024-06-15:28870,2024-06-15,none,Use the verified full payment schedule; it completes by 2024-06-15 while preserving the minimum balance.
+request_53,714.42,affordable_with_plan,installments,2025-11-21:589.06|2025-12-19:589.06|2026-01-16:589.06,2025-11-15,none,Use the verified installments schedule; it completes by 2026-01-16 while preserving the minimum balance.
+request_54,10923,not_affordable,not_recommended,none,2026-09-15,none,No eligible supplied payment schedule keeps the ZAR 37000 minimum protected over the forecast.
+request_55,154596.19,affordable_with_plan,installments,2026-06-11:75781.33|2026-07-12:75781.33|2026-08-12:75781.33,2026-06-15,none,Use the verified installments schedule; it completes by 2026-08-12 while preserving the minimum balance.
+request_56,881.56,affordable_with_plan,installments,2025-02-03:458.42|2025-03-03:458.42,2025-02-03,none,Use the verified installments schedule; it completes by 2025-03-03 while preserving the minimum balance.
+request_57,19859.4,affordable_later,wait,2026-04-15:61446,2026-04-15,none,Use the verified full payment schedule; it completes by 2026-04-15 while preserving the minimum balance.
+request_58,16226000,affordable_now,full_payment,2024-12-07:16226000,2024-12-07,none,Pay IDR 16226000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_59,140600,affordable_with_plan,installments,2025-05-07:48741.33|2025-06-04:48741.33|2025-07-02:48741.33,2025-05-04,none,Use the verified installments schedule; it completes by 2025-07-02 while preserving the minimum balance.
+request_60,199.89,affordable_now,full_payment,2026-01-06:199.89,2026-01-06,none,Pay USD 199.89 today; the verified 90-day forecast keeps the minimum balance protected.
+request_61,29062,affordable_with_plan,installments,2024-03-17:10074.83|2024-04-17:10074.83|2024-05-18:10074.83,2024-03-03,none,Use the verified installments schedule; it completes by 2024-05-18 while preserving the minimum balance.
+request_62,404.23,affordable_now,full_payment,2025-08-05:404.23,2025-08-05,none,Pay USD 404.23 today; the verified 90-day forecast keeps the minimum balance protected.
+request_63,78010,affordable_with_plan,partial_payment,2026-07-07:78010|2026-07-15:265890,2026-07-15,none,Use the verified partial payment schedule; it completes by 2026-07-15 while preserving the minimum balance.
+request_64,0,not_affordable,not_recommended,none,2024-08-15,none,No eligible supplied payment schedule keeps the INR 36100 minimum protected over the forecast.
+request_65,10689.8,not_affordable,not_recommended,none,2026-01-15,none,No eligible supplied payment schedule keeps the ZAR 15500 minimum protected over the forecast.
+request_66,22200,affordable_now,full_payment,2026-04-03:22200,2026-04-03,none,Pay INR 22200 today; the verified 90-day forecast keeps the minimum balance protected.
+request_67,724.54,affordable_later,wait,2024-09-15:2094,2024-09-15,none,Use the verified full payment schedule; it completes by 2024-09-15 while preserving the minimum balance.
+request_68,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the USD 1500 minimum protected over the forecast.
+request_69,529.1,affordable_now,full_payment,2026-01-04:529.1,2026-01-04,none,Pay EUR 529.1 today; the verified 90-day forecast keeps the minimum balance protected.
+request_70,72670,affordable_later,wait,2025-01-15:243900,2025-01-15,none,Use the verified full payment schedule; it completes by 2025-01-15 while preserving the minimum balance.
+request_71,7485050,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the IDR 8884800 minimum protected over the forecast.
+request_72,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the ZAR 12200 minimum protected over the forecast.
+request_73,71400,affordable_now,full_payment,2023-01-20:71400,2023-01-20,none,Pay INR 71400 today; the verified 90-day forecast keeps the minimum balance protected.
+request_74,5010,affordable_now,full_payment,2025-08-04:5010,2025-08-04,none,Pay ZAR 5010 today; the verified 90-day forecast keeps the minimum balance protected.
+request_75,28270,affordable_with_plan,installments,2026-04-09:9800.27|2026-05-09:9800.27|2026-06-08:9800.27,2026-04-06,none,Use the verified installments schedule; it completes by 2026-06-08 while preserving the minimum balance.
+request_76,1381.8,not_affordable,not_recommended,none,2024-08-15,none,No eligible supplied payment schedule keeps the USD 1800 minimum protected over the forecast.
+request_77,60700,affordable_now,full_payment,2025-11-05:60700,2025-11-05,none,Pay INR 60700 today; the verified 90-day forecast keeps the minimum balance protected.
+request_78,50200,affordable_now,full_payment,2025-10-02:50200,2025-10-02,none,Pay INR 50200 today; the verified 90-day forecast keeps the minimum balance protected.
+request_79,621.98,affordable_with_plan,partial_payment,2024-09-04:621.98|2024-09-15:1529.62,2024-09-15,none,Use the verified partial payment schedule; it completes by 2024-09-15 while preserving the minimum balance.
+request_80,125410,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 121300 minimum protected over the forecast.
+request_81,2076,affordable_now,full_payment,2026-07-03:2076,2026-07-03,none,Pay USD 2076 today; the verified 90-day forecast keeps the minimum balance protected.
+request_82,722.4,affordable_later,wait,2024-12-15:1405.2,2024-12-15,none,Use the verified full payment schedule; it completes by 2024-12-15 while preserving the minimum balance.
+request_83,28330,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 37800 minimum protected over the forecast.
+request_84,48980,affordable_later,wait,2026-04-15:95400,2026-04-15,none,Use the verified full payment schedule; it completes by 2026-04-15 while preserving the minimum balance.
+request_85,2036420,not_affordable,not_recommended,none,2024-04-15,none,No eligible supplied payment schedule keeps the IDR 6396300 minimum protected over the forecast.
+request_86,46300,affordable_now,full_payment,2025-08-03:46300,2025-08-03,none,Pay INR 46300 today; the verified 90-day forecast keeps the minimum balance protected.
+request_87,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 185900 minimum protected over the forecast.
+request_88,11959.79,affordable_with_plan,installments,2024-06-14:9045.23|2024-07-15:9045.23|2024-08-15:9045.23,2024-06-15,none,Use the verified installments schedule; it completes by 2024-08-15 while preserving the minimum balance.
+request_89,12406962.01,affordable_with_plan,installments,2025-11-18:4768746.67|2025-12-16:4768746.67|2026-01-13:4768746.67,2025-11-15,none,Use the verified installments schedule; it completes by 2026-01-13 while preserving the minimum balance.
+request_90,2560,affordable_now,full_payment,2026-07-06:2560,2026-07-06,none,Pay ZAR 2560 today; the verified 90-day forecast keeps the minimum balance protected.
+request_91,1009.4,affordable_later,wait,2024-09-15:1927.2,2024-09-15,none,Use the verified full payment schedule; it completes by 2024-09-15 while preserving the minimum balance.
+request_92,34034,affordable_now,full_payment,2025-02-05:34034,2025-02-05,none,Pay ZAR 34034 today; the verified 90-day forecast keeps the minimum balance protected.
+request_93,1729.2,affordable_now,full_payment,2026-04-07:1729.2,2026-04-07,none,Pay USD 1729.2 today; the verified 90-day forecast keeps the minimum balance protected.
+request_94,572,affordable_now,full_payment,2024-12-04:572,2024-12-04,none,Pay EUR 572 today; the verified 90-day forecast keeps the minimum balance protected.
+request_95,137865,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 145500 minimum protected over the forecast.
+request_96,76115.49,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 56500 minimum protected over the forecast.
+request_97,5115.99,affordable_with_plan,installments,2024-03-19:8145.28|2024-04-19:8145.28|2024-05-20:8145.28,2024-03-15,none,Use the verified installments schedule; it completes by 2024-05-20 while preserving the minimum balance.
+request_98,14601.4,affordable_later,wait,2025-08-15:27148,2025-08-15,none,Use the verified full payment schedule; it completes by 2025-08-15 while preserving the minimum balance.
+request_99,18062,affordable_now,full_payment,2026-07-04:18062,2026-07-04,none,Pay ZAR 18062 today; the verified 90-day forecast keeps the minimum balance protected.
+request_100,31359.03,affordable_with_plan,installments,2024-06-13:12866.19|2024-07-14:12866.19|2024-08-14:12866.19,2024-06-15,none,Use the verified installments schedule; it completes by 2024-08-14 while preserving the minimum balance.
+request_101,143500,affordable_now,full_payment,2025-11-03:143500,2025-11-03,none,Pay INR 143500 today; the verified 90-day forecast keeps the minimum balance protected.
+request_102,1716,affordable_with_plan,installments,2026-04-05:594.88|2026-05-05:594.88|2026-06-04:594.88,2026-04-05,none,Use the verified installments schedule; it completes by 2026-06-04 while preserving the minimum balance.
+request_103,30624,not_affordable,not_recommended,none,2024-11-15,none,No eligible supplied payment schedule keeps the INR 125500 minimum protected over the forecast.
+request_104,17204,affordable_now,full_payment,2025-02-04:17204,2025-02-04,none,Pay ZAR 17204 today; the verified 90-day forecast keeps the minimum balance protected.
+request_105,53500,affordable_now,full_payment,2026-06-08:53500,2026-06-08,none,Pay INR 53500 today; the verified 90-day forecast keeps the minimum balance protected.
+request_106,639,affordable_later,wait,2025-01-15:2207.7,2025-01-15,none,Use the verified full payment schedule; it completes by 2025-01-15 while preserving the minimum balance.
+request_107,2534.4,affordable_with_plan,installments,2025-05-08:878.59|2025-06-05:878.59|2025-07-03:878.59,2025-05-05,none,Use the verified installments schedule; it completes by 2025-07-03 while preserving the minimum balance.
+request_108,6993.8,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the ZAR 24100 minimum protected over the forecast.
+request_109,1117.46,affordable_with_plan,installments,2024-03-18:645.98|2024-04-18:645.98|2024-05-19:645.98,2024-03-15,none,Use the verified installments schedule; it completes by 2024-05-19 while preserving the minimum balance.
+request_110,22352,affordable_with_plan,installments,2025-08-06:7748.69|2025-09-03:7748.69|2025-10-01:7748.69,2025-08-06,none,Use the verified installments schedule; it completes by 2025-10-01 while preserving the minimum balance.
+request_111,16625000,affordable_now,full_payment,2026-04-03:16625000,2026-04-03,none,Pay IDR 16625000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_112,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the EUR 500 minimum protected over the forecast.
+request_113,36500,affordable_now,full_payment,2026-09-04:36500,2026-09-04,none,Pay INR 36500 today; the verified 90-day forecast keeps the minimum balance protected.
+request_114,65300,affordable_now,full_payment,2026-01-04:65300,2026-01-04,none,Pay INR 65300 today; the verified 90-day forecast keeps the minimum balance protected.
+request_115,19960,affordable_later,wait,2024-10-15:80500,2024-10-15,none,Use the verified full payment schedule; it completes by 2024-10-15 while preserving the minimum balance.
+request_116,33170,not_affordable,not_recommended,none,2025-03-15,none,No eligible supplied payment schedule keeps the INR 80300 minimum protected over the forecast.
+request_117,880,affordable_now,full_payment,2026-07-05:880,2026-07-05,none,Pay EUR 880 today; the verified 90-day forecast keeps the minimum balance protected.
+request_118,738.1,affordable_with_plan,installments,2024-12-07:255.87|2025-01-07:255.87|2025-02-07:255.87,2024-12-07,none,Use the verified installments schedule; it completes by 2025-02-07 while preserving the minimum balance.
+request_119,130901.01,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 151200 minimum protected over the forecast.
+request_120,7714000,affordable_now,full_payment,2026-04-06:7714000,2026-04-06,none,Pay IDR 7714000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_121,633.6,affordable_now,full_payment,2024-03-03:633.6,2024-03-03,none,Pay USD 633.6 today; the verified 90-day forecast keeps the minimum balance protected.
+request_122,20558000,affordable_with_plan,installments,2025-08-05:7126773.33|2025-09-02:7126773.33|2025-09-30:7126773.33,2025-08-05,none,Use the verified installments schedule; it completes by 2025-09-30 while preserving the minimum balance.
+request_123,4076000,affordable_now,full_payment,2026-01-07:4076000,2026-01-07,none,Pay IDR 4076000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_124,1648.56,affordable_with_plan,installments,2024-06-11:1076.12|2024-07-12:1076.12|2024-08-12:1076.12,2024-06-15,none,Use the verified installments schedule; it completes by 2024-08-12 while preserving the minimum balance.
+request_125,6468,affordable_now,full_payment,2025-11-06:6468,2025-11-06,none,Pay ZAR 6468 today; the verified 90-day forecast keeps the minimum balance protected.
+request_126,131740,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 129700 minimum protected over the forecast.
+request_127,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the ZAR 41000 minimum protected over the forecast.
+request_128,25168,affordable_now,full_payment,2025-02-07:25168,2025-02-07,none,Pay ZAR 25168 today; the verified 90-day forecast keeps the minimum balance protected.
+request_129,258,not_affordable,not_recommended,none,2026-06-15,none,No eligible supplied payment schedule keeps the USD 800 minimum protected over the forecast.
+request_130,794.46,affordable_later,wait,2024-12-15:1978.8,2024-12-15,none,Use the verified full payment schedule; it completes by 2024-12-15 while preserving the minimum balance.
+request_131,1855.2,affordable_with_plan,installments,2025-05-06:643.14|2025-06-03:643.14|2025-07-01:643.14,2025-05-03,none,Use the verified installments schedule; it completes by 2025-07-01 while preserving the minimum balance.
+request_132,379.86,affordable_now,full_payment,2026-01-05:379.86,2026-01-05,none,Pay USD 379.86 today; the verified 90-day forecast keeps the minimum balance protected.
+request_133,7375800,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the IDR 9986200 minimum protected over the forecast.
+request_134,8517700,affordable_later,wait,2025-08-15:21831000,2025-08-15,none,Use the verified full payment schedule; it completes by 2025-08-15 while preserving the minimum balance.
+request_135,304.8,affordable_now,full_payment,2026-07-06:304.8,2026-07-06,none,Pay USD 304.8 today; the verified 90-day forecast keeps the minimum balance protected.
+request_136,560.4,affordable_now,full_payment,2024-06-03:560.4,2024-06-03,none,Pay USD 560.4 today; the verified 90-day forecast keeps the minimum balance protected.
+request_137,49935,affordable_later,wait,2025-11-15:80100,2025-11-15,none,Use the verified full payment schedule; it completes by 2025-11-15 while preserving the minimum balance.
+request_138,1117.9,affordable_with_plan,partial_payment,2026-04-07:1117.9|2026-04-15:139.04,2026-04-15,none,Use the verified partial payment schedule; it completes by 2026-04-15 while preserving the minimum balance.
+request_139,1645.84,affordable_with_plan,installments,2024-09-07:802.88|2024-10-08:802.88|2024-11-08:802.88,2024-09-15,none,Use the verified installments schedule; it completes by 2024-11-08 while preserving the minimum balance.
+request_140,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the ZAR 21600 minimum protected over the forecast.
+request_141,44250,not_affordable,not_recommended,none,2026-03-15,none,No eligible supplied payment schedule keeps the INR 67300 minimum protected over the forecast.
+request_142,1263.6,affordable_now,full_payment,2024-12-05:1263.6,2024-12-05,none,Pay USD 1263.6 today; the verified 90-day forecast keeps the minimum balance protected.
+request_143,8384.2,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the ZAR 11300 minimum protected over the forecast.
+request_144,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the USD 600 minimum protected over the forecast.
+request_145,80438.66,affordable_with_plan,installments,2024-03-20:75365.33|2024-04-20:75365.33|2024-05-21:75365.33,2024-03-15,none,Use the verified installments schedule; it completes by 2024-05-21 while preserving the minimum balance.
+request_146,48960,affordable_later,wait,2025-09-15:449400,2025-09-15,none,Use the verified full payment schedule; it completes by 2025-09-15 while preserving the minimum balance.
+request_147,624.53,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the EUR 900 minimum protected over the forecast.
+request_148,11625.68,affordable_with_plan,installments,2024-06-14:7710.56|2024-07-15:7710.56|2024-08-15:7710.56,2024-06-15,none,Use the verified installments schedule; it completes by 2024-08-15 while preserving the minimum balance.
+request_149,32896.28,affordable_with_plan,installments,2025-11-18:12706.03|2025-12-16:12706.03|2026-01-13:12706.03,2025-11-15,none,Use the verified installments schedule; it completes by 2026-01-13 while preserving the minimum balance.
+request_150,496.1,affordable_with_plan,installments,2026-01-06:171.98|2026-02-05:171.98|2026-03-07:171.98,2026-01-06,none,Use the verified installments schedule; it completes by 2026-03-07 while preserving the minimum balance.
+request_151,26999000,affordable_now,full_payment,2024-09-03:26999000,2024-09-03,none,Pay IDR 26999000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_152,13185.27,affordable_with_plan,installments,2025-02-12:4812.43|2025-03-12:4812.43|2025-04-09:4812.43,2025-02-15,none,Use the verified installments schedule; it completes by 2025-04-09 while preserving the minimum balance.
+request_153,406.6,affordable_later,wait,2026-09-15:2830.8,2026-09-15,none,Use the verified full payment schedule; it completes by 2026-09-15 while preserving the minimum balance.
+request_154,1625.8,affordable_with_plan,installments,2024-12-04:563.61|2025-01-04:563.61|2025-02-04:563.61,2024-12-04,none,Use the verified installments schedule; it completes by 2025-02-04 while preserving the minimum balance.
+request_155,112500,affordable_now,full_payment,2025-05-06:112500,2025-05-06,none,Pay INR 112500 today; the verified 90-day forecast keeps the minimum balance protected.
+request_156,12557.6,affordable_later,wait,2026-04-15:43076,2026-04-15,none,Use the verified full payment schedule; it completes by 2026-04-15 while preserving the minimum balance.
+request_157,8888200,affordable_later,wait,2024-03-15:23503000,2024-03-15,none,Use the verified full payment schedule; it completes by 2024-03-15 while preserving the minimum balance.
+request_158,242600,affordable_with_plan,installments,2025-08-07:84101.33|2025-09-04:84101.33|2025-10-02:84101.33,2025-08-07,none,Use the verified installments schedule; it completes by 2025-10-02 while preserving the minimum balance.
+request_159,13398,affordable_now,full_payment,2026-01-04:13398,2026-01-04,none,Pay ZAR 13398 today; the verified 90-day forecast keeps the minimum balance protected.
+request_160,643.61,affordable_with_plan,installments,2024-06-13:432.05|2024-07-14:432.05|2024-08-14:432.05,2024-06-15,none,Use the verified installments schedule; it completes by 2024-08-14 while preserving the minimum balance.
+request_161,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the IDR 23010400 minimum protected over the forecast.
+request_162,6957800,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the IDR 24161100 minimum protected over the forecast.
+request_163,15513824.26,affordable_with_plan,installments,2024-09-10:6692053.33|2024-10-11:6692053.33|2024-11-11:6692053.33,2024-09-15,none,Use the verified installments schedule; it completes by 2024-11-11 while preserving the minimum balance.
+request_164,27018000,affordable_with_plan,installments,2025-02-11:9366240|2025-03-11:9366240|2025-04-08:9366240,2025-02-04,none,Use the verified installments schedule; it completes by 2025-04-08 while preserving the minimum balance.
+request_165,80600,affordable_now,full_payment,2026-04-06:80600,2026-04-06,none,Pay INR 80600 today; the verified 90-day forecast keeps the minimum balance protected.
+request_166,2907.6,affordable_with_plan,installments,2024-12-03:1007.97|2025-01-03:1007.97|2025-02-03:1007.97,2024-12-03,none,Use the verified installments schedule; it completes by 2025-02-03 while preserving the minimum balance.
+request_167,43802,affordable_now,full_payment,2025-05-05:43802,2025-05-05,none,Pay ZAR 43802 today; the verified 90-day forecast keeps the minimum balance protected.
+request_168,49380,not_affordable,not_recommended,none,2026-01-07,none,No eligible supplied payment schedule keeps the INR 114400 minimum protected over the forecast.
+request_169,41976,affordable_now,full_payment,2024-03-04:41976,2024-03-04,none,Pay ZAR 41976 today; the verified 90-day forecast keeps the minimum balance protected.
+request_170,36253398.4,affordable_with_plan,installments,2025-08-06:12804480|2025-09-03:12804480|2025-10-01:12804480,2025-08-15,none,Use the verified installments schedule; it completes by 2025-10-01 while preserving the minimum balance.
+request_171,190.65,not_affordable,not_recommended,none,2026-09-15,none,No eligible supplied payment schedule keeps the EUR 500 minimum protected over the forecast.
+request_172,10200,affordable_with_plan,installments,2024-06-05:5304|2024-07-03:5304,2024-06-05,none,Use the verified installments schedule; it completes by 2024-07-03 while preserving the minimum balance.
+request_173,75150.53,affordable_with_plan,installments,2025-11-21:39173.33|2025-12-19:39173.33|2026-01-16:39173.33,2025-11-15,none,Use the verified installments schedule; it completes by 2026-01-16 while preserving the minimum balance.
+request_174,1146.2,affordable_with_plan,installments,2026-04-04:397.35|2026-05-04:397.35|2026-06-03:397.35,2026-04-04,none,Use the verified installments schedule; it completes by 2026-06-03 while preserving the minimum balance.
+request_175,2346.3,affordable_now,full_payment,2024-09-06:2346.3,2024-09-06,none,Pay EUR 2346.3 today; the verified 90-day forecast keeps the minimum balance protected.
+request_176,579.95,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the EUR 600 minimum protected over the forecast.
+request_177,1017.6,affordable_now,full_payment,2026-01-05:1017.6,2026-01-05,none,Pay USD 1017.6 today; the verified 90-day forecast keeps the minimum balance protected.
+request_178,2938.1,affordable_with_plan,installments,2024-12-07:1018.54|2025-01-07:1018.54|2025-02-07:1018.54,2024-12-07,none,Use the verified installments schedule; it completes by 2025-02-07 while preserving the minimum balance.
+request_179,37957250,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the IDR 41430800 minimum protected over the forecast.
+request_180,2795,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 37300 minimum protected over the forecast.
+request_181,839,not_affordable,not_recommended,none,2024-04-15,none,No eligible supplied payment schedule keeps the USD 2000 minimum protected over the forecast.
+request_182,65714,affordable_now,full_payment,2025-08-05:65714,2025-08-05,none,Pay ZAR 65714 today; the verified 90-day forecast keeps the minimum balance protected.
+request_183,26866000,affordable_with_plan,installments,2026-04-10:9313546.67|2026-05-10:9313546.67|2026-06-09:9313546.67,2026-04-07,none,Use the verified installments schedule; it completes by 2026-06-09 while preserving the minimum balance.
+request_184,37960,not_affordable,not_recommended,none,2024-08-15,none,No eligible supplied payment schedule keeps the INR 110800 minimum protected over the forecast.
+request_185,644.4,affordable_later,wait,2025-11-15:1257.3,2025-11-15,none,Use the verified full payment schedule; it completes by 2025-11-15 while preserving the minimum balance.
+request_186,13829.2,affordable_later,wait,2026-01-15:26554,2026-01-15,none,Use the verified full payment schedule; it completes by 2026-01-15 while preserving the minimum balance.
+request_187,51590,affordable_later,wait,2024-10-15:187500,2024-10-15,none,Use the verified full payment schedule; it completes by 2024-10-15 while preserving the minimum balance.
+request_188,238.3,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the EUR 900 minimum protected over the forecast.
+request_189,488.4,affordable_now,full_payment,2026-07-04:488.4,2026-07-04,none,Pay EUR 488.4 today; the verified 90-day forecast keeps the minimum balance protected.
+request_190,1075.8,affordable_later,wait,2024-12-15:2557.5,2024-12-15,none,Use the verified full payment schedule; it completes by 2024-12-15 while preserving the minimum balance.
+request_191,664.4,affordable_now,full_payment,2025-05-03:664.4,2025-05-03,none,Pay EUR 664.4 today; the verified 90-day forecast keeps the minimum balance protected.
+request_192,338.8,not_affordable,not_recommended,none,2026-05-15,none,No eligible supplied payment schedule keeps the USD 1000 minimum protected over the forecast.
+request_193,243.62,affordable_with_plan,installments,2024-03-21:420.23|2024-04-21:420.23|2024-05-22:420.23,2024-03-15,none,Use the verified installments schedule; it completes by 2024-05-22 while preserving the minimum balance.
+request_194,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 113600 minimum protected over the forecast.
+request_195,1170.4,affordable_with_plan,installments,2026-01-09:405.74|2026-02-08:405.74|2026-03-10:405.74,2026-01-06,none,Use the verified installments schedule; it completes by 2026-03-10 while preserving the minimum balance.
+request_196,762.3,affordable_now,full_payment,2024-06-03:762.3,2024-06-03,none,Pay EUR 762.3 today; the verified 90-day forecast keeps the minimum balance protected.
+request_197,5872768.26,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the IDR 26245900 minimum protected over the forecast.
+request_198,185800,affordable_now,full_payment,2026-07-07:185800,2026-07-07,none,Pay INR 185800 today; the verified 90-day forecast keeps the minimum balance protected.
+request_199,23674000,affordable_with_plan,installments,2024-09-07:8206986.67|2024-10-08:8206986.67|2024-11-08:8206986.67,2024-09-04,none,Use the verified installments schedule; it completes by 2024-11-08 while preserving the minimum balance.
+request_200,21717000,affordable_now,full_payment,2025-02-06:21717000,2025-02-06,none,Pay IDR 21717000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_201,23997000,affordable_now,full_payment,2026-04-03:23997000,2026-04-03,none,Pay IDR 23997000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_202,123900,affordable_now,full_payment,2024-12-05:123900,2024-12-05,none,Pay INR 123900 today; the verified 90-day forecast keeps the minimum balance protected.
+request_203,1442.1,affordable_with_plan,installments,2025-05-10:499.93|2025-06-07:499.93|2025-07-05:499.93,2025-05-07,none,Use the verified installments schedule; it completes by 2025-07-05 while preserving the minimum balance.
+request_204,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the EUR 1300 minimum protected over the forecast.
+request_205,10621000,affordable_now,full_payment,2024-03-06:10621000,2024-03-06,none,Pay IDR 10621000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_206,1404.7,affordable_with_plan,installments,2025-08-03:486.96|2025-08-31:486.96|2025-09-28:486.96,2025-08-03,none,Use the verified installments schedule; it completes by 2025-09-28 while preserving the minimum balance.
+request_207,9257.6,affordable_later,wait,2026-07-15:11830,2026-07-15,none,Use the verified full payment schedule; it completes by 2026-07-15 while preserving the minimum balance.
+request_208,4413000,affordable_now,full_payment,2024-06-07:4413000,2024-06-07,none,Pay IDR 4413000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_209,6061,not_affordable,not_recommended,none,2025-12-15,none,No eligible supplied payment schedule keeps the ZAR 18400 minimum protected over the forecast.
+request_210,1274.52,affordable_with_plan,partial_payment,2026-04-06:1274.52|2026-04-15:85.5,2026-04-15,none,Use the verified partial payment schedule; it completes by 2026-04-15 while preserving the minimum balance.
+request_211,697.99,affordable_later,wait,2024-09-15:1788.6,2024-09-15,none,Use the verified full payment schedule; it completes by 2024-09-15 while preserving the minimum balance.
+request_212,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the IDR 29579800 minimum protected over the forecast.
+request_213,3362.4,affordable_with_plan,installments,2026-01-21:1165.63|2026-02-20:1165.63|2026-03-22:1165.63,2026-01-07,none,Use the verified installments schedule; it completes by 2026-03-22 while preserving the minimum balance.
+request_214,69750,affordable_with_plan,installments,2024-12-04:36270|2025-01-01:36270,2024-12-04,none,Use the verified installments schedule; it completes by 2025-01-01 while preserving the minimum balance.
+request_215,29986,affordable_with_plan,installments,2025-05-09:10395.15|2025-06-06:10395.15|2025-07-04:10395.15,2025-05-06,none,Use the verified installments schedule; it completes by 2025-07-04 while preserving the minimum balance.
+request_216,994.8,affordable_later,wait,2026-08-15:3332.4,2026-08-15,none,Use the verified full payment schedule; it completes by 2026-08-15 while preserving the minimum balance.
+request_217,27055.67,affordable_with_plan,installments,2024-03-19:12889.07|2024-04-19:12889.07|2024-05-20:12889.07,2024-03-15,none,Use the verified installments schedule; it completes by 2024-05-20 while preserving the minimum balance.
+request_218,32002064.8,affordable_with_plan,installments,2025-08-07:21195893.33|2025-09-04:21195893.33|2025-10-02:21195893.33,2025-08-15,none,Use the verified installments schedule; it completes by 2025-10-02 while preserving the minimum balance.
+request_219,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the EUR 1100 minimum protected over the forecast.
+request_220,249.32,not_affordable,not_recommended,none,2024-07-15,none,No eligible supplied payment schedule keeps the EUR 1100 minimum protected over the forecast.
+request_221,109800,affordable_now,full_payment,2025-11-03:109800,2025-11-03,none,Pay INR 109800 today; the verified 90-day forecast keeps the minimum balance protected.
+request_222,34078,affordable_now,full_payment,2026-01-05:34078,2026-01-05,none,Pay ZAR 34078 today; the verified 90-day forecast keeps the minimum balance protected.
+request_223,898.7,affordable_now,full_payment,2024-09-07:898.7,2024-09-07,none,Pay EUR 898.7 today; the verified 90-day forecast keeps the minimum balance protected.
+request_224,10327000,affordable_with_plan,installments,2025-02-04:5370040|2025-03-04:5370040,2025-02-04,none,Use the verified installments schedule; it completes by 2025-03-04 while preserving the minimum balance.
+request_225,14739409.6,affordable_with_plan,installments,2026-07-20:7647120|2026-08-19:7647120|2026-09-18:7647120,2026-07-15,none,Use the verified installments schedule; it completes by 2026-09-18 while preserving the minimum balance.
+request_226,157000,affordable_now,full_payment,2024-12-03:157000,2024-12-03,none,Pay INR 157000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_227,42755,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 62900 minimum protected over the forecast.
+request_228,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the IDR 26191200 minimum protected over the forecast.
+request_229,672.52,affordable_with_plan,installments,2024-03-18:529.29|2024-04-18:529.29|2024-05-19:529.29,2024-03-15,none,Use the verified installments schedule; it completes by 2024-05-19 while preserving the minimum balance.
+request_230,3537.6,affordable_now,full_payment,2025-08-06:3537.6,2025-08-06,none,Pay EUR 3537.6 today; the verified 90-day forecast keeps the minimum balance protected.
+request_231,35706,affordable_with_plan,installments,2026-01-06:12378.08|2026-02-05:12378.08|2026-03-07:12378.08,2026-01-03,none,Use the verified installments schedule; it completes by 2026-03-07 while preserving the minimum balance.
+request_232,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the EUR 2400 minimum protected over the forecast.
+request_233,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the IDR 10365700 minimum protected over the forecast.
+request_234,378.6,affordable_later,wait,2026-08-15:1213.3,2026-08-15,none,Use the verified full payment schedule; it completes by 2026-08-15 while preserving the minimum balance.
+request_235,967.2,affordable_now,full_payment,2024-09-06:967.2,2024-09-06,none,Pay USD 967.2 today; the verified 90-day forecast keeps the minimum balance protected.
+request_236,10835700,not_affordable,not_recommended,none,2025-04-15,none,No eligible supplied payment schedule keeps the IDR 16768600 minimum protected over the forecast.
+request_237,23826000,affordable_now,full_payment,2026-04-05:23826000,2026-04-05,none,Pay IDR 23826000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_238,663.6,affordable_with_plan,installments,2024-12-07:230.05|2025-01-07:230.05|2025-02-07:230.05,2024-12-07,none,Use the verified installments schedule; it completes by 2025-02-07 while preserving the minimum balance.
+request_239,642,affordable_now,full_payment,2025-05-04:642,2025-05-04,none,Pay USD 642 today; the verified 90-day forecast keeps the minimum balance protected.
+request_240,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 52800 minimum protected over the forecast.
+request_241,21052000,affordable_with_plan,installments,2024-03-17:7298026.67|2024-04-17:7298026.67|2024-05-18:7298026.67,2024-03-03,none,Use the verified installments schedule; it completes by 2024-05-18 while preserving the minimum balance.
+request_242,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the EUR 600 minimum protected over the forecast.
+request_243,17468,affordable_now,full_payment,2026-07-07:17468,2026-07-07,none,Pay ZAR 17468 today; the verified 90-day forecast keeps the minimum balance protected.
+request_244,49918,affordable_now,full_payment,2024-06-04:49918,2024-06-04,none,Pay ZAR 49918 today; the verified 90-day forecast keeps the minimum balance protected.
+request_245,57140,affordable_later,wait,2025-11-15:128500,2025-11-15,none,Use the verified full payment schedule; it completes by 2025-11-15 while preserving the minimum balance.
+request_246,64086,affordable_with_plan,installments,2026-04-03:22216.48|2026-05-03:22216.48|2026-06-02:22216.48,2026-04-03,none,Use the verified installments schedule; it completes by 2026-06-02 while preserving the minimum balance.
+request_247,1059.3,affordable_now,full_payment,2024-09-05:1059.3,2024-09-05,none,Pay EUR 1059.3 today; the verified 90-day forecast keeps the minimum balance protected.
+request_248,1152.36,affordable_with_plan,partial_payment,2025-02-07:1152.36|2025-04-15:813.24,2025-04-15,none,Use the verified partial payment schedule; it completes by 2025-04-15 while preserving the minimum balance.
+request_249,292.4,affordable_later,wait,2026-01-15:643.2,2026-01-15,none,Use the verified full payment schedule; it completes by 2026-01-15 while preserving the minimum balance.
+request_250,20880.2,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the ZAR 35300 minimum protected over the forecast.
+request_251,1513.6,not_affordable,not_recommended,none,2025-05-03,none,No eligible supplied payment schedule keeps the EUR 1300 minimum protected over the forecast.
+request_252,8052200,affordable_later,wait,2026-08-15:28082000,2026-08-15,none,Use the verified full payment schedule; it completes by 2026-08-15 while preserving the minimum balance.
+request_253,1717.57,affordable_with_plan,installments,2024-03-21:984.6|2024-04-21:984.6|2024-05-22:984.6,2024-03-15,none,Use the verified installments schedule; it completes by 2024-05-22 while preserving the minimum balance.
+request_254,1140.6,affordable_later,wait,2025-09-15:3535.2,2025-09-15,none,Use the verified full payment schedule; it completes by 2025-09-15 while preserving the minimum balance.
+request_255,3345000,affordable_now,full_payment,2026-04-06:3345000,2026-04-06,none,Pay IDR 3345000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_256,12083.28,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the INR 168600 minimum protected over the forecast.
+request_257,941.2,affordable_later,wait,2025-11-15:1352.4,2025-11-15,none,Use the verified full payment schedule; it completes by 2025-11-15 while preserving the minimum balance.
+request_258,1113.6,affordable_now,full_payment,2026-01-07:1113.6,2026-01-07,none,Pay USD 1113.6 today; the verified 90-day forecast keeps the minimum balance protected.
+request_259,288.4,affordable_later,wait,2024-10-15:935,2024-10-15,none,Use the verified full payment schedule; it completes by 2024-10-15 while preserving the minimum balance.
+request_260,11812300,affordable_with_plan,partial_payment,2025-02-06:11812300|2025-02-15:40266700,2025-02-15,none,Use the verified partial payment schedule; it completes by 2025-02-15 while preserving the minimum balance.
+request_261,1830.4,affordable_now,full_payment,2026-07-03:1830.4,2026-07-03,none,Pay EUR 1830.4 today; the verified 90-day forecast keeps the minimum balance protected.
+request_262,9236000,affordable_now,full_payment,2024-12-05:9236000,2024-12-05,none,Pay IDR 9236000 today; the verified 90-day forecast keeps the minimum balance protected.
+request_263,13750,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the ZAR 24100 minimum protected over the forecast.
+request_264,36910,affordable_later,wait,2026-04-15:111300,2026-04-15,none,Use the verified full payment schedule; it completes by 2026-04-15 while preserving the minimum balance.
+request_265,45970,affordable_now,full_payment,2024-03-06:45970,2024-03-06,none,Pay INR 45970 today; the verified 90-day forecast keeps the minimum balance protected.
+request_266,935,affordable_with_plan,installments,2025-08-03:324.13|2025-08-31:324.13|2025-09-28:324.13,2025-08-03,none,Use the verified installments schedule; it completes by 2025-09-28 while preserving the minimum balance.
+request_267,1925,affordable_with_plan,installments,2026-01-08:667.33|2026-02-07:667.33|2026-03-09:667.33,2026-01-05,none,Use the verified installments schedule; it completes by 2026-03-09 while preserving the minimum balance.
+request_268,1134.52,affordable_with_plan,installments,2024-06-14:841.22|2024-07-15:841.22|2024-08-15:841.22,2024-06-15,none,Use the verified installments schedule; it completes by 2024-08-15 while preserving the minimum balance.
+request_269,0,not_affordable,not_recommended,none,,none,No eligible supplied payment schedule keeps the ZAR 23100 minimum protected over the forecast.
+request_270,411.4,not_affordable,not_recommended,none,2026-09-15,none,No eligible supplied payment schedule keeps the USD 1400 minimum protected over the forecast.
+request_271,39580,affordable_later,wait,2024-09-15:91300,2024-09-15,none,Use the verified full payment schedule; it completes by 2024-09-15 while preserving the minimum balance.
+request_272,7531524,affordable_with_plan,installments,2025-02-12:4709466.67|2025-03-12:4709466.67|2025-04-09:4709466.67,2025-02-15,none,Use the verified installments schedule; it completes by 2025-04-09 while preserving the minimum balance.
+request_273,12228400,affordable_with_plan,partial_payment,2026-04-07:12228400|2026-04-15:3632600,2026-04-15,none,Use the verified partial payment schedule; it completes by 2026-04-15 while preserving the minimum balance.
+request_274,2713.7,affordable_with_plan,installments,2024-12-04:940.75|2025-01-04:940.75|2025-02-04:940.75,2024-12-04,none,Use the verified installments schedule; it completes by 2025-02-04 while preserving the minimum balance.
+request_275,15884000,affordable_now,full_payment,2025-05-06:15884000,2025-05-06,none,Pay IDR 15884000 today; the verified 90-day forecast keeps the minimum balance protected.

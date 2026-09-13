@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 .env
+/log.txt
+/output.csv

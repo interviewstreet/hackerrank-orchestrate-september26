@@ -249,3 +249,26 @@ The report must summarize the final full-dataset run that produced `output.csv`,
 Do not include API keys, credentials, or sensitive configuration values in the submission.
 
 These are the required deliverables. Participants are encouraged to improve retrieval, multimodal interpretation, financial-state reconstruction, plan generation, deterministic verification, batching, caching, and token efficiency.
+import pandas as pd
+
+# Load provided datasets
+requests_df = pd.read_csv('dataset/requests.csv')
+profiles_df = pd.read_csv('dataset/financial_profiles.csv')
+events_df = pd.read_csv('dataset/financial_events.csv')
+
+def evaluate_affordability(row):
+    # Place your agent / LLM evaluation logic here
+    # Check current balance vs requested amount, recurring expenses, and partial payment flags
+    return "wait"  # Example decision: pay_in_full, pay_partially, wait, etc.
+
+# Process requests and build output schema
+results = []
+for idx, row in requests_df.iterrows():
+    decision = evaluate_affordability(row)
+    results.append({
+        'request_id': row['request_id'],
+        'recommendation': decision
+    })
+
+output_df = pd.DataFrame(results)
+output_df.to_csv('output.csv', index=False)

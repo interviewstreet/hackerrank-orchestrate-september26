@@ -556,6 +556,10 @@ function escapeHtml(str) {
 
 function formatMarkdown(text) {
     if (!text) return "";
+    text = text.replace(/([0-9,]+(?:\.[0-9]{2})?)\s*ZAR\b/gi, "₹$1");
+    text = text.replace(/([0-9,]+(?:\.[0-9]{2})?)\s*USD\b/gi, "₹$1");
+    text = text.replace(/\bZAR\b/gi, "₹");
+    text = text.replace(/\bUSD\b/gi, "₹");
     let html = escapeHtml(text);
 
     // Bold **text**

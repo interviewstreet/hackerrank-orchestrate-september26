@@ -229,7 +229,7 @@ Submit `code.zip`, the completed `output.csv`, and the required `chat_transcript
 
 ### 6.6 Reasonable Entry Points
 
-There is no required language. If you use Python, `code/main.py` is a good entry point. If you use another language, document the run command clearly in your submitted README.
+There is no required language. If you use Python, `code/evaluation/main.py` is a good entry point. If you use another language, document the run command clearly in your submitted README.
 
 ---
 

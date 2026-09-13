@@ -27,7 +27,7 @@ git clone https://github.com/interviewstreet/hackerrank-orchestrate-september26.
 cd hackerrank-orchestrate-september26
 ```
 
-Build your solution in `code/main.py`, or use another language and document its entry point clearly.
+Build your solution in `code/evaluation/main.py`, or use another language and document its entry point clearly.
 
 Your solution must:
 
@@ -49,7 +49,7 @@ pip install -r code/requirements.txt
 Run the starter Python entry point with:
 
 ```bash
-python3 code/main.py
+python3 code/evaluation/main.py
 ```
 
 After running your solution, confirm that `output.csv` exists in the repository root and contains the required columns and one row for every request.

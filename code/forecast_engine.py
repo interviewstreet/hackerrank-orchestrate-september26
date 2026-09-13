@@ -200,6 +200,19 @@ class Forecast:
                 return point.on_date
         return None
 
+    def suffix_min_from(self, from_date: date) -> float:
+        """Worst baseline balance from `from_date` to the horizon end. Balance is
+        flat between checkpoints, so this is the suffix-min at the last checkpoint
+        on or before `from_date` (Module 5 uses this to validate a multi-payment
+        schedule, e.g. installments, without re-walking the whole trajectory)."""
+        idx = 0
+        for i, point in enumerate(self.trajectory):
+            if point.on_date <= from_date:
+                idx = i
+            else:
+                break
+        return self._suffix_min[idx]
+
 
 def _signed_home_amount(
     event: FinancialEvent, home_currency: str, fx: FxConverter

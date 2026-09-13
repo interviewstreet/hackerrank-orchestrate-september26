@@ -84,3 +84,26 @@ branch=claude/exciting-knuth-w6kejh
 repo_root=/home/user/hackerrank-orchestrate-september26
 worktree=main
 parent_agent=none
+
+## [2026-09-13T05:40:00+00:00] Implement Module 5 (plan_selector) per problem_statement.md "Choosing Between Safe Plans"
+
+User Prompt (verbatim, secrets redacted):
+Làm luôn Module 5 đi
+
+Agent Response Summary:
+Implemented code/plan_selector.py plus a suffix_min_from() helper added to Forecast in code/forecast_engine.py. select_plan() generates one candidate per eligible method (full_payment, partial_payment, one per matching installments payment_option validated against max_installment_months via dateutil.relativedelta per PLAN.md §9.3, and wait), keeps amount_safe_to_pay/earliest_date_for_full_payment as the raw Module 4 numbers regardless of method (problem_statement.md: "before optional spending changes"), and ranks safe on-time candidates by the spec's 6 tie-breakers (deadline > no spending changes > lowest total paid > earliest start > fewest payments > lowest payment_option_id). When no candidate completes the request by desired_completion_date, a minimal set (largest-freed-first, capped at 3, stop/reduce never on the same event) of permitted, non-protected spending changes is tried via apply_spending_changes() (steps the baseline trajectory up from each freed event's settlement date) to rescue one — the only path to a non-"none" spending_changes_needed. decision_explanation is a deterministic fill-in-template for now (Module 7/llm_explain, not yet built, will likely replace or refine this later).
+Verified against the full 250-row requests.csv: 0 invariant violations (amount_safe_to_pay always in [0, requested_amount], affordable_now always has earliest_date_for_full_payment == request_date, partial_payment plans always have exactly 2 payments summing to requested_amount, spending_changes_needed never exceeds 3 actions or repeats an event_id). Result distribution: 53 affordable_now, 46 affordable_with_plan, 34 affordable_later, 117 not_affordable.
+Calibrated affordability_status against all 25 sample_requests.csv rows: 13/23 comparable rows match exactly (all 5 not_affordable cases, all 3 wait/affordable_later cases, both straightforward installment matches). Remaining mismatches trace to the same Module-4-level divergence already logged: this engine is sometimes more conservative (salary history below the 3-occurrence recurrence threshold, e.g. request_01/02/03/04/08/11/17/22) and occasionally more optimistic (e.g. request_05/06/19/21, off by a small margin plausibly from a different reference methodology for near-threshold cases) than the illustrative samples — kept as-is per AGENTS.md's guidance that sample_requests.csv is style guidance, not ground truth, rather than tuning thresholds to chase an undocumented reference method.
+
+Actions:
+* Created code/plan_selector.py
+* Added Forecast.suffix_min_from() to code/forecast_engine.py
+* Added code/requirements.txt (python-dateutil, needed for calendar-month installment-span checks)
+* Ran ad-hoc verification against all 25 sample_requests.csv rows and a full 250-row requests.csv sweep (invariant checks)
+
+Context:
+tool=claude-code
+branch=claude/exciting-knuth-w6kejh
+repo_root=/home/user/hackerrank-orchestrate-september26
+worktree=main
+parent_agent=none

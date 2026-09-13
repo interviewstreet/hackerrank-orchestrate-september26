@@ -7,10 +7,10 @@ and Cost Analysis"). Pure aggregation and formatting: no LLM calls happen
 here, and nothing here feeds back into the deterministic decision logic.
 
 `write_usage_report()` always overwrites the file with a complete, standalone
-report reflecting whatever the most recent `python3 code/main.py` run
-actually did — including a "no calls were made" report when no API key was
-set, so the file never goes stale relative to the output.csv it was written
-next to.
+report reflecting whatever the most recent `python3 code/evaluation/main.py`
+run actually did — including a "no calls were made" report when no API key
+was set, so the file never goes stale relative to the output.csv it was
+written next to.
 """
 
 from __future__ import annotations
@@ -40,23 +40,62 @@ and dataclasses throughout.
 
 ```bash
 cd hackerrank-orchestrate-september26
+```
 
-# Optional but recommended: create a virtual environment with Python 3.8+
-python3.10 -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
+Create the virtual environment once:
 
+```bash
+python -m venv .venv
+```
+
+Activate it — the command depends on which terminal you're using:
+
+| Terminal | Activate command |
+|---|---|
+| Git Bash / WSL / macOS / Linux (bash, zsh) | `source .venv/Scripts/activate` (Windows Git Bash) or `source .venv/bin/activate` (macOS/Linux/WSL) |
+| PowerShell | `.\\.venv\\Scripts\\Activate.ps1` |
+| cmd.exe | `.venv\\Scripts\\activate.bat` |
+
+If PowerShell blocks `Activate.ps1` with an execution-policy error, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` first, then retry. The prompt is prefixed with `(.venv)` once it's active.
+
+To skip activation entirely, call the venv's Python directly: `.venv/Scripts/python.exe code/evaluation/main.py` (Windows) or `.venv/bin/python code/evaluation/main.py` (macOS/Linux).
+
+```bash
 # 1. Install dependencies
 pip install -r code/requirements.txt
+```
 
-# 2. Set your API key (get one at https://console.anthropic.com/)
-export ANTHROPIC_API_KEY=sk-ant-...
-#   (LLM_API_KEY also works if you prefer that name)
+### Enabling LLM calls (optional)
 
-# Optional: override the default model (defaults to claude-sonnet-5)
-# export LLM_MODEL=claude-sonnet-5
+The solution reads the key from a plain OS environment variable named
+`ANTHROPIC_API_KEY` (`LLM_API_KEY` also works) — it does **not** read a
+`.env` file by itself. Set it either way:
 
-# 3. Run the full pipeline
-python3 code/main.py
+- **Directly in your shell**, for the current session only:
+  ```bash
+  export ANTHROPIC_API_KEY=sk-ant-...    # bash/zsh/Git Bash
+  $env:ANTHROPIC_API_KEY = "sk-ant-..."  # PowerShell
+  ```
+- **In a `.env` file** at the repo root (gitignored, never commit it), then
+  load it into the shell before running — this repo's code doesn't auto-load
+  `.env`, so the load step below is required:
+  ```bash
+  echo 'ANTHROPIC_API_KEY=sk-ant-...' > .env
+  set -a; source .env; set +a   # bash/zsh/Git Bash, run before each session
+  ```
+
+Get a key at https://console.anthropic.com/ — it must be scoped to a
+workspace with billing/credit enabled, or calls fail with a 400 error.
+Optional: override the default model with `export LLM_MODEL=claude-sonnet-5`.
+
+**With a key set**, Modules 6 and 7 call Claude automatically — nothing else
+to configure. **Without a key**, the pipeline still runs completely
+end-to-end; it just skips those two calls (see the note above this section
+for exactly what that does and doesn't affect).
+
+```bash
+# Run the full pipeline
+python3 code/evaluation/main.py
 ```
 
 What happens:
@@ -72,12 +111,7 @@ What happens:
   number or date not present in the decision data is rejected and the
   deterministic template is used instead — this never changes
   `amount_safe_to_pay`, dates, or the recommended method.
-- Writes `output.csv` at the repository root and regenerates this report.
-
-Without an API key, `python3 code/main.py` still runs end-to-end
-(deterministic-only: `facts=[]`, template-based explanations) and this report
-records that no LLM calls were made — useful for sanity-checking the
-deterministic engine without spending any tokens."""
+- Writes `output.csv` at the repository root and regenerates this report."""
 
 PRICING_NOTE_HEADER = "## Pricing assumptions\n\nUSD per 1M tokens, from https://www.anthropic.com/pricing — verify against the live page since rates can change:\n"
 
@@ -138,9 +172,18 @@ def build_usage_report(
 
     if total_calls == 0:
         lines.append(
-            "**No LLM calls were made in this run** (no `ANTHROPIC_API_KEY`/`LLM_API_KEY` was "
-            "set, or no users had messages/images). `facts=[]` throughout and every "
-            "`decision_explanation` used plan_selector's deterministic template."
+            "**This run made 0 LLM calls — that's this run's configuration, not a limit of "
+            "the solution.** Modules 6 (`llm_extract`) and 7 (`llm_explain`) call Claude "
+            "automatically whenever `ANTHROPIC_API_KEY` (or `LLM_API_KEY`) is set in the "
+            "environment; this run either had no key configured, or no request's user had any "
+            "`messages.csv`/`images.csv` rows to extract facts from. See \"Enabling LLM calls\" "
+            "below for exactly where to set the key. Every deterministic module still ran in "
+            "full either way — loaders, event_normalizer, forecast_engine, plan_selector, "
+            "output_writer — so `amount_safe_to_pay`, `affordability_status`, and the payment "
+            "plan are unaffected by whether a key is set. Only two things fall back: "
+            "`facts=[]` (Module 6 has nothing from messages/images to add to the timeline) and "
+            "`decision_explanation` uses plan_selector's deterministic template sentence "
+            "instead of Claude's phrasing (Module 7)."
         )
         lines.append("")
         lines.append(RUN_INSTRUCTIONS)

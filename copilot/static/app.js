@@ -65,8 +65,7 @@ async function loadUsers() {
         data.users.forEach(u => {
             const opt = document.createElement("option");
             opt.value = u.user_id;
-            const curSym = u.home_currency === "INR" ? "₹" : `${u.home_currency} `;
-            opt.textContent = `${u.display_name || u.user_id} (${curSym}${formatCur(u.balance)} | Cushion: ${curSym}${formatCur(u.min_balance)})`;
+            opt.textContent = `${u.display_name || u.user_id} (₹${formatCur(u.balance)} | Cushion: ₹${formatCur(u.min_balance)})`;
             if (u.user_id === data.active_user_id) {
                 opt.selected = true;
                 activeUserId = u.user_id;
@@ -114,8 +113,7 @@ async function loadSummary(userId) {
 // Render financial KPI summary
 function renderSummary(summary) {
     currentSummary = summary;
-    const cur = summary.home_currency || "INR";
-    const curSym = cur === "INR" ? "₹" : `${cur} `;
+    const curSym = "₹";
 
     document.getElementById("kpiBalance").textContent = `${curSym}${formatCur(summary.current_balance)}`;
     document.getElementById("kpiCushion").textContent = `${curSym}${formatCur(summary.emergency_cushion)}`;
@@ -221,7 +219,7 @@ function renderEvaluationResult(res, isInitial) {
     const changesList = document.getElementById("evalChangesList");
     const changesContainer = document.getElementById("evalChangesContainer");
 
-    const curSym = res.currency === "INR" ? "₹" : `${res.currency} `;
+    const curSym = "₹";
 
     // Clear badge classes
     badge.className = "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5";

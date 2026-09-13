@@ -152,7 +152,7 @@ class CopilotEngine:
 
         return {
             "user_id": target_id,
-            "home_currency": profile.home_currency,
+            "home_currency": "INR",
             "current_balance": round(profile.current_available_balance, 2),
             "emergency_cushion": round(profile.minimum_balance_to_keep, 2),
             "safe_headroom_today": round(amount_safe, 2),
@@ -434,12 +434,12 @@ class CopilotEngine:
                     formatted_changes.append(f"Pause / cancel {desc}")
                 else:
                     new_amt = ch.new_amount if ch.new_amount is not None else 0.0
-                    formatted_changes.append(f"Reduce {desc} to {new_amt:.2f} {profile.home_currency}")
+                    formatted_changes.append(f"Reduce {desc} to ₹{new_amt:,.2f}")
 
         return {
             "item_name": item_name,
             "requested_amount": amount,
-            "currency": profile.home_currency,
+            "currency": "INR",
             "affordability_status": decision.affordability_status,
             "recommended_payment_method": decision.recommended_payment_method,
             "amount_safe_to_pay_today": round(amount_safe, 2),

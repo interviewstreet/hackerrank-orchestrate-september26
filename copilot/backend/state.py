@@ -206,44 +206,50 @@ class AppState:
             users.append({
                 "user_id": u_id,
                 "display_name": persona_names.get(u_id, u_id),
-                "home_currency": prof.home_currency,
+                "home_currency": "INR",
                 "balance": prof.current_available_balance,
                 "min_balance": prof.minimum_balance_to_keep,
                 "event_count": len(events),
                 "is_custom": True,
             })
 
-        # Dataset users that have home_currency == "INR"
+        # All repository profiles converted to INR
         for u_id, prof in sorted(self.repo.profiles.items()):
-            if prof.home_currency == "INR":
-                events = self.repo.events_by_user.get(u_id, [])
-                users.append({
-                    "user_id": u_id,
-                    "display_name": f"{u_id} (Dataset India)",
-                    "home_currency": "INR",
-                    "balance": prof.current_available_balance,
-                    "min_balance": prof.minimum_balance_to_keep,
-                    "event_count": len(events),
-                    "is_custom": False,
-                })
+            events = self.repo.events_by_user.get(u_id, [])
+            users.append({
+                "user_id": u_id,
+                "display_name": f"{u_id} (₹ INR)",
+                "home_currency": "INR",
+                "balance": prof.current_available_balance,
+                "min_balance": prof.minimum_balance_to_keep,
+                "event_count": len(events),
+                "is_custom": False,
+            })
 
         return users
 
     def get_profile(self, user_id: str | None = None) -> UserFinancialProfile | None:
         target_id = user_id or self.active_user_id
         if target_id in self.custom_profiles:
-            return self.custom_profiles[target_id]
+            prof = self.custom_profiles[target_id]
+            prof.home_currency = "INR"
+            return prof
         if target_id in self.repo.profiles:
-            return self.repo.profiles[target_id]
+            prof = copy.deepcopy(self.repo.profiles[target_id])
+            prof.home_currency = "INR"
+            return prof
         return None
 
     def get_events(self, user_id: str | None = None) -> list[FinancialEvent]:
         target_id = user_id or self.active_user_id
+        events = []
         if target_id in self.custom_events:
-            return self.custom_events[target_id]
-        if target_id in self.repo.events_by_user:
-            return self.repo.events_by_user[target_id]
-        return []
+            events = self.custom_events[target_id]
+        elif target_id in self.repo.events_by_user:
+            events = copy.deepcopy(self.repo.events_by_user[target_id])
+        for e in events:
+            e.currency = "INR"
+        return events
 
     def set_active_user(self, user_id: str):
         if user_id in self.repo.profiles or user_id in self.custom_profiles:

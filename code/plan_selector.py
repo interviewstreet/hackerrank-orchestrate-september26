@@ -257,6 +257,51 @@ def _wait_candidate(request: Request, forecast: Forecast) -> Optional[Candidate]
     )
 
 
+def _spending_change_for(
+    *,
+    event_id: str,
+    category: str,
+    flexibility: str,
+    amount: float,
+    currency: str,
+    minimum_allowed_amount: Optional[float],
+    settlement_date: date,
+    profile: FinancialProfile,
+    fx: FxConverter,
+) -> Optional[SpendingChange]:
+    if category in profile.expense_categories_to_protect:
+        return None
+    can_stop = (
+        flexibility in ("stoppable", "reducible_or_stoppable")
+        and category in profile.expense_categories_user_is_willing_to_stop
+    )
+    can_reduce = (
+        flexibility in ("reducible", "reducible_or_stoppable")
+        and category in profile.expense_categories_user_is_willing_to_reduce
+        and minimum_allowed_amount is not None
+        and minimum_allowed_amount < amount
+    )
+    if can_stop:
+        freed = fx.convert(amount, currency, profile.home_currency, settlement_date)
+        if freed is None:
+            return None
+        return SpendingChange(
+            kind="stop", event_id=event_id, category=category,
+            settlement_date=settlement_date, freed_home_amount=freed,
+        )
+    if can_reduce:
+        saved = amount - minimum_allowed_amount
+        freed = fx.convert(saved, currency, profile.home_currency, settlement_date)
+        if freed is None:
+            return None
+        return SpendingChange(
+            kind="reduce", event_id=event_id, category=category,
+            settlement_date=settlement_date, freed_home_amount=freed,
+            new_amount=minimum_allowed_amount,
+        )
+    return None
+
+
 def _gather_spending_change_options(
     forecast: Forecast, profile: FinancialProfile, request: Request, fx: FxConverter
 ) -> list[SpendingChange]:
@@ -266,44 +311,35 @@ def _gather_spending_change_options(
             request.request_date < event.settlement_date <= forecast.horizon_end
         ):
             continue
-        if event.category in profile.expense_categories_to_protect:
+        change = _spending_change_for(
+            event_id=event.event_id, category=event.category, flexibility=event.flexibility,
+            amount=event.amount, currency=event.currency,
+            minimum_allowed_amount=event.minimum_allowed_amount,
+            settlement_date=event.settlement_date, profile=profile, fx=fx,
+        )
+        if change is not None:
+            options.append(change)
+
+    # A future occurrence of a recurring debit series has no event_id of its
+    # own (nothing has actually happened yet) — cite the series' last real
+    # occurrence as the handle for "stop/reduce this recurring expense going
+    # forward" instead. Matches how dataset/sample_requests.csv's own
+    # spending_changes_needed answers cite an already-settled event_id.
+    already_cited = {c.event_id for c in options}
+    for series in forecast.recurring_series:
+        if series.direction != "debit" or series.next_occurrence_date is None:
             continue
-        can_stop = (
-            event.flexibility in ("stoppable", "reducible_or_stoppable")
-            and event.category in profile.expense_categories_user_is_willing_to_stop
+        if series.last_occurrence_event_id in already_cited:
+            continue
+        change = _spending_change_for(
+            event_id=series.last_occurrence_event_id, category=series.category,
+            flexibility=series.flexibility, amount=series.per_occurrence_amount,
+            currency=series.currency, minimum_allowed_amount=series.minimum_allowed_amount,
+            settlement_date=series.next_occurrence_date, profile=profile, fx=fx,
         )
-        can_reduce = (
-            event.flexibility in ("reducible", "reducible_or_stoppable")
-            and event.category in profile.expense_categories_user_is_willing_to_reduce
-            and event.minimum_allowed_amount is not None
-            and event.minimum_allowed_amount < event.amount
-        )
-        if can_stop:
-            freed = fx.convert(event.amount, event.currency, profile.home_currency, event.settlement_date)
-            if freed is not None:
-                options.append(
-                    SpendingChange(
-                        kind="stop",
-                        event_id=event.event_id,
-                        category=event.category,
-                        settlement_date=event.settlement_date,
-                        freed_home_amount=freed,
-                    )
-                )
-        elif can_reduce:
-            saved = event.amount - event.minimum_allowed_amount
-            freed = fx.convert(saved, event.currency, profile.home_currency, event.settlement_date)
-            if freed is not None:
-                options.append(
-                    SpendingChange(
-                        kind="reduce",
-                        event_id=event.event_id,
-                        category=event.category,
-                        settlement_date=event.settlement_date,
-                        freed_home_amount=freed,
-                        new_amount=event.minimum_allowed_amount,
-                    )
-                )
+        if change is not None:
+            options.append(change)
+
     options.sort(key=lambda c: c.freed_home_amount, reverse=True)
     return options
 

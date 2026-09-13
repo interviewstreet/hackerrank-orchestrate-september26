@@ -1,10 +1,15 @@
 """Module 9: output_writer.
 
-Runs Modules 1-5 for every row in `dataset/requests.csv` and writes the
-8-column `output.csv` the challenge requires (AGENTS.md §6.2). Modules 6/7
-(LLM message/image extraction and explanation) are not wired in yet, so
-`facts=[]` and `decision_explanation` comes from plan_selector's deterministic
-template — see PLAN.md's module table for the intended later integration.
+Runs Modules 1, 6, 3, 4, 5 for every row in `dataset/requests.csv` and writes
+the 8-column `output.csv` the challenge requires (AGENTS.md §6.2). Module 7
+(LLM decision_explanation) is not wired in yet, so decision_explanation comes
+from plan_selector's deterministic template.
+
+Module 6 (llm_extract) runs once per user, batching every message/image that
+user has (PLAN.md's "cắm bước 6 vào làm pre-processing trước bước 3"). It is
+always safe to call: with no `ANTHROPIC_API_KEY`/`LLM_API_KEY` set, or a user
+with no messages/images, it returns `([], None)` and the pipeline continues
+exactly as it did LLM-free.
 """
 
 from __future__ import annotations
@@ -16,6 +21,7 @@ from pathlib import Path
 from event_normalizer import normalize_events
 from forecast_engine import build_forecast
 from fx import FxConverter
+from llm_extract import UsageRecord, extract_facts_for_user
 from loaders import load_dataset
 from plan_selector import PlanResult, select_plan
 
@@ -69,12 +75,13 @@ def build_output_row(request_id: str, result: PlanResult) -> dict[str, str]:
     }
 
 
-def run_pipeline(dataset_dir: Path) -> list[dict[str, str]]:
-    """Module 1 (load) -> 3 (normalize) -> 4 (forecast) -> 5 (select), per request."""
+def run_pipeline(dataset_dir: Path) -> tuple[list[dict[str, str]], list[UsageRecord]]:
+    """Module 1 (load) -> 6 (extract) -> 3 (normalize) -> 4 (forecast) -> 5 (select)."""
     ds = load_dataset(dataset_dir)
     fx = FxConverter(ds.rates_by_pair)
 
     rows: list[dict[str, str]] = []
+    usage_records: list[UsageRecord] = []
     for request_id, request in ds.requests_by_id.items():
         profile = ds.profiles_by_user.get(request.user_id)
         if profile is None:
@@ -93,12 +100,21 @@ def run_pipeline(dataset_dir: Path) -> list[dict[str, str]]:
             continue
 
         user_events = ds.events_by_user.get(request.user_id, [])
-        clean_timeline = normalize_events(user_events, facts=[])
+        user_messages = ds.messages_by_user.get(request.user_id, [])
+        user_images = ds.images_by_request.get(request_id, [])
+
+        facts, usage = extract_facts_for_user(
+            request.user_id, profile.home_currency, user_events, user_messages, user_images, dataset_dir
+        )
+        if usage is not None:
+            usage_records.append(usage)
+
+        clean_timeline = normalize_events(user_events, facts=facts)
         forecast = build_forecast(request.user_id, request.request_date, clean_timeline, profile, fx)
         payment_options = ds.payment_options_by_request.get(request_id, [])
         result = select_plan(request, forecast, profile, payment_options, fx)
         rows.append(build_output_row(request_id, result))
-    return rows
+    return rows, usage_records
 
 
 def write_output_csv(rows: list[dict[str, str]], output_path: Path) -> None:

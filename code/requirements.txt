@@ -1,1 +1,2 @@
 python-dateutil>=2.9
+anthropic>=0.40

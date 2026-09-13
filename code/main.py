@@ -31,11 +31,24 @@ def main() -> int:
     logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(name)s: %(message)s")
 
     start = time.time()
-    rows = run_pipeline(DATASET_DIR)
+    rows, usage_records = run_pipeline(DATASET_DIR)
     write_output_csv(rows, OUTPUT_PATH)
     elapsed = time.time() - start
 
     print(f"Wrote {len(rows)} rows to {OUTPUT_PATH} in {elapsed:.2f}s")
+    if usage_records:
+        total_in = sum(u.input_tokens for u in usage_records)
+        total_out = sum(u.output_tokens for u in usage_records)
+        print(
+            f"LLM extraction: {len(usage_records)} calls, "
+            f"{total_in} input tokens, {total_out} output tokens "
+            f"(see Module 8/evaluation/usage_report.md for full cost accounting)"
+        )
+    else:
+        print(
+            "LLM extraction: no calls made (no ANTHROPIC_API_KEY/LLM_API_KEY set, "
+            "or no users had messages/images) — facts=[] throughout"
+        )
     return 0
 
 

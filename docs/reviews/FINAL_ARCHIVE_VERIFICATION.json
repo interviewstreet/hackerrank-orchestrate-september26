@@ -1,0 +1,11 @@
+{
+  "serialized_contract_errors": [],
+  "rows": 250,
+  "archive_files": 49,
+  "archive_sha256": "eb63d7bd80b41ee277e463670987ab462c49edb8a52d19d72645f54096ce8531",
+  "output_sha256": "e445b252d90e158bf51b21f33f6003b5d93014b45aba694cc0a3c35d513cf1fa",
+  "clean_extraction_audit_and_tests": [
+    "\naudit: 0 finding(s), 0 error(s)\n",
+    "assisted-mode trace: C:\\Users\\gokul\\AppData\\Local\\Temp\\tmppj4r2zp6\\code\\evaluation\\runs\\20260913T093823Z\\trace.jsonl\n\nwrote 2 rows to C:\\Users\\gokul\\AppData\\Local\\Temp\\tmp1hoe94aq\\output.csv\nmethod distribution: full_payment=1, not_recommended=1\ndegraded rows      : 1\ngate failures      : 0\nassisted-mode trace: C:\\Users\\gokul\\AppData\\Local\\Temp\\tmppj4r2zp6\\code\\evaluation\\runs\\20260913T093823Z\\trace.jsonl\n\nwrote 2 rows to C:\\Users\\gokul\\AppData\\Local\\Temp\\tmpiwy206fs\\output.csv\nmethod distribution: not_recommended=2\ndegraded rows      : 2\ngate failures      : 0\n\nwrote 2 rows to C:\\Users\\gokul\\AppData\\Local\\Temp\\tmpec4nlj56\\output.csv\nmethod distribution: full_payment=2\ndegraded rows      : 0\ngate failures      : 0\n...................................................................................................................................................................................................................................................................................\nrefusing to publish: 1 row(s) hit an unhandled error; C:\\Users\\gokul\\AppData\\Local\\Temp\\tmpo4bx1usa\\output.csv left unchanged\n  UNHANDLED: request_02: RuntimeError: simulated programming error\n....................\n----------------------------------------------------------------------\nRan 295 tests in 16.367s\n\nOK\n"
+  ]
+}

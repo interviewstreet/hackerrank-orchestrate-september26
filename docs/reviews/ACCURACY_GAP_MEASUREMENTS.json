@@ -1,0 +1,443 @@
+{
+  "evaluation_requests": 250,
+  "messages_present_but_extraction_skipped": [
+    "request_26",
+    "request_27",
+    "request_28",
+    "request_29",
+    "request_32",
+    "request_34",
+    "request_36",
+    "request_37",
+    "request_38",
+    "request_40",
+    "request_42",
+    "request_43",
+    "request_44",
+    "request_45",
+    "request_47",
+    "request_49",
+    "request_50",
+    "request_52",
+    "request_53",
+    "request_54",
+    "request_57",
+    "request_58",
+    "request_59",
+    "request_60",
+    "request_61",
+    "request_62",
+    "request_65",
+    "request_66",
+    "request_68",
+    "request_69",
+    "request_70",
+    "request_71",
+    "request_72",
+    "request_74",
+    "request_75",
+    "request_76",
+    "request_77",
+    "request_80",
+    "request_81",
+    "request_82",
+    "request_83",
+    "request_85",
+    "request_87",
+    "request_88",
+    "request_90",
+    "request_91",
+    "request_92",
+    "request_93",
+    "request_94",
+    "request_95",
+    "request_98",
+    "request_102",
+    "request_103",
+    "request_104",
+    "request_106",
+    "request_107",
+    "request_108",
+    "request_110",
+    "request_111",
+    "request_112",
+    "request_114",
+    "request_115",
+    "request_117",
+    "request_118",
+    "request_119",
+    "request_120",
+    "request_122",
+    "request_123",
+    "request_125",
+    "request_126",
+    "request_127",
+    "request_128",
+    "request_129",
+    "request_130",
+    "request_131",
+    "request_132",
+    "request_133",
+    "request_135",
+    "request_137",
+    "request_138",
+    "request_140",
+    "request_141",
+    "request_142",
+    "request_143",
+    "request_144",
+    "request_145",
+    "request_147",
+    "request_148",
+    "request_150",
+    "request_151",
+    "request_152",
+    "request_153",
+    "request_154",
+    "request_155",
+    "request_156",
+    "request_157",
+    "request_159",
+    "request_160",
+    "request_161",
+    "request_162",
+    "request_163",
+    "request_164",
+    "request_165",
+    "request_166",
+    "request_167",
+    "request_168",
+    "request_169",
+    "request_170",
+    "request_171",
+    "request_172",
+    "request_173",
+    "request_175",
+    "request_176",
+    "request_177",
+    "request_178",
+    "request_179",
+    "request_180",
+    "request_182",
+    "request_183",
+    "request_184",
+    "request_185",
+    "request_186",
+    "request_187",
+    "request_188",
+    "request_189",
+    "request_191",
+    "request_193",
+    "request_194",
+    "request_195",
+    "request_197",
+    "request_198",
+    "request_199",
+    "request_200",
+    "request_201",
+    "request_202",
+    "request_204",
+    "request_208",
+    "request_210",
+    "request_212",
+    "request_213",
+    "request_214",
+    "request_215",
+    "request_216",
+    "request_219",
+    "request_220",
+    "request_221",
+    "request_222",
+    "request_224",
+    "request_225",
+    "request_226",
+    "request_227",
+    "request_228",
+    "request_229",
+    "request_230",
+    "request_232",
+    "request_233",
+    "request_234",
+    "request_235",
+    "request_236",
+    "request_237",
+    "request_238",
+    "request_240",
+    "request_241",
+    "request_242",
+    "request_245",
+    "request_246",
+    "request_247",
+    "request_248",
+    "request_249",
+    "request_250",
+    "request_252",
+    "request_253",
+    "request_254",
+    "request_256",
+    "request_259",
+    "request_261",
+    "request_262",
+    "request_263",
+    "request_264",
+    "request_265",
+    "request_266",
+    "request_267",
+    "request_268",
+    "request_269",
+    "request_271",
+    "request_272",
+    "request_273",
+    "request_274",
+    "request_275"
+  ],
+  "excluded_images": [],
+  "unlinked_messages": 162,
+  "credit_categories_projected": {
+    "salary": 197
+  },
+  "exact_confirmed_projected_debit_collisions": [],
+  "dev_diagnostics": [
+    {
+      "request": "request_01",
+      "messages": [],
+      "unknown_events": [],
+      "income_series": [
+        {
+          "category": "salary",
+          "period_days": 29,
+          "amount": "23320",
+          "last_seen": "2024-03-15"
+        }
+      ],
+      "daily_spend": {
+        "dining": "79.56",
+        "groceries": "109.05",
+        "shopping": "11.66",
+        "transport": "64.93",
+        "utilities": "50.53"
+      }
+    },
+    {
+      "request": "request_02",
+      "messages": [
+        {
+          "id": "message_01",
+          "event_link": null,
+          "text": "Rincian penggajian Anda di Cobalt Systems telah berubah. Gaji bulanan Anda naik menjadi IDR 42750000. Perubahan ini berlaku mulai 2025-08-15. Jumlah yang diperbarui akan terlihat pada slip gaji berikutnya. Ref payroll EMP-0001."
+        }
+      ],
+      "unknown_events": [],
+      "income_series": [
+        {
+          "category": "salary",
+          "period_days": 30,
+          "amount": "33345000",
+          "last_seen": "2025-07-15"
+        }
+      ],
+      "daily_spend": {
+        "dining": "54584.09",
+        "entertainment": "43347.26",
+        "groceries": "198242.77",
+        "healthcare": "50834.06",
+        "transport": "93929.28",
+        "utilities": "66962.45"
+      }
+    },
+    {
+      "request": "request_03",
+      "messages": [
+        {
+          "id": "message_02",
+          "event_link": null,
+          "text": "Tim payroll BrightPath Media telah mengirim pembaruan. Gaji rutin untuk penggajian berikutnya sudah dikonfirmasi. Slip gaji berikutnya akan menampilkan gaji rutin dan penyesuaian satu kali secara terpisah. Ref payroll EMP-0002."
+        }
+      ],
+      "unknown_events": [
+        "event_253"
+      ],
+      "income_series": [
+        {
+          "category": "salary",
+          "period_days": 30,
+          "amount": "1964250",
+          "last_seen": "2019-08-20"
+        }
+      ],
+      "daily_spend": {
+        "dining": "7867.57",
+        "groceries": "18581.15",
+        "shopping": "5766.63",
+        "transport": "4581.25",
+        "utilities": "9388.41"
+      }
+    },
+    {
+      "request": "request_10",
+      "messages": [
+        {
+          "id": "message_07",
+          "event_link": null,
+          "text": "Here\u2019s the latest service update from QuickCrew. The next QuickCrew payout is still pending. The weekly earnings shown in the QuickCrew app can change until the payout is closed. The balance isn\u2019t withdrawable until the payout shows as completed. Case ref SER-0007."
+        }
+      ],
+      "unknown_events": [],
+      "income_series": [
+        {
+          "category": "salary",
+          "period_days": 7,
+          "amount": "52239.8",
+          "last_seen": "2024-12-04"
+        }
+      ],
+      "daily_spend": {
+        "dining": "680.37",
+        "entertainment": "153.80",
+        "groceries": "1592.85",
+        "transport": "821.26",
+        "utilities": "406.31"
+      }
+    },
+    {
+      "request": "request_13",
+      "messages": [],
+      "unknown_events": [],
+      "income_series": [
+        {
+          "category": "salary",
+          "period_days": 25,
+          "amount": "1343.54",
+          "last_seen": "2024-03-15"
+        }
+      ],
+      "daily_spend": {
+        "dining": "4.57",
+        "entertainment": "1.09",
+        "groceries": "13.96",
+        "transport": "6.85",
+        "utilities": "4.63"
+      }
+    },
+    {
+      "request": "request_14",
+      "messages": [
+        {
+          "id": "message_10",
+          "event_link": null,
+          "text": "Here\u2019s the latest payroll information from HarborWorks. Regular salary of EUR 2717 resumes on 2025-08-15. A new recurring childcare payment begins in the same month. The updated pay and deductions will appear from the next cycle. Payroll ref EMP-0010."
+        }
+      ],
+      "unknown_events": [],
+      "income_series": [],
+      "daily_spend": {
+        "groceries": "15.82",
+        "healthcare": "3.06",
+        "shopping": "4.25",
+        "transport": "3.94",
+        "utilities": "5.00"
+      }
+    },
+    {
+      "request": "request_15",
+      "messages": [
+        {
+          "id": "message_11",
+          "event_link": null,
+          "text": "A quick update from the payroll team at Riverline Retail. Your first salary will be EUR 1661. The confirmed credit date is 2026-01-15. The money will appear after the bank posts the credit. Payroll ref EMP-0011."
+        }
+      ],
+      "unknown_events": [],
+      "income_series": [
+        {
+          "category": "salary",
+          "period_days": 30,
+          "amount": "1661",
+          "last_seen": "2025-12-15"
+        }
+      ],
+      "daily_spend": {
+        "dining": "2.60",
+        "groceries": "8.60",
+        "transport": "4.49",
+        "utilities": "2.90"
+      }
+    },
+    {
+      "request": "request_16",
+      "messages": [
+        {
+          "id": "message_12",
+          "event_link": null,
+          "text": "StayLedger wanted to let you know about a change on your account. The renewed lease increases monthly rent by 12%. The new amount will be used for the next rent payment. Case ref SER-0012."
+        }
+      ],
+      "unknown_events": [
+        "event_1442"
+      ],
+      "income_series": [
+        {
+          "category": "salary",
+          "period_days": 30,
+          "amount": "173000",
+          "last_seen": "2023-07-15"
+        }
+      ],
+      "daily_spend": {
+        "dining": "394.89",
+        "groceries": "955.59",
+        "shopping": "310.71",
+        "transport": "640.46",
+        "utilities": "345.96"
+      }
+    },
+    {
+      "request": "request_17",
+      "messages": [],
+      "unknown_events": [
+        "event_1545"
+      ],
+      "income_series": [
+        {
+          "category": "salary",
+          "period_days": 30,
+          "amount": "206000",
+          "last_seen": "2026-03-15"
+        }
+      ],
+      "daily_spend": {
+        "dining": "456.61",
+        "groceries": "1318.19",
+        "transport": "801.48",
+        "utilities": "318.44",
+        "work_expense": "103.00"
+      }
+    },
+    {
+      "request": "request_23",
+      "messages": [
+        {
+          "id": "message_16",
+          "event_link": null,
+          "text": "Here\u2019s the latest account information from DrawPay. Your prize claim has been verified and is still in payment processing. The payment has not been credited to your account yet. We\u2019ll confirm again if and when the money is actually credited. Account ref FIN-0016."
+        }
+      ],
+      "unknown_events": [],
+      "income_series": [
+        {
+          "category": "salary",
+          "period_days": 31,
+          "amount": "45760",
+          "last_seen": "2025-04-15"
+        }
+      ],
+      "daily_spend": {
+        "groceries": "245.25",
+        "healthcare": "45.56",
+        "shopping": "44.16",
+        "transport": "68.50",
+        "utilities": "90.78"
+      }
+    }
+  ]
+}

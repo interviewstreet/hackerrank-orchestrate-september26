@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "salt": "buy-or-wait-2026-09",
+  "algorithm": "sha256(salt:request_id) ascending",
+  "sample_requests_sha256": "1195bbe962e62a3eafa1118efc5fdef3f5fac0bf70009e6e59dab75b9228c5dc",
+  "sample_requests_sha256_raw": "117bf2ab9e5f0054bae48afe8506f5daa35929559cb771f2c27dd4fe18da62f6",
+  "dev": [
+    "request_01",
+    "request_02",
+    "request_03",
+    "request_10",
+    "request_13",
+    "request_14",
+    "request_15",
+    "request_16",
+    "request_17",
+    "request_23"
+  ],
+  "report": [
+    "request_04",
+    "request_05",
+    "request_06",
+    "request_07",
+    "request_08",
+    "request_09",
+    "request_11",
+    "request_12",
+    "request_18",
+    "request_19",
+    "request_20",
+    "request_21",
+    "request_22",
+    "request_24",
+    "request_25"
+  ]
+}

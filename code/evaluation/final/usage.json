@@ -1,0 +1,90 @@
+{
+  "full_run_call_budget": 60,
+  "full_run_token_budget": 300000,
+  "total": {
+    "calls": 11,
+    "input_tokens": 39098,
+    "output_tokens": 1129,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "per_request": {
+    "request_33": {
+      "calls": 1,
+      "input_tokens": 3717,
+      "output_tokens": 34,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_35": {
+      "calls": 1,
+      "input_tokens": 2745,
+      "output_tokens": 34,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_48": {
+      "calls": 1,
+      "input_tokens": 4046,
+      "output_tokens": 155,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_55": {
+      "calls": 1,
+      "input_tokens": 3404,
+      "output_tokens": 142,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_64": {
+      "calls": 1,
+      "input_tokens": 3785,
+      "output_tokens": 34,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_73": {
+      "calls": 1,
+      "input_tokens": 3796,
+      "output_tokens": 34,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_78": {
+      "calls": 1,
+      "input_tokens": 2749,
+      "output_tokens": 221,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_84": {
+      "calls": 1,
+      "input_tokens": 3681,
+      "output_tokens": 153,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_101": {
+      "calls": 1,
+      "input_tokens": 2539,
+      "output_tokens": 34,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_105": {
+      "calls": 1,
+      "input_tokens": 4492,
+      "output_tokens": 137,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_113": {
+      "calls": 1,
+      "input_tokens": 4144,
+      "output_tokens": 151,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    }
+  }
+}

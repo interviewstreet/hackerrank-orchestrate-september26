@@ -1,0 +1,54 @@
+Public sample subset; all 25 examples were read during development, so reported numbers carry disclosed exposure and are not a hidden-test estimate.
+Frozen reporting subset; max 4 provider attempts, 20,000 returned tokens; SDK retries disabled.
+
+------------------ ASSISTED ------------------
+affordability_status      : 6/15  macro-F1 0.286
+recommended_payment_method: 8/15  macro-F1 0.376
+payment_plan (exact)      : 6/15
+earliest_date (exact)     : 3/15  (mean |days| 15.2 over 8; both-empty 3; emptiness disagreement 4)
+degraded rows             : 1/15  (counted as wrong, never dropped)
+
+amount_safe_to_pay by currency (never pooled):
+  EUR  n=5   exact=0/5 MAE=139.68  normalized MAE=0.505
+  IDR  n=3   exact=0/3 MAE=1968815.47  normalized MAE=0.424
+  INR  n=4   exact=0/4 MAE=5221.24  normalized MAE=0.414
+  USD  n=1   exact=0/1 MAE=31.05  normalized MAE=0.020
+  ZAR  n=2   exact=0/2 MAE=9736.11  normalized MAE=10.044
+
+status confusion (gold->pred): {('affordable_later', 'affordable_now'): 1, ('not_affordable', 'affordable_now'): 1, ('affordable_with_plan', 'affordable_now'): 3, ('affordable_later', 'not_affordable'): 2, ('affordable_now', 'not_affordable'): 1, ('affordable_with_plan', 'not_affordable'): 1}
+method confusion (gold->pred): {('wait', 'full_payment'): 1, ('not_recommended', 'full_payment'): 1, ('wait', 'not_recommended'): 2, ('full_payment', 'not_recommended'): 1, ('installments', 'not_recommended'): 1, ('partial_payment', 'installments'): 1}
+
+---------------- ASSISTED METHOD MISMATCHES ----------------
+  request_04   pred=full_payment     gold=wait             safe=12693000 gold_safe=8401800
+  request_05   pred=full_payment     gold=not_recommended  safe=15488 gold_safe=737
+  request_08   pred=not_recommended  gold=wait             safe=0 gold_safe=284.57
+  request_09   pred=not_recommended  gold=full_payment     safe=0 gold_safe=166.61
+  request_12   pred=not_recommended  gold=installments     safe=60442.77 gold_safe=65164
+  request_18   pred=not_recommended  gold=wait             safe=677.9 gold_safe=462
+  request_19   pred=installments     gold=partial_payment  safe=39660 gold_safe=28820
+
+------------------ BASELINE ------------------
+affordability_status      : 6/15  macro-F1 0.286
+recommended_payment_method: 8/15  macro-F1 0.376
+payment_plan (exact)      : 6/15
+earliest_date (exact)     : 3/15  (mean |days| 15.2 over 8; both-empty 3; emptiness disagreement 4)
+degraded rows             : 1/15  (counted as wrong, never dropped)
+
+amount_safe_to_pay by currency (never pooled):
+  EUR  n=5   exact=0/5 MAE=139.68  normalized MAE=0.505
+  IDR  n=3   exact=0/3 MAE=1968815.47  normalized MAE=0.424
+  INR  n=4   exact=0/4 MAE=5221.24  normalized MAE=0.414
+  USD  n=1   exact=0/1 MAE=31.05  normalized MAE=0.020
+  ZAR  n=2   exact=0/2 MAE=9736.11  normalized MAE=10.044
+
+status confusion (gold->pred): {('affordable_later', 'affordable_now'): 1, ('not_affordable', 'affordable_now'): 1, ('affordable_with_plan', 'affordable_now'): 3, ('affordable_later', 'not_affordable'): 2, ('affordable_now', 'not_affordable'): 1, ('affordable_with_plan', 'not_affordable'): 1}
+method confusion (gold->pred): {('wait', 'full_payment'): 1, ('not_recommended', 'full_payment'): 1, ('wait', 'not_recommended'): 2, ('full_payment', 'not_recommended'): 1, ('installments', 'not_recommended'): 1, ('partial_payment', 'installments'): 1}
+
+---------------- BASELINE METHOD MISMATCHES ----------------
+  request_04   pred=full_payment     gold=wait             safe=12693000 gold_safe=8401800
+  request_05   pred=full_payment     gold=not_recommended  safe=15488 gold_safe=737
+  request_08   pred=not_recommended  gold=wait             safe=0 gold_safe=284.57
+  request_09   pred=not_recommended  gold=full_payment     safe=0 gold_safe=166.61
+  request_12   pred=not_recommended  gold=installments     safe=60442.77 gold_safe=65164
+  request_18   pred=not_recommended  gold=wait             safe=677.9 gold_safe=462
+  request_19   pred=installments     gold=partial_payment  safe=39660 gold_safe=28820

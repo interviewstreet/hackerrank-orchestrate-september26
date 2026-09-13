@@ -1,0 +1,79 @@
+{
+  "run_id": "20260913T041036Z",
+  "validated_at": "2026-09-13T06:21:53.975991+00:00",
+  "rows": 250,
+  "output_sha256": "e445b252d90e158bf51b21f33f6003b5d93014b45aba694cc0a3c35d513cf1fa",
+  "input_csv_sha256": {
+    "exchange_rates.csv": "ff56e9feb482f909837dc309f52f8de5b167d9d6685a2ee8e8fd807639658a04",
+    "financial_events.csv": "b6c3f43a8ad3a80ca11c72cce6f2818eea06621a3582d2851886fd9127b1229d",
+    "financial_profiles.csv": "fa173608f8ec99c8d9d633eace762695aeaa2d276a509989f0edd8e123c07964",
+    "images.csv": "6b5428565ca98e4b71e182f8a8fa3fd3013727399bdea847f3e4a3d2c129dfc9",
+    "messages.csv": "7b9db27a4546a850a76d3475ebf65de80fb9fe374e26d469586f62f537eac9a6",
+    "output.csv": "e6e6f4aae1eed6d1c178fd3daca7b5ad82cc9c1461650969c373b4dedab43baf",
+    "request_payment_options.csv": "4922c56f10c06698d24b86b8a43580cbc6bc6ee44c95936c3037878005980c40",
+    "requests.csv": "13663d50b7098b28a8c087a02eb085041260999707adade5230d29f1c2e6595d",
+    "sample_requests.csv": "117bf2ab9e5f0054bae48afe8506f5daa35929559cb771f2c27dd4fe18da62f6"
+  },
+  "input_media_sha256": {
+    "media/images/image_01.png": "f37b40e6af42c664846057252cac89ad41b7d029dfe8dacff2db8cceb79fa5ba",
+    "media/images/image_02.png": "ccd779e5382b1bcfacfb47d4ccf346ffd667a34c8b94d0cfd48aa4a609bd117d",
+    "media/images/image_03.png": "e5fb0bbcda6cc06f8ea95e32e45d4c76acd8c594f4b02ff0d78e6006e103ee4d",
+    "media/images/image_04.png": "281e7f1e7bd1f98fbd53cde1381977373e610e6634b11c98098000001ff10f0c",
+    "media/images/image_05.png": "9abcda5647afb3dcdf91613253ac0160bd722333af33a4b952dfc96fea6ff97b",
+    "media/images/image_06.png": "9055551fbe5940feb01b947e1f18ccfed093192d103b1e930a56df0ea7cd3cb4",
+    "media/images/image_07.png": "f6d30a74355224c0b5cda2d7f96399a7b1a0afe4f9fe59ea048bbecb1a21311e",
+    "media/images/image_08.png": "e28592ad8b4dacd03055e0b1ebc46670c83fbfa1162af07bdef33bb226bf63c8",
+    "media/images/image_09.png": "e0e74e14425d923ff8a5c6db26ec6f4f26ee4697bfd257e414ba05c947a75ba8",
+    "media/images/image_10.png": "c90f98caf0877083e471fd47dace772f83d4782037cf112e97c63f79a10ea8cf",
+    "media/images/image_11.png": "795e000d48428c97748e8af370cb02b604bec88cc52ec8930f38dc744624e886",
+    "media/images/image_12.png": "e10b0123e66d512d82f6c431fb741053b336627b89b9d9a138071ac6980a14ff",
+    "media/images/image_13.png": "1ae54b378a9556d94b753093ba80e7117caf86fab4d3fe11ec84e3dd2f6d6dd8",
+    "media/images/image_14.png": "bf88e4aa35e6f36304cbf76bf6f505f32b04466bfd5f7df693fcb3ebe8a3e2c1",
+    "media/images/image_15.png": "0c0fe3d79e670f2b423bbb2aafc0b5601d3eb4e659ac64058cd189abf7792ee1",
+    "media/images/image_16.png": "2665cf731a861ddb217be5b8082fbd390850a7a98feec018519b6fda0b30b4f8"
+  },
+  "trace_sha256": "b47af198d201f75e361a7719225adb18f127b9c69d3c9243f7600bc253bb8beb",
+  "usage_sha256": "5f7d5638abb28625a6dda164ae5bef7b6b006abeb8103259352072e9a0477bc2",
+  "code_sha256_at_validation": {
+    "code\\buy_or_wait\\assist.py": "3b37e8125cab2b6f53d2ab201ca651ca9319b595a353e40c0e3e3956c3fbe2ee",
+    "code\\buy_or_wait\\audit.py": "3ce5094084b1b8f9bad015723bfc6a079fa262f1120da15ffb039bab86373a66",
+    "code\\buy_or_wait\\config.py": "a39c6e21d73d5d809c05284943b323e1cc7998ce0202b95d1f1671557e76673f",
+    "code\\buy_or_wait\\data.py": "a2284f90e58f6667fdb09b53a14b88b94661ff60a6c9155592ccf0bf176e5abe",
+    "code\\buy_or_wait\\evidence.py": "01b096c472786abd2510c569b32e46f006b74c78f3c6f530a010928fd82b34bb",
+    "code\\buy_or_wait\\forecast.py": "008c6ed2e9ba810cc0071a7c9750c7eaf152955b6db0774f6b91118c877ef755",
+    "code\\buy_or_wait\\fx.py": "2f8179983be63df619769419de2400e88a1895e36bd580fa91d9b720ab40ad72",
+    "code\\buy_or_wait\\model.py": "32d379d62459e3d40269993044e9f62c4e324928ce64bf0476fc54e52a2863cc",
+    "code\\buy_or_wait\\money.py": "453419133a1db6139e2178b54afa8f3d225fbd692dae1b48115b7ff6deeee886",
+    "code\\buy_or_wait\\output.py": "4d7decd0aadbdc2129c142b7f83d7422db7bcdc48cc5f0e1a6f2d958d752d5e2",
+    "code\\buy_or_wait\\planner.py": "1cfaf9b1490e395a65ab28dd639decbfd74ba25abb194d9037961b116c64b1d3",
+    "code\\buy_or_wait\\recurrence.py": "f862416ebab5c6c1658815f94ffcc338e811c26a68ee11db98edac172f7fd1c9",
+    "code\\buy_or_wait\\schema.py": "4a56a960b2340c161ea2b680990da0fe8e91af7fa9aab32f8f1679d82d90a1c4",
+    "code\\buy_or_wait\\spending.py": "eadf6fb46aa7f46ed32529d936d6aa1b2807b176292533c397b5c6eab2aece26",
+    "code\\buy_or_wait\\state.py": "8fe34ced118f04cbbb0253224fb9acee6e3a36373120cc9f777150854465273c",
+    "code\\buy_or_wait\\validation.py": "0265a52d037a98fb5f38e29470dfac83e0bb2885f149002dfdfcfed3975a796f",
+    "code\\buy_or_wait\\__init__.py": "10d7c44cc24cd7ec285d026ae9f138065e9fee85d7b2b13fb10be01f8320b29a",
+    "code\\prompts\\extraction_v1.md": "f06c64983a47b6031df3e7fa69d75bcf08a653b0ef7fb9c508097da6af193146"
+  },
+  "entry_point_sha256": "27a69fa763fd8dfb5e2dcaf7b157a7dc224b3bf1781be555fbd76eba634370f5",
+  "split_manifest_sha256": "2b8de6b0c008762bb5a9fccdc78a7193f3b51f106d3a5a72de3b15dabc6e64dd",
+  "method_distribution": {
+    "full_payment": 53,
+    "not_recommended": 147,
+    "wait": 11,
+    "partial_payment": 7,
+    "installments": 32
+  },
+  "degraded_request_ids": [
+    "request_64",
+    "request_73"
+  ],
+  "cited_source_references": 8,
+  "accepted_facts": 6,
+  "rejected_facts": 1,
+  "provider_status_counts": {
+    "skipped: no unresolved amounts": 239,
+    "ok": 11
+  },
+  "validation_scope": "Exact row reproduction, existing financial replay gate, citation existence/scope; not independent semantic proof of extraction or forecast accuracy",
+  "provenance_limit": "Input/code hashes captured at finalization; original run did not record a code revision or returned model identifier"
+}

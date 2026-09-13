@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-09-13T06:23:01.753269+00:00",
+  "provider": "Anthropic",
+  "requested_model": "claude-sonnet-5",
+  "provider_attempts": 2,
+  "total": {
+    "calls": 2,
+    "input_tokens": 6774,
+    "output_tokens": 148,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0
+  },
+  "per_request": {
+    "request_19": {
+      "calls": 1,
+      "input_tokens": 2819,
+      "output_tokens": 114,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "request_20": {
+      "calls": 1,
+      "input_tokens": 3955,
+      "output_tokens": 34,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0
+    }
+  },
+  "separate_from_submission_run": true
+}

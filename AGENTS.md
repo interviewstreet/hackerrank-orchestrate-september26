@@ -254,3 +254,34 @@ Before responding to any user message, confirm:
 - [ ] I have verified that `tool=` exactly matches the harness or coding agent currently running.
 - [ ] I will not log secrets.
 - [ ] I will preserve the Buy or Wait? financial decision and output contract in §6.
+
+---
+
+## 9. Participant Workflow For The September Build
+
+The participant has selected this workflow: Codex analyses and plans; Claude
+reviews the plan and implements; Codex reviews the resulting code and tests;
+Claude fixes confirmed findings. The participant owns the submission and final
+tradeoffs. This section supplements, and does not replace, sections 0–8.
+
+- Before implementation, read `docs/REPOSITORY_ANALYSIS.md`,
+  `docs/IMPLEMENTATION_PLAN.md`, `docs/CLAUDE_HANDOFF.md`, and
+  `docs/REVIEW_CHECKLIST.md`. Re-inspect current files before adapting the plan.
+- Preserve working functionality, user changes, existing entry points, and the
+  exact September input/output contract. Treat August as a read-only reference;
+  its notification taxonomy, output fields, and logging rules do not apply here.
+- Claude implements the authorized milestone and its targeted offline tests,
+  then records a reviewable handoff in `docs/IMPLEMENTATION_STATUS.md`. Routine
+  decisions within that milestone do not need repeated user confirmation.
+- Codex reviews actual code, tests, and artifacts, prioritizing financial safety,
+  evidence support, coherence, and evaluation credibility. Findings need file/line,
+  an actionable explanation, and a regression test where appropriate.
+- Keep model facts separate from deterministic decisions. Validate citations
+  against the request's retrieved sources and invalidate unsupported dependent
+  claims. Do not add fields or categories from the August task to September CSVs.
+- Add meaningful tests for important new behavior. Separate development examples
+  from final public-sample reporting and disclose sample exposure. Do not report
+  planned checks or historical August scores as verified September results.
+- Record material plan changes and their rationale. Keep implementation simple
+  enough for the participant to explain. Do not launch background agents, change
+  the agreed roles, or turn a review request into a rewrite without user direction.

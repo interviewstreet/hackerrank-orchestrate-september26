@@ -1,0 +1,9 @@
+.env
+venv
+log.txt
+code/tools/__pycache__
+code/__pycache__
+code/utils/__pycache__
+code/validators/__pycache__
+code/agents/__pycache__
+dataset

@@ -1,0 +1,18 @@
+# LLM & structured output
+groq==1.7.0
+instructor==1.17.0
+pydantic==2.9.2
+pydantic-settings==2.6.1
+
+# Embeddings & vector search (local, no API key, no rate limit)
+sentence-transformers==3.3.1
+faiss-cpu==1.9.0
+
+# Data processing
+pandas==2.2.3
+Pillow==11.0.0
+
+# Resilience & ops
+tenacity==9.0.0
+python-dotenv==1.0.1
+structlog==24.4.0

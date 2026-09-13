@@ -1,0 +1,251 @@
+request_id,amount_safe_to_pay,affordability_status,recommended_payment_method,payment_plan,earliest_date_for_full_payment,spending_changes_needed,decision_explanation
+request_26,15656000,affordable_now,full_payment,2025-08-03:15656000,2025-08-03,none,Pay 15656000 today. This leaves at least 24768300 available over the next 90 days.
+request_27,6670,affordable_now,full_payment,2026-07-05:6670,2026-07-05,none,Pay 6670 today. This leaves at least 20500 available over the next 90 days.
+request_28,689.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1100 minimum protected.
+request_29,51524,affordable_now,full_payment,2025-11-04:51524,2025-11-04,none,Pay 51524 today. This leaves at least 28300 available over the next 90 days.
+request_30,775.2,affordable_with_plan,installments,2026-04-06:268.74|2026-05-06:268.74|2026-06-05:268.74,2026-04-06,none,Use installments of 268.74 starting 2026-04-06. This keeps the 900 minimum protected.
+request_31,13840360,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 16588900 minimum protected.
+request_32,33305.8,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 35700 minimum protected.
+request_33,65180,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 102100 minimum protected.
+request_34,129400,affordable_now,full_payment,2024-12-04:129400,2024-12-04,none,Pay 129400 today. This leaves at least 138500 available over the next 90 days.
+request_35,125130,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 106400 minimum protected.
+request_36,1446.6,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 2400 minimum protected.
+request_37,12068800,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 17056200 minimum protected.
+request_38,379.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 400 minimum protected.
+request_39,203105,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 213400 minimum protected.
+request_40,851,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1500 minimum protected.
+request_41,21888950,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 25366600 minimum protected.
+request_42,52100,affordable_now,full_payment,2026-01-05:52100,2026-01-05,none,Pay 52100 today. This leaves at least 113100 available over the next 90 days.
+request_43,13988750,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 21398000 minimum protected.
+request_44,74560,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 82900 minimum protected.
+request_45,8833100,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 11149800 minimum protected.
+request_46,49450,affordable_with_plan,installments,2024-12-03:25714|2024-12-31:25714,2024-12-03,none,Use installments of 25714 starting 2024-12-03. This keeps the 84000 minimum protected.
+request_47,38114000,affordable_now,full_payment,2025-05-05:38114000,2025-05-05,none,Pay 38114000 today. This leaves at least 30049000 available over the next 90 days.
+request_48,45700,affordable_now,full_payment,2026-07-25:45700,2026-07-25,none,Pay 45700 today. This leaves at least 71300 available over the next 90 days.
+request_49,20228793.34,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 20275700 minimum protected.
+request_50,43900,affordable_now,full_payment,2025-08-06:43900,2025-08-06,none,Pay 43900 today. This leaves at least 99700 available over the next 90 days.
+request_51,2191000,affordable_now,full_payment,2026-01-03:2191000,2026-01-03,none,Pay 2191000 today. This leaves at least 7811000 available over the next 90 days.
+request_52,28870,affordable_now,full_payment,2024-06-05:28870,2024-06-05,none,Pay 28870 today. This leaves at least 41500 available over the next 90 days.
+request_53,1423.42,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 2100 minimum protected.
+request_54,16581.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 37000 minimum protected.
+request_55,176241.19,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 124300 minimum protected.
+request_56,881.56,affordable_with_plan,installments,2025-02-03:458.42|2025-03-03:458.42,2025-02-03,none,Use installments of 458.42 starting 2025-02-03. This keeps the 2100 minimum protected.
+request_57,21214.6,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 42700 minimum protected.
+request_58,16226000,affordable_now,full_payment,2024-12-07:16226000,2024-12-07,none,Pay 16226000 today. This leaves at least 14433900 available over the next 90 days.
+request_59,140600,affordable_with_plan,installments,2025-05-07:48741.33|2025-06-04:48741.33|2025-07-02:48741.33,2025-05-04,none,Use installments of 48741.33 starting 2025-05-07. This keeps the 132600 minimum protected.
+request_60,199.89,affordable_now,full_payment,2026-01-06:199.89,2026-01-06,none,Pay 199.89 today. This leaves at least 400 available over the next 90 days.
+request_61,29062,affordable_with_plan,installments,2024-03-17:10074.83|2024-04-17:10074.83|2024-05-18:10074.83,2024-03-03,none,Use installments of 10074.83 starting 2024-03-17. This keeps the 36700 minimum protected.
+request_62,404.23,affordable_now,full_payment,2025-08-05:404.23,2025-08-05,none,Pay 404.23 today. This leaves at least 1300 available over the next 90 days.
+request_63,90145,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 153500 minimum protected.
+request_64,60233.01,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 36100 minimum protected.
+request_65,13024,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 15500 minimum protected.
+request_66,22200,affordable_now,full_payment,2026-04-03:22200,2026-04-03,none,Pay 22200 today. This leaves at least 80700 available over the next 90 days.
+request_67,792.54,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1200 minimum protected.
+request_68,2091.6,not_affordable,not_recommended,none,2025-02-07,none,Do not proceed. None of the available options keeps the 1500 minimum protected.
+request_69,529.1,affordable_now,full_payment,2026-01-04:529.1,2026-01-04,none,Pay 529.1 today. This leaves at least 700 available over the next 90 days.
+request_70,93360,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 115000 minimum protected.
+request_71,7485050,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 8884800 minimum protected.
+request_72,11330,affordable_now,full_payment,2026-07-05:11330,2026-07-05,none,Pay 11330 today. This leaves at least 12200 available over the next 90 days.
+request_73,71400,affordable_now,full_payment,2023-01-20:71400,2023-01-20,none,Pay 71400 today. This leaves at least 103200 available over the next 90 days.
+request_74,5010,affordable_now,full_payment,2025-08-04:5010,2025-08-04,none,Pay 5010 today. This leaves at least 21900 available over the next 90 days.
+request_75,28270,affordable_with_plan,installments,2026-04-09:9800.27|2026-05-09:9800.27|2026-06-08:9800.27,2026-04-06,none,Use installments of 9800.27 starting 2026-04-09. This keeps the 39000 minimum protected.
+request_76,1538.8,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1800 minimum protected.
+request_77,60700,affordable_now,full_payment,2025-11-05:60700,2025-11-05,none,Pay 60700 today. This leaves at least 82200 available over the next 90 days.
+request_78,50200,affordable_now,full_payment,2025-10-02:50200,2025-10-02,none,Pay 50200 today. This leaves at least 55200 available over the next 90 days.
+request_79,1104.08,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1000 minimum protected.
+request_80,152115,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 121300 minimum protected.
+request_81,2076,affordable_now,full_payment,2026-07-03:2076,2026-07-03,none,Pay 2076 today. This leaves at least 1600 available over the next 90 days.
+request_82,1011.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1100 minimum protected.
+request_83,28330,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 37800 minimum protected.
+request_84,56565,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 91300 minimum protected.
+request_85,2422120,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 6396300 minimum protected.
+request_86,46300,affordable_now,full_payment,2025-08-03:46300,2025-08-03,none,Pay 46300 today. This leaves at least 84900 available over the next 90 days.
+request_87,92850,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 185900 minimum protected.
+request_88,15557.89,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 25800 minimum protected.
+request_89,13756000,affordable_with_plan,installments,2025-11-18:4768746.67|2025-12-16:4768746.67|2026-01-13:4768746.67,2025-11-04,none,Use installments of 4768746.67 starting 2025-11-18. This keeps the 12534700 minimum protected.
+request_90,2560,affordable_now,full_payment,2026-07-06:2560,2026-07-06,none,Pay 2560 today. This leaves at least 7600 available over the next 90 days.
+request_91,1927.2,affordable_now,full_payment,2024-09-03:1927.2,2024-09-03,none,Pay 1927.2 today. This leaves at least 2100 available over the next 90 days.
+request_92,34034,affordable_now,full_payment,2025-02-05:34034,2025-02-05,none,Pay 34034 today. This leaves at least 28100 available over the next 90 days.
+request_93,1729.2,affordable_now,full_payment,2026-04-07:1729.2,2026-04-07,none,Pay 1729.2 today. This leaves at least 1900 available over the next 90 days.
+request_94,572,affordable_now,full_payment,2024-12-04:572,2024-12-04,none,Pay 572 today. This leaves at least 600 available over the next 90 days.
+request_95,137865,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 145500 minimum protected.
+request_96,90200,affordable_with_plan,installments,2026-01-10:31269.33|2026-02-09:31269.33|2026-03-11:31269.33,2026-01-03,none,Use installments of 31269.33 starting 2026-01-10. This keeps the 56500 minimum protected.
+request_97,8865.89,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 29700 minimum protected.
+request_98,17244.7,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 30000 minimum protected.
+request_99,18062,affordable_now,full_payment,2026-07-04:18062,2026-07-04,none,Pay 18062 today. This leaves at least 49100 available over the next 90 days.
+request_100,34836.13,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 32500 minimum protected.
+request_101,143500,affordable_now,full_payment,2025-11-03:143500,2025-11-03,none,Pay 143500 today. This leaves at least 187400 available over the next 90 days.
+request_102,1716,affordable_with_plan,installments,2026-04-05:594.88|2026-05-05:594.88|2026-06-04:594.88,2026-04-05,none,Use installments of 594.88 starting 2026-04-05. This keeps the 900 minimum protected.
+request_103,35759,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 125500 minimum protected.
+request_104,17204,affordable_now,full_payment,2025-02-04:17204,2025-02-04,none,Pay 17204 today. This leaves at least 24700 available over the next 90 days.
+request_105,53500,affordable_now,full_payment,2026-06-08:53500,2026-06-08,none,Pay 53500 today. This leaves at least 73900 available over the next 90 days.
+request_106,1401.7,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1200 minimum protected.
+request_107,2534.4,affordable_with_plan,installments,2025-05-08:878.59|2025-06-05:878.59|2025-07-03:878.59,2025-05-05,none,Use installments of 878.59 starting 2025-05-08. This keeps the 1600 minimum protected.
+request_108,7836.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 24100 minimum protected.
+request_109,1276.46,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1700 minimum protected.
+request_110,22352,affordable_with_plan,installments,2025-08-06:7748.69|2025-09-03:7748.69|2025-10-01:7748.69,2025-08-06,none,Use installments of 7748.69 starting 2025-08-06. This keeps the 11200 minimum protected.
+request_111,16625000,affordable_now,full_payment,2026-04-03:16625000,2026-04-03,none,Pay 16625000 today. This leaves at least 23022800 available over the next 90 days.
+request_112,271.7,affordable_now,full_payment,2024-06-05:271.7,2024-06-05,none,Pay 271.7 today. This leaves at least 500 available over the next 90 days.
+request_113,36500,affordable_now,full_payment,2026-09-04:36500,2026-09-04,none,Pay 36500 today. This leaves at least 82300 available over the next 90 days.
+request_114,65300,affordable_now,full_payment,2026-01-04:65300,2026-01-04,none,Pay 65300 today. This leaves at least 113400 available over the next 90 days.
+request_115,27135,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 38800 minimum protected.
+request_116,58075,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 80300 minimum protected.
+request_117,880,affordable_now,full_payment,2026-07-05:880,2026-07-05,none,Pay 880 today. This leaves at least 1000 available over the next 90 days.
+request_118,738.1,affordable_with_plan,installments,2024-12-07:255.87|2025-01-07:255.87|2025-02-07:255.87,2024-12-07,none,Use installments of 255.87 starting 2024-12-07. This keeps the 600 minimum protected.
+request_119,130901.01,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 151200 minimum protected.
+request_120,7714000,affordable_now,full_payment,2026-04-06:7714000,2026-04-06,none,Pay 7714000 today. This leaves at least 20050300 available over the next 90 days.
+request_121,633.6,affordable_now,full_payment,2024-03-03:633.6,2024-03-03,none,Pay 633.6 today. This leaves at least 800 available over the next 90 days.
+request_122,20558000,affordable_with_plan,installments,2025-08-05:7126773.33|2025-09-02:7126773.33|2025-09-30:7126773.33,2025-08-05,none,Use installments of 7126773.33 starting 2025-08-05. This keeps the 12588500 minimum protected.
+request_123,4076000,affordable_now,full_payment,2026-01-07:4076000,2026-01-07,none,Pay 4076000 today. This leaves at least 18091200 available over the next 90 days.
+request_124,2049.56,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1600 minimum protected.
+request_125,6468,affordable_now,full_payment,2025-11-06:6468,2025-11-06,none,Pay 6468 today. This leaves at least 11300 available over the next 90 days.
+request_126,159600,affordable_now,full_payment,2026-07-03:159600,2026-07-03,none,Pay 159600 today. This leaves at least 129700 available over the next 90 days.
+request_127,23980,affordable_now,full_payment,2024-09-05:23980,2024-09-05,none,Pay 23980 today. This leaves at least 41000 available over the next 90 days.
+request_128,25168,affordable_now,full_payment,2025-02-07:25168,2025-02-07,none,Pay 25168 today. This leaves at least 42600 available over the next 90 days.
+request_129,288,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 800 minimum protected.
+request_130,917.46,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1400 minimum protected.
+request_131,1855.2,affordable_with_plan,installments,2025-05-06:643.14|2025-06-03:643.14|2025-07-01:643.14,2025-05-03,none,Use installments of 643.14 starting 2025-05-06. This keeps the 1100 minimum protected.
+request_132,379.86,affordable_now,full_payment,2026-01-05:379.86,2026-01-05,none,Pay 379.86 today. This leaves at least 1100 available over the next 90 days.
+request_133,15770000,not_affordable,not_recommended,none,2024-03-07,none,Do not proceed. None of the available options keeps the 9986200 minimum protected.
+request_134,12118200,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 15902500 minimum protected.
+request_135,304.8,affordable_now,full_payment,2026-07-06:304.8,2026-07-06,none,Pay 304.8 today. This leaves at least 500 available over the next 90 days.
+request_136,560.4,affordable_now,full_payment,2024-06-03:560.4,2024-06-03,none,Pay 560.4 today. This leaves at least 1100 available over the next 90 days.
+request_137,67960,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 71800 minimum protected.
+request_138,1209.9,affordable_with_plan,partial_payment,2026-04-07:1209.9|2026-04-11:47.04,2026-04-11,none,Pay 1209.9 today and the remaining 47.04 on 2026-04-11 to complete the request while preserving the 2300 minimum balance.
+request_139,2185.84,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1500 minimum protected.
+request_140,11074.8,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 21600 minimum protected.
+request_141,51435,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 67300 minimum protected.
+request_142,1263.6,affordable_now,full_payment,2024-12-05:1263.6,2024-12-05,none,Pay 1263.6 today. This leaves at least 1700 available over the next 90 days.
+request_143,8384.2,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 11300 minimum protected.
+request_144,233.34,affordable_now,full_payment,2026-07-04:233.34,2026-07-04,none,Pay 233.34 today. This leaves at least 600 available over the next 90 days.
+request_145,105613.66,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 155400 minimum protected.
+request_146,81465,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 108600 minimum protected.
+request_147,741.53,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 900 minimum protected.
+request_148,13181.08,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 20000 minimum protected.
+request_149,36652,affordable_with_plan,installments,2025-11-18:12706.03|2025-12-16:12706.03|2026-01-13:12706.03,2025-11-04,none,Use installments of 12706.03 starting 2025-11-18. This keeps the 42100 minimum protected.
+request_150,496.1,affordable_with_plan,installments,2026-01-06:171.98|2026-02-05:171.98|2026-03-07:171.98,2026-01-06,none,Use installments of 171.98 starting 2026-01-06. This keeps the 700 minimum protected.
+request_151,26999000,affordable_now,full_payment,2024-09-03:26999000,2024-09-03,none,Pay 26999000 today. This leaves at least 31633600 available over the next 90 days.
+request_152,13882,affordable_with_plan,installments,2025-02-12:4812.43|2025-03-12:4812.43|2025-04-09:4812.43,2025-02-05,none,Use installments of 4812.43 starting 2025-02-12. This keeps the 11900 minimum protected.
+request_153,503.6,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1400 minimum protected.
+request_154,1625.8,affordable_with_plan,installments,2024-12-04:563.61|2025-01-04:563.61|2025-02-04:563.61,2024-12-04,none,Use installments of 563.61 starting 2024-12-04. This keeps the 1300 minimum protected.
+request_155,112500,affordable_now,full_payment,2025-05-06:112500,2025-05-06,none,Pay 112500 today. This leaves at least 56300 available over the next 90 days.
+request_156,13588.3,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 26900 minimum protected.
+request_157,10091850,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 15714100 minimum protected.
+request_158,242600,affordable_with_plan,installments,2025-08-07:84101.33|2025-09-04:84101.33|2025-10-02:84101.33,2025-08-07,none,Use installments of 84101.33 starting 2025-08-07. This keeps the 131400 minimum protected.
+request_159,13398,affordable_now,full_payment,2026-01-04:13398,2026-01-04,none,Pay 13398 today. This leaves at least 8700 available over the next 90 days.
+request_160,857.61,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1200 minimum protected.
+request_161,17241550,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 23010400 minimum protected.
+request_162,8601300,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 24161100 minimum protected.
+request_163,19304000,affordable_with_plan,installments,2024-09-10:6692053.33|2024-10-11:6692053.33|2024-11-11:6692053.33,2024-09-07,none,Use installments of 6692053.33 starting 2024-09-10. This keeps the 26728700 minimum protected.
+request_164,27018000,affordable_with_plan,installments,2025-02-11:9366240|2025-03-11:9366240|2025-04-08:9366240,2025-02-04,none,Use installments of 9366240 starting 2025-02-11. This keeps the 29550500 minimum protected.
+request_165,80600,affordable_now,full_payment,2026-04-06:80600,2026-04-06,none,Pay 80600 today. This leaves at least 95000 available over the next 90 days.
+request_166,2907.6,affordable_with_plan,installments,2024-12-03:1007.97|2025-01-03:1007.97|2025-02-03:1007.97,2024-12-03,none,Use installments of 1007.97 starting 2024-12-03. This keeps the 1700 minimum protected.
+request_167,43802,affordable_now,full_payment,2025-05-05:43802,2025-05-05,none,Pay 43802 today. This leaves at least 31200 available over the next 90 days.
+request_168,49380,not_affordable,not_recommended,none,2026-01-07,none,Do not proceed. None of the available options keeps the 114400 minimum protected.
+request_169,41976,affordable_now,full_payment,2024-03-04:41976,2024-03-04,none,Pay 41976 today. This leaves at least 18700 available over the next 90 days.
+request_170,36936000,affordable_with_plan,installments,2025-08-06:12804480|2025-09-03:12804480|2025-10-01:12804480,2025-08-06,none,Use installments of 12804480 starting 2025-08-06. This keeps the 24715800 minimum protected.
+request_171,310.65,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 500 minimum protected.
+request_172,10200,affordable_with_plan,installments,2024-06-05:5304|2024-07-03:5304,2024-06-05,none,Use installments of 5304 starting 2024-06-05. This keeps the 27200 minimum protected.
+request_173,83190.53,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 79100 minimum protected.
+request_174,1146.2,affordable_with_plan,installments,2026-04-04:397.35|2026-05-04:397.35|2026-06-03:397.35,2026-04-04,none,Use installments of 397.35 starting 2026-04-04. This keeps the 700 minimum protected.
+request_175,2346.3,affordable_now,full_payment,2024-09-06:2346.3,2024-09-06,none,Pay 2346.3 today. This leaves at least 1700 available over the next 90 days.
+request_176,686.95,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 600 minimum protected.
+request_177,1017.6,affordable_now,full_payment,2026-01-05:1017.6,2026-01-05,none,Pay 1017.6 today. This leaves at least 1300 available over the next 90 days.
+request_178,2938.1,affordable_with_plan,installments,2024-12-07:1018.54|2025-01-07:1018.54|2025-02-07:1018.54,2024-12-07,none,Use installments of 1018.54 starting 2024-12-07. This keeps the 1400 minimum protected.
+request_179,37957250,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 41430800 minimum protected.
+request_180,66500,affordable_now,full_payment,2026-07-06:66500,2026-07-06,none,Pay 66500 today. This leaves at least 37300 available over the next 90 days.
+request_181,1141,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 2000 minimum protected.
+request_182,65714,affordable_now,full_payment,2025-08-05:65714,2025-08-05,none,Pay 65714 today. This leaves at least 31100 available over the next 90 days.
+request_183,26866000,affordable_with_plan,installments,2026-04-10:9313546.67|2026-05-10:9313546.67|2026-06-09:9313546.67,2026-04-07,none,Use installments of 9313546.67 starting 2026-04-10. This keeps the 11878300 minimum protected.
+request_184,47540,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 110800 minimum protected.
+request_185,783.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1300 minimum protected.
+request_186,22863.5,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 22000 minimum protected.
+request_187,67435,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 128300 minimum protected.
+request_188,585.3,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 900 minimum protected.
+request_189,488.4,affordable_now,full_payment,2026-07-04:488.4,2026-07-04,none,Pay 488.4 today. This leaves at least 400 available over the next 90 days.
+request_190,1555.8,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1600 minimum protected.
+request_191,664.4,affordable_now,full_payment,2025-05-03:664.4,2025-05-03,none,Pay 664.4 today. This leaves at least 500 available over the next 90 days.
+request_192,384.8,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1000 minimum protected.
+request_193,310.62,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1000 minimum protected.
+request_194,95030,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 113600 minimum protected.
+request_195,1170.4,affordable_with_plan,installments,2026-01-09:405.74|2026-02-08:405.74|2026-03-10:405.74,2026-01-06,none,Use installments of 405.74 starting 2026-01-09. This keeps the 700 minimum protected.
+request_196,762.3,affordable_now,full_payment,2024-06-03:762.3,2024-06-03,none,Pay 762.3 today. This leaves at least 500 available over the next 90 days.
+request_197,50939000,affordable_with_plan,installments,2025-11-19:17658853.33|2025-12-17:17658853.33|2026-01-14:17658853.33,2025-11-05,none,Use installments of 17658853.33 starting 2025-11-19. This keeps the 26245900 minimum protected.
+request_198,185800,affordable_now,full_payment,2026-07-07:185800,2026-07-07,none,Pay 185800 today. This leaves at least 124300 available over the next 90 days.
+request_199,23674000,affordable_with_plan,installments,2024-09-07:8206986.67|2024-10-08:8206986.67|2024-11-08:8206986.67,2024-09-04,none,Use installments of 8206986.67 starting 2024-09-07. This keeps the 25359500 minimum protected.
+request_200,21717000,affordable_now,full_payment,2025-02-06:21717000,2025-02-06,none,Pay 21717000 today. This leaves at least 20114600 available over the next 90 days.
+request_201,23997000,affordable_now,full_payment,2026-04-03:23997000,2026-04-03,none,Pay 23997000 today. This leaves at least 17304500 available over the next 90 days.
+request_202,123900,affordable_now,full_payment,2024-12-05:123900,2024-12-05,none,Pay 123900 today. This leaves at least 147800 available over the next 90 days.
+request_203,1442.1,affordable_with_plan,installments,2025-05-10:499.93|2025-06-07:499.93|2025-07-05:499.93,2025-05-07,none,Use installments of 499.93 starting 2025-05-10. This keeps the 1400 minimum protected.
+request_204,588.74,affordable_now,full_payment,2026-01-04:588.74,2026-01-04,none,Pay 588.74 today. This leaves at least 1300 available over the next 90 days.
+request_205,10621000,affordable_now,full_payment,2024-03-06:10621000,2024-03-06,none,Pay 10621000 today. This leaves at least 13994300 available over the next 90 days.
+request_206,1404.7,affordable_with_plan,installments,2025-08-03:486.96|2025-08-31:486.96|2025-09-28:486.96,2025-08-03,none,Use installments of 486.96 starting 2025-08-03. This keeps the 900 minimum protected.
+request_207,11830,affordable_now,full_payment,2026-07-05:11830,2026-07-05,none,Pay 11830 today. This leaves at least 13600 available over the next 90 days.
+request_208,4413000,affordable_now,full_payment,2024-06-07:4413000,2024-06-07,none,Pay 4413000 today. This leaves at least 10470700 available over the next 90 days.
+request_209,8625.1,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 18400 minimum protected.
+request_210,1360.02,affordable_with_plan,installments,2026-04-11:360.41|2026-05-11:360.41|2026-06-10:360.41|2026-07-10:360.41,2026-04-06,none,Use installments of 360.41 starting 2026-04-11. This keeps the 2000 minimum protected.
+request_211,1227.89,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1500 minimum protected.
+request_212,22344000,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 29579800 minimum protected.
+request_213,3362.4,affordable_with_plan,installments,2026-01-21:1165.63|2026-02-20:1165.63|2026-03-22:1165.63,2026-01-07,none,Use installments of 1165.63 starting 2026-01-21. This keeps the 2100 minimum protected.
+request_214,69750,affordable_with_plan,installments,2024-12-04:36270|2025-01-01:36270,2024-12-04,none,Use installments of 36270 starting 2024-12-04. This keeps the 174900 minimum protected.
+request_215,29986,affordable_with_plan,installments,2025-05-09:10395.15|2025-06-06:10395.15|2025-07-04:10395.15,2025-05-06,none,Use installments of 10395.15 starting 2025-05-09. This keeps the 15700 minimum protected.
+request_216,1166.8,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1800 minimum protected.
+request_217,31601.97,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 26800 minimum protected.
+request_218,37942414.8,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 34477200 minimum protected.
+request_219,1673.1,not_affordable,not_recommended,none,2026-04-04,none,Do not proceed. None of the available options keeps the 1100 minimum protected.
+request_220,307.32,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1100 minimum protected.
+request_221,109800,affordable_now,full_payment,2025-11-03:109800,2025-11-03,none,Pay 109800 today. This leaves at least 81500 available over the next 90 days.
+request_222,34078,affordable_now,full_payment,2026-01-05:34078,2026-01-05,none,Pay 34078 today. This leaves at least 27300 available over the next 90 days.
+request_223,898.7,affordable_now,full_payment,2024-09-07:898.7,2024-09-07,none,Pay 898.7 today. This leaves at least 800 available over the next 90 days.
+request_224,10327000,affordable_with_plan,installments,2025-02-04:5370040|2025-03-04:5370040,2025-02-04,none,Use installments of 5370040 starting 2025-02-04. This keeps the 22187600 minimum protected.
+request_225,18120459.6,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 17670700 minimum protected.
+request_226,157000,affordable_now,full_payment,2024-12-03:157000,2024-12-03,none,Pay 157000 today. This leaves at least 209400 available over the next 90 days.
+request_227,42755,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 62900 minimum protected.
+request_228,10557350,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 26191200 minimum protected.
+request_229,727.52,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1000 minimum protected.
+request_230,3537.6,affordable_now,full_payment,2025-08-06:3537.6,2025-08-06,none,Pay 3537.6 today. This leaves at least 2000 available over the next 90 days.
+request_231,35706,affordable_with_plan,installments,2026-01-06:12378.08|2026-02-05:12378.08|2026-03-07:12378.08,2026-01-03,none,Use installments of 12378.08 starting 2026-01-06. This keeps the 24300 minimum protected.
+request_232,1869.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 2400 minimum protected.
+request_233,6241000,affordable_with_plan,installments,2025-11-14:3245320|2025-12-15:3245320,2025-11-07,none,Use installments of 3245320 starting 2025-11-14. This keeps the 10365700 minimum protected.
+request_234,528.6,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 700 minimum protected.
+request_235,967.2,affordable_now,full_payment,2024-09-06:967.2,2024-09-06,none,Pay 967.2 today. This leaves at least 700 available over the next 90 days.
+request_236,14404850,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 16768600 minimum protected.
+request_237,23826000,affordable_now,full_payment,2026-04-05:23826000,2026-04-05,none,Pay 23826000 today. This leaves at least 22431500 available over the next 90 days.
+request_238,663.6,affordable_with_plan,installments,2024-12-07:230.05|2025-01-07:230.05|2025-02-07:230.05,2024-12-07,none,Use installments of 230.05 starting 2024-12-07. This keeps the 700 minimum protected.
+request_239,642,affordable_now,full_payment,2025-05-04:642,2025-05-04,none,Pay 642 today. This leaves at least 600 available over the next 90 days.
+request_240,37400,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 52800 minimum protected.
+request_241,21052000,affordable_with_plan,installments,2024-03-17:7298026.67|2024-04-17:7298026.67|2024-05-18:7298026.67,2024-03-03,none,Use installments of 7298026.67 starting 2024-03-17. This keeps the 19252000 minimum protected.
+request_242,369.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 600 minimum protected.
+request_243,17468,affordable_now,full_payment,2026-07-07:17468,2026-07-07,none,Pay 17468 today. This leaves at least 19900 available over the next 90 days.
+request_244,49918,affordable_now,full_payment,2024-06-04:49918,2024-06-04,none,Pay 49918 today. This leaves at least 45900 available over the next 90 days.
+request_245,65760,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 94600 minimum protected.
+request_246,64086,affordable_with_plan,installments,2026-04-03:22216.48|2026-05-03:22216.48|2026-06-02:22216.48,2026-04-03,none,Use installments of 22216.48 starting 2026-04-03. This keeps the 39300 minimum protected.
+request_247,1059.3,affordable_now,full_payment,2024-09-05:1059.3,2024-09-05,none,Pay 1059.3 today. This leaves at least 1300 available over the next 90 days.
+request_248,1507.36,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1300 minimum protected.
+request_249,342.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 600 minimum protected.
+request_250,28820,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 35300 minimum protected.
+request_251,1513.6,not_affordable,not_recommended,none,2025-05-03,none,Do not proceed. None of the available options keeps the 1300 minimum protected.
+request_252,9110500,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 15152200 minimum protected.
+request_253,2143.57,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 2300 minimum protected.
+request_254,1759.6,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 2500 minimum protected.
+request_255,3345000,affordable_now,full_payment,2026-04-06:3345000,2026-04-06,none,Pay 3345000 today. This leaves at least 9813900 available over the next 90 days.
+request_256,218700,not_affordable,not_recommended,none,2024-06-03,none,Do not proceed. None of the available options keeps the 168600 minimum protected.
+request_257,1085.2,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1600 minimum protected.
+request_258,1113.6,affordable_now,full_payment,2026-01-07:1113.6,2026-01-07,none,Pay 1113.6 today. This leaves at least 500 available over the next 90 days.
+request_259,627.3,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 600 minimum protected.
+request_260,13522300,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 20727700 minimum protected.
+request_261,1830.4,affordable_now,full_payment,2026-07-03:1830.4,2026-07-03,none,Pay 1830.4 today. This leaves at least 1500 available over the next 90 days.
+request_262,9236000,affordable_now,full_payment,2024-12-05:9236000,2024-12-05,none,Pay 9236000 today. This leaves at least 31018500 available over the next 90 days.
+request_263,13750,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 24100 minimum protected.
+request_264,39795,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 59500 minimum protected.
+request_265,45970,affordable_now,full_payment,2024-03-06:45970,2024-03-06,none,Pay 45970 today. This leaves at least 189700 available over the next 90 days.
+request_266,935,affordable_with_plan,installments,2025-08-03:324.13|2025-08-31:324.13|2025-09-28:324.13,2025-08-03,none,Use installments of 324.13 starting 2025-08-03. This keeps the 900 minimum protected.
+request_267,1925,affordable_with_plan,installments,2026-01-08:667.33|2026-02-07:667.33|2026-03-09:667.33,2026-01-05,none,Use installments of 667.33 starting 2026-01-08. This keeps the 1500 minimum protected.
+request_268,1512.52,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1400 minimum protected.
+request_269,15490,affordable_now,full_payment,2025-11-04:15490,2025-11-04,none,Pay 15490 today. This leaves at least 23100 available over the next 90 days.
+request_270,535.4,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 1400 minimum protected.
+request_271,84760,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 58200 minimum protected.
+request_272,8815924,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 7508600 minimum protected.
+request_273,13372200,not_affordable,not_recommended,none,,none,Do not proceed. None of the available options keeps the 18774600 minimum protected.
+request_274,2713.7,affordable_with_plan,installments,2024-12-04:940.75|2025-01-04:940.75|2025-02-04:940.75,2024-12-04,none,Use installments of 940.75 starting 2024-12-04. This keeps the 1800 minimum protected.
+request_275,15884000,affordable_now,full_payment,2025-05-06:15884000,2025-05-06,none,Pay 15884000 today. This leaves at least 12760100 available over the next 90 days.

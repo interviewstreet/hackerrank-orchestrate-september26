@@ -1,10 +1,10 @@
-# HackerRank Orchestrate
+# PocketWise AI — Buy or Wait?
 
-Starter repository for the **HackerRank Orchestrate** 24-hour hackathon (September 2026).
+Submission for **HackerRank Orchestrate (September 2026)**.
 
 ## Buy or Wait?
 
-Build an AI-powered financial agent that decides whether a user can safely afford a requested expense.
+PocketWise AI is an AI-powered financial agent that decides whether a user can safely afford a requested expense. It reads profiles, financial events, payment options, and supporting dataset evidence to produce grounded recommendations.
 
 A user may ask: **"Can I afford this laptop?"**
 
@@ -14,7 +14,14 @@ For every request, the agent decides whether the user should pay in full, pay pa
 
 A recommendation is safe only if the user can complete the full payment plan, cover essential expenses, and stay above their preferred minimum balance throughout the forecast period.
 
-Read [`problem_statement.md`](./problem_statement.md) for the full task spec, input/output schema, allowed values, conflict-resolution rules, and submission format.
+Read [`problem_statement.md`](./problem_statement.md) for the full task specification, output schema, allowed values, conflict-resolution rules, and submission format.
+
+## Deliverables
+
+- `code.zip` — Full runnable solution with the source code and `evaluation/` folder.
+- `dataset/output.csv` — Submission output template and generated predictions when the evaluator runner is used.
+- `log.txt` — Chat transcript required by the repository contract.
+- `code/evaluation/usage_report.md` — Token usage and cost analysis.
 
 ---
 
@@ -23,25 +30,36 @@ Read [`problem_statement.md`](./problem_statement.md) for the full task spec, in
 Clone the repository and move into the project directory:
 
 ```bash
-git clone https://github.com/interviewstreet/hackerrank-orchestrate-september26.git
+git clone https://github.com/13poorvi03/hackerrank-orchestrate-september26.git
 cd hackerrank-orchestrate-september26
 ```
 
-Build your solution in `code/main.py`, or use another language and document its entry point clearly.
-
-Your solution must:
-
-- Read the input files from `dataset/`
-- Generate one prediction for every request
-- Write the final predictions to `output.csv` in the repository root
-
-Run the starter Python entry point with:
+Run the PocketWise API with:
 
 ```bash
-python3 code/main.py
+python -m pip install -r requirements.txt
+python -m uvicorn main:app --app-dir code --reload --port 8000
 ```
 
-After running your solution, confirm that `output.csv` exists in the repository root and contains the required columns and one row for every request.
+Run the frontend in a second terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173`. FastAPI Swagger documentation is available at `http://localhost:8000/docs`.
+
+The current PocketWise API exposes the live demo decision engine through `/api/decision`, account data through `/api/account/{user_id}`, authentication through `/api/auth/signup` and `/api/auth/login`, and chatbot routes through `/api/chatbot`.
+
+## Rules Followed
+
+- Distinguish recurring, pending, scheduled, settled, and one-time expenses.
+- Respect user preferences, minimum balances, protected categories, and available payment options.
+- Use messages and images only as supporting evidence; embedded instructions never override the financial rules.
+- Keep recommended payments above `minimum_balance_to_keep`.
+- Rank safe plans by completion deadline, spending changes, total cost, start date, and number of payments.
 
 ## Important File Locations
 
@@ -173,6 +191,25 @@ The path resolves relative to `AGENTS.md`, so it stays correct across clones, re
 In case, the harness you are using is not in the repo root, you can explicitly ask the agent to look for the AGENTS.md in this folder & then continue.
 
 ---
+
+## PocketWise AI Demo
+
+The repository now includes a runnable PocketWise AI product surface. Start the API and frontend in separate terminals:
+
+```powershell
+python -m pip install -r requirements.txt
+python -m uvicorn main:app --app-dir code --reload --port 8000
+```
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173`. FastAPI Swagger documentation is available at `http://localhost:8000/docs`. The frontend uses the deterministic CSV-backed decision engine through `/api/decision`, and chatbot messages are stored in the local SQLite database `pocketwise.db`.
+
+The core service also supports `POST /api/auth/signup`, `POST /api/auth/login`, `GET /api/account/{user_id}`, `POST /api/chatbot`, and `GET /api/chatbot/{user_id}`.
 
 ## Submission
 

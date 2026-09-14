@@ -1,0 +1,355 @@
+========================================================================================================================
+DIAGNOSTIC ANALYSIS OF THE 25 SAMPLE REQUESTS
+========================================================================================================================
+
+======================================== request_01 (User: user_01) ========================================
+REQUEST INFO: Date=2024-03-03 | Amount=25,256.00 | Deadline=2024-03-20 | AllowsPartial=True
+PROFILE: StartBal=58,481.10 ZAR | MinKeep=18,000.00 | GrossHeadroom=40,481.10
+FUTURE EVENTS: Income=3 (69,960.00) | MandatoryDebits=41 (49,095.99) | FlexibleDebits=9 (8,217.72)
+BASELINE FORECAST: LowestBal=47,998.90 on 2024-03-13 | EndingBal=71,127.39 | Safe=True
+BASELINE SAFE AMOUNT: Actual=25256 | Expected=25256
+EARLIEST FULL DATE:   Actual=2024-03-03 | Expected=2024-03-03
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=True | DeadlineOk=True | Eligible=True | MinBal=22,742.90 | Total=25,256.00
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=46,112.79 | Total=27,781.65
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=39,302.66 | Total=27,276.48
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=47,249.31 | Total=30,812.40
+SPENDING CHANGE CANDIDATES (2): ['reduce:event_97(dining)', 'stop:event_31(delivery_membership)']
+EXPECTED OUTPUT: affordable_now | full_payment | 2024-03-03:25256 | Changes=none
+ACTUAL OUTPUT:   affordable_now | full_payment | 2024-03-03:25256 | Changes=none
+MATCH: 100% Exact Match on all fields!
+
+======================================== request_02 (User: user_02) ========================================
+REQUEST INFO: Date=2025-08-05 | Amount=46,018,000.00 | Deadline=2025-10-10 | AllowsPartial=False
+PROFILE: StartBal=60,383,889.20 IDR | MinKeep=29,158,400.00 | GrossHeadroom=31,225,489.20
+FUTURE EVENTS: Income=3 (100,035,000.00) | MandatoryDebits=34 (62,603,022.14) | FlexibleDebits=6 (4,971,534.84)
+BASELINE FORECAST: LowestBal=47,341,245.56 on 2025-08-13 | EndingBal=92,844,332.22 | Safe=True
+BASELINE SAFE AMOUNT: Actual=18182845.56 | Expected=17229139.2
+EARLIEST FULL DATE:   Actual=2025-08-15 | Expected=2025-09-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=1,323,245.56 | Total=46,018,000.00
+  Plan: installments     | Safe=True | DeadlineOk=True | Eligible=True | MinBal=31,388,338.89 | Total=47,858,720.01
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=44,426,772.23 | Total=52,460,519.94
+  Plan: wait             | Safe=True | DeadlineOk=True | Eligible=False | MinBal=46,826,332.22 | Total=46,018,000.00
+SPENDING CHANGE CANDIDATES (2): ['stop:event_143(cloud_storage)', 'reduce:event_142(entertainment)']
+EXPECTED OUTPUT: affordable_with_plan | installments | 2025-08-08:15952906.67|2025-09-07:15952906.67|2025-10-07:15952906.67 | Changes=none
+ACTUAL OUTPUT:   affordable_with_plan | installments | 2025-08-08:15952906.67|2025-09-07:15952906.67|2025-10-07:15952906.67 | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='17229139.2' vs Actual='18182845.56'
+  * earliest_date_for_full_payment: Expected='2025-09-15' vs Actual='2025-08-15'
+
+======================================== request_03 (User: user_03) ========================================
+REQUEST INFO: Date=2019-09-03 | Amount=5,491,000.00 | Deadline=2019-11-15 | AllowsPartial=False
+PROFILE: StartBal=5,810,300.00 IDR | MinKeep=2,668,700.00 | GrossHeadroom=3,141,600.00
+FUTURE EVENTS: Income=3 (13,095,000.00) | MandatoryDebits=24 (7,405,435.29) | FlexibleDebits=6 (416,100.00)
+BASELINE FORECAST: LowestBal=3,451,751.49 on 2019-09-18 | EndingBal=11,083,764.71 | Safe=True
+BASELINE SAFE AMOUNT: Actual=783051.49 | Expected=873000
+EARLIEST FULL DATE:   Actual= | Expected=2019-11-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=-2,039,248.51 | Total=5,491,000.00
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=3,143,209.59 | Total=6,479,379.90
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=3,172,625.66 | Total=6,699,019.92
+  Plan: wait             | Safe=True | DeadlineOk=False | Eligible=False | MinBal=3,451,751.49 | Total=5,491,000.00
+SPENDING CHANGE CANDIDATES (3): ['stop:event_215(streaming)', 'reduce:event_215(streaming)', 'stop:event_214(cloud_storage)']
+EXPECTED OUTPUT: affordable_later | wait | 2019-11-15:5491000 | Changes=none
+ACTUAL OUTPUT:   not_affordable | not_recommended | none | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='873000' vs Actual='783051.49'
+  * affordability_status: Expected='affordable_later' vs Actual='not_affordable'
+  * recommended_payment_method: Expected='wait' vs Actual='not_recommended'
+  * payment_plan: Expected='2019-11-15:5491000' vs Actual='none'
+  * earliest_date_for_full_payment: Expected='2019-11-15' vs Actual=''
+
+======================================== request_04 (User: user_04) ========================================
+REQUEST INFO: Date=2024-06-04 | Amount=12,693,000.00 | Deadline=2024-06-19 | AllowsPartial=True
+PROFILE: StartBal=52,206,950.00 IDR | MinKeep=30,686,600.00 | GrossHeadroom=21,520,350.00
+FUTURE EVENTS: Income=3 (114,570,000.00) | MandatoryDebits=46 (91,747,031.06) | FlexibleDebits=6 (4,871,410.95)
+BASELINE FORECAST: LowestBal=41,296,034.53 on 2024-06-13 | EndingBal=70,158,507.99 | Safe=True
+BASELINE SAFE AMOUNT: Actual=10609434.53 | Expected=8401800
+EARLIEST FULL DATE:   Actual=2024-06-15 | Expected=2024-06-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=28,603,034.53 | Total=12,693,000.00
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=40,420,217.53 | Total=13,137,255.00
+  Plan: wait             | Safe=True | DeadlineOk=True | Eligible=True | MinBal=34,259,414.48 | Total=12,693,000.00
+SPENDING CHANGE CANDIDATES (2): ['stop:event_287(music_subscription)', 'reduce:event_290(entertainment)']
+EXPECTED OUTPUT: affordable_later | wait | 2024-06-15:12693000 | Changes=none
+ACTUAL OUTPUT:   affordable_later | wait | 2024-06-15:12693000 | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='8401800' vs Actual='10609434.53'
+
+======================================== request_05 (User: user_05) ========================================
+REQUEST INFO: Date=2025-11-06 | Amount=15,488.00 | Deadline=2026-01-12 | AllowsPartial=False
+PROFILE: StartBal=46,475.10 ZAR | MinKeep=13,100.00 | GrossHeadroom=33,375.10
+FUTURE EVENTS: Income=0 (0.00) | MandatoryDebits=35 (36,512.53) | FlexibleDebits=3 (339.90)
+BASELINE FORECAST: LowestBal=9,622.67 on 2026-02-04 | EndingBal=9,622.67 | Safe=False
+BASELINE SAFE AMOUNT: Actual=0 | Expected=737
+EARLIEST FULL DATE:   Actual= | Expected=
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=-5,865.33 | Total=15,488.00
+  Plan: installments     | Safe=False | DeadlineOk=False | Eligible=False | MinBal=6,679.94 | Total=17,656.38
+  Plan: installments     | Safe=False | DeadlineOk=False | Eligible=False | MinBal=7,260.74 | Total=18,895.44
+SPENDING CHANGE CANDIDATES (1): ['stop:event_396(cloud_storage)']
+EXPECTED OUTPUT: not_affordable | not_recommended | none | Changes=none
+ACTUAL OUTPUT:   not_affordable | not_recommended | none | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='737' vs Actual='0'
+
+======================================== request_06 (User: user_06) ========================================
+REQUEST INFO: Date=2026-01-03 | Amount=620.40 | Deadline=2026-01-14 | AllowsPartial=False
+PROFILE: StartBal=1,942.40 EUR | MinKeep=800.00 | GrossHeadroom=1,142.40
+FUTURE EVENTS: Income=3 (3,112.56) | MandatoryDebits=57 (2,861.96) | FlexibleDebits=3 (57.00)
+BASELINE FORECAST: LowestBal=1,369.20 on 2026-01-13 | EndingBal=2,136.00 | Safe=True
+BASELINE SAFE AMOUNT: Actual=569.2 | Expected=603.3
+EARLIEST FULL DATE:   Actual= | Expected=2026-01-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=748.80 | Total=620.40
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=1,334.34 | Total=732.06
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=1,369.20 | Total=670.02
+  Plan: wait             | Safe=True | DeadlineOk=False | Eligible=False | MinBal=922.46 | Total=620.40
+SPENDING CHANGE CANDIDATES (1): ['stop:event_476(streaming)']
+EXPECTED OUTPUT: affordable_with_plan | full_payment | 2026-01-03:620.40 | Changes=stop:event_476
+ACTUAL OUTPUT:   not_affordable | not_recommended | none | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='603.3' vs Actual='569.2'
+  * affordability_status: Expected='affordable_with_plan' vs Actual='not_affordable'
+  * recommended_payment_method: Expected='full_payment' vs Actual='not_recommended'
+  * payment_plan: Expected='2026-01-03:620.40' vs Actual='none'
+  * earliest_date_for_full_payment: Expected='2026-01-15' vs Actual=''
+  * spending_changes_needed: Expected='stop:event_476' vs Actual='none'
+
+======================================== request_07 (User: user_07) ========================================
+REQUEST INFO: Date=2024-09-05 | Amount=197,400.00 | Deadline=2024-11-14 | AllowsPartial=True
+PROFILE: StartBal=218,945.56 INR | MinKeep=93,000.00 | GrossHeadroom=125,945.56
+FUTURE EVENTS: Income=3 (447,000.00) | MandatoryDebits=19 (224,442.51) | FlexibleDebits=7 (28,990.44)
+BASELINE FORECAST: LowestBal=179,161.29 on 2024-09-20 | EndingBal=412,512.61 | Safe=True
+BASELINE SAFE AMOUNT: Actual=86161.29 | Expected=87170.56
+EARLIEST FULL DATE:   Actual=2024-10-23 | Expected=2024-10-23
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=-18,238.71 | Total=197,400.00
+  Plan: installments     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=92,416.61 | Total=205,296.00
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=164,685.29 | Total=217,140.00
+  Plan: wait             | Safe=True | DeadlineOk=True | Eligible=False | MinBal=100,312.61 | Total=197,400.00
+SPENDING CHANGE CANDIDATES (2): ['stop:event_582(music_subscription)', 'reduce:event_614(dining)']
+EXPECTED OUTPUT: affordable_with_plan | installments | 2024-09-12:68432|2024-10-10:68432|2024-11-07:68432 | Changes=none
+ACTUAL OUTPUT:   affordable_with_plan | installments | 2024-09-12:68432|2024-10-10:68432|2024-11-07:68432 | Changes=stop:event_582
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='87170.56' vs Actual='86161.29'
+  * spending_changes_needed: Expected='none' vs Actual='stop:event_582'
+
+======================================== request_08 (User: user_08) ========================================
+REQUEST INFO: Date=2025-02-07 | Amount=996.60 | Deadline=2025-04-15 | AllowsPartial=False
+PROFILE: StartBal=1,536.57 EUR | MinKeep=800.00 | GrossHeadroom=736.57
+FUTURE EVENTS: Income=3 (4,268.55) | MandatoryDebits=39 (3,799.82) | FlexibleDebits=13 (489.55)
+BASELINE FORECAST: LowestBal=1,081.33 on 2025-02-13 | EndingBal=1,515.75 | Safe=True
+BASELINE SAFE AMOUNT: Actual=281.33 | Expected=284.57
+EARLIEST FULL DATE:   Actual= | Expected=2025-04-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=84.73 | Total=996.60
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=1,018.21 | Total=1,136.16
+SPENDING CHANGE CANDIDATES (3): ['stop:event_648(music_subscription)', 'stop:event_649(delivery_membership)', 'reduce:event_716(dining)']
+EXPECTED OUTPUT: affordable_later | wait | 2025-04-15:996.60 | Changes=none
+ACTUAL OUTPUT:   not_affordable | not_recommended | none | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='284.57' vs Actual='281.33'
+  * affordability_status: Expected='affordable_later' vs Actual='not_affordable'
+  * recommended_payment_method: Expected='wait' vs Actual='not_recommended'
+  * payment_plan: Expected='2025-04-15:996.60' vs Actual='none'
+  * earliest_date_for_full_payment: Expected='2025-04-15' vs Actual=''
+
+======================================== request_09 (User: user_09) ========================================
+REQUEST INFO: Date=2026-07-04 | Amount=166.61 | Deadline=2026-07-23 | AllowsPartial=True
+PROFILE: StartBal=2,231.10 EUR | MinKeep=600.00 | GrossHeadroom=1,631.10
+FUTURE EVENTS: Income=3 (1,325.88) | MandatoryDebits=29 (1,584.29) | FlexibleDebits=0 (0.00)
+BASELINE FORECAST: LowestBal=1,792.96 on 2026-09-19 | EndingBal=1,972.69 | Safe=True
+BASELINE SAFE AMOUNT: Actual=166.61 | Expected=166.61
+EARLIEST FULL DATE:   Actual=2026-07-04 | Expected=2026-07-04
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=True | DeadlineOk=True | Eligible=True | MinBal=1,626.35 | Total=166.61
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=1,768.30 | Total=172.62
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=1,771.09 | Total=174.96
+SPENDING CHANGE CANDIDATES (0): []
+EXPECTED OUTPUT: affordable_now | full_payment | 2026-07-04:166.61 | Changes=none
+ACTUAL OUTPUT:   affordable_now | full_payment | 2026-07-04:166.61 | Changes=none
+MATCH: 100% Exact Match on all fields!
+
+======================================== request_10 (User: user_10) ========================================
+REQUEST INFO: Date=2024-12-06 | Amount=266,700.00 | Deadline=2025-02-10 | AllowsPartial=True
+PROFILE: StartBal=750,155.00 INR | MinKeep=225,400.00 | GrossHeadroom=524,755.00
+FUTURE EVENTS: Income=3 (156,719.40) | MandatoryDebits=32 (425,470.09) | FlexibleDebits=18 (93,648.54)
+BASELINE FORECAST: LowestBal=343,673.95 on 2025-03-03 | EndingBal=387,755.77 | Safe=True
+BASELINE SAFE AMOUNT: Actual=118273.95 | Expected=12700
+EARLIEST FULL DATE:   Actual= | Expected=
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=76,973.95 | Total=266,700.00
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=284,999.95 | Total=293,370.00
+SPENDING CHANGE CANDIDATES (5): ['reduce:event_837(gym)', 'stop:event_835(music_subscription)', 'stop:event_836(delivery_membership)', 'reduce:event_904(dining)', 'reduce:event_838(entertainment)']
+EXPECTED OUTPUT: not_affordable | not_recommended | none | Changes=none
+ACTUAL OUTPUT:   not_affordable | not_recommended | none | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='12700' vs Actual='118273.95'
+
+======================================== request_11 (User: user_11) ========================================
+REQUEST INFO: Date=2025-05-03 | Amount=13,110,000.00 | Deadline=2025-06-12 | AllowsPartial=False
+PROFILE: StartBal=63,531,795.00 IDR | MinKeep=34,140,600.00 | GrossHeadroom=29,391,195.00
+FUTURE EVENTS: Income=3 (60,036,319.38) | MandatoryDebits=30 (57,393,583.23) | FlexibleDebits=10 (10,795,236.30)
+BASELINE FORECAST: LowestBal=36,708,375.57 on 2025-07-20 | EndingBal=55,379,294.85 | Safe=True
+BASELINE SAFE AMOUNT: Actual=2567775.57 | Expected=12510645
+EARLIEST FULL DATE:   Actual= | Expected=2025-07-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=23,598,375.57 | Total=13,110,000.00
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=34,217,475.57 | Total=14,945,400.00
+  Plan: installments     | Safe=False | DeadlineOk=False | Eligible=False | MinBal=29,628,975.57 | Total=14,158,800.00
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=34,709,100.57 | Total=15,994,200.00
+  Plan: wait             | Safe=True | DeadlineOk=False | Eligible=False | MinBal=36,708,375.57 | Total=13,110,000.00
+SPENDING CHANGE CANDIDATES (3): ['stop:event_949(cloud_storage)', 'reduce:event_989(dining)', 'reduce:event_948(entertainment)']
+EXPECTED OUTPUT: affordable_with_plan | full_payment | 2025-05-03:13110000 | Changes=reduce_to:event_989:665950
+ACTUAL OUTPUT:   not_affordable | not_recommended | none | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='12510645' vs Actual='2567775.57'
+  * affordability_status: Expected='affordable_with_plan' vs Actual='not_affordable'
+  * recommended_payment_method: Expected='full_payment' vs Actual='not_recommended'
+  * payment_plan: Expected='2025-05-03:13110000' vs Actual='none'
+  * earliest_date_for_full_payment: Expected='2025-07-15' vs Actual=''
+  * spending_changes_needed: Expected='reduce_to:event_989:665950' vs Actual='none'
+
+======================================== request_12 (User: user_12) ========================================
+REQUEST INFO: Date=2026-04-05 | Amount=65,164.00 | Deadline=2026-06-20 | AllowsPartial=False
+PROFILE: StartBal=193,089.89 ZAR | MinKeep=43,200.00 | GrossHeadroom=149,889.89
+FUTURE EVENTS: Income=3 (167,539.92) | MandatoryDebits=22 (76,609.37) | FlexibleDebits=7 (12,287.80)
+BASELINE FORECAST: LowestBal=184,979.30 on 2026-04-11 | EndingBal=271,732.64 | Safe=True
+BASELINE SAFE AMOUNT: Actual=65164 | Expected=65164
+EARLIEST FULL DATE:   Actual=2026-04-05 | Expected=2026-04-05
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=True | DeadlineOk=True | Eligible=False | MinBal=119,815.30 | Total=65,164.00
+  Plan: installments     | Safe=True | DeadlineOk=True | Eligible=True | MinBal=184,979.30 | Total=67,770.57
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=181,317.70 | Total=76,893.60
+SPENDING CHANGE CANDIDATES (2): ['stop:event_1016(streaming)', 'reduce:event_1054(dining)']
+EXPECTED OUTPUT: affordable_with_plan | installments | 2026-04-19:22590.19|2026-05-20:22590.19|2026-06-20:22590.19 | Changes=none
+ACTUAL OUTPUT:   affordable_with_plan | installments | 2026-04-19:22590.19|2026-05-20:22590.19|2026-06-20:22590.19 | Changes=none
+MATCH: 100% Exact Match on all fields!
+
+======================================== request_13 (User: user_13) ========================================
+REQUEST INFO: Date=2024-03-07 | Amount=941.60 | Deadline=2024-05-15 | AllowsPartial=True
+PROFILE: StartBal=2,789.52 EUR | MinKeep=1,300.00 | GrossHeadroom=1,489.52
+FUTURE EVENTS: Income=3 (4,030.62) | MandatoryDebits=40 (4,324.56) | FlexibleDebits=9 (333.00)
+BASELINE FORECAST: LowestBal=1,940.88 on 2024-05-14 | EndingBal=2,162.58 | Safe=True
+BASELINE SAFE AMOUNT: Actual=640.88 | Expected=433.4
+EARLIEST FULL DATE:   Actual= | Expected=2024-05-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=999.28 | Total=941.60
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=1,733.73 | Total=1,035.75
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=1,845.16 | Total=1,148.64
+SPENDING CHANGE CANDIDATES (3): ['reduce:event_1092(gym)', 'stop:event_1090(music_subscription)', 'stop:event_1091(delivery_membership)']
+EXPECTED OUTPUT: affordable_later | wait | 2024-05-15:941.60 | Changes=none
+ACTUAL OUTPUT:   not_affordable | not_recommended | none | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='433.4' vs Actual='640.88'
+  * affordability_status: Expected='affordable_later' vs Actual='not_affordable'
+  * recommended_payment_method: Expected='wait' vs Actual='not_recommended'
+  * payment_plan: Expected='2024-05-15:941.60' vs Actual='none'
+  * earliest_date_for_full_payment: Expected='2024-05-15' vs Actual=''
+
+======================================== request_14 (User: user_14) ========================================
+REQUEST INFO: Date=2025-08-04 | Amount=5,414.20 | Deadline=2025-10-04 | AllowsPartial=True
+PROFILE: StartBal=3,931.74 EUR | MinKeep=2,200.00 | GrossHeadroom=1,731.74
+FUTURE EVENTS: Income=3 (8,151.00) | MandatoryDebits=33 (5,342.20) | FlexibleDebits=3 (42.00)
+BASELINE FORECAST: LowestBal=2,962.82 on 2025-08-14 | EndingBal=6,698.54 | Safe=True
+BASELINE SAFE AMOUNT: Actual=762.82 | Expected=597.74
+EARLIEST FULL DATE:   Actual= | Expected=
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=-2,451.38 | Total=5,414.20
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=2,619.92 | Total=6,172.20
+SPENDING CHANGE CANDIDATES (1): ['stop:event_1198(cloud_storage)']
+EXPECTED OUTPUT: not_affordable | not_recommended | none | Changes=none
+ACTUAL OUTPUT:   not_affordable | not_recommended | none | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='597.74' vs Actual='762.82'
+
+======================================== request_15 (User: user_15) ========================================
+REQUEST INFO: Date=2026-01-06 | Amount=3,685.00 | Deadline=2026-02-01 | AllowsPartial=False
+PROFILE: StartBal=1,770.05 EUR | MinKeep=1,200.00 | GrossHeadroom=570.05
+FUTURE EVENTS: Income=3 (4,983.00) | MandatoryDebits=44 (3,490.22) | FlexibleDebits=7 (266.49)
+BASELINE FORECAST: LowestBal=1,224.84 on 2026-01-14 | EndingBal=2,996.34 | Safe=True
+BASELINE SAFE AMOUNT: Actual=24.84 | Expected=83.05
+EARLIEST FULL DATE:   Actual= | Expected=
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=-2,460.16 | Total=3,685.00
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=1,224.84 | Total=4,348.26
+  Plan: installments     | Safe=False | DeadlineOk=False | Eligible=False | MinBal=1,037.52 | Total=4,495.68
+SPENDING CHANGE CANDIDATES (1): ['reduce:event_1335(dining)']
+EXPECTED OUTPUT: not_affordable | not_recommended | none | Changes=none
+ACTUAL OUTPUT:   not_affordable | not_recommended | none | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='83.05' vs Actual='24.84'
+
+======================================== request_16 (User: user_16) ========================================
+REQUEST INFO: Date=2023-08-12 | Amount=122,500.00 | Deadline=2023-10-11 | AllowsPartial=True
+PROFILE: StartBal=362,370.00 INR | MinKeep=122,400.00 | GrossHeadroom=239,970.00
+FUTURE EVENTS: Income=3 (519,000.00) | MandatoryDebits=48 (475,383.67) | FlexibleDebits=0 (0.00)
+BASELINE FORECAST: LowestBal=362,370.00 on 2023-08-12 | EndingBal=405,986.33 | Safe=True
+BASELINE SAFE AMOUNT: Actual=122500 | Expected=122500
+EARLIEST FULL DATE:   Actual=2023-08-12 | Expected=2023-08-12
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=True | DeadlineOk=True | Eligible=True | MinBal=239,870.00 | Total=122,500.00
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=351,554.83 | Total=134,749.95
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=339,836.33 | Total=132,300.00
+SPENDING CHANGE CANDIDATES (0): []
+EXPECTED OUTPUT: affordable_now | full_payment | 2023-08-12:122500 | Changes=none
+ACTUAL OUTPUT:   affordable_now | full_payment | 2023-08-12:122500 | Changes=none
+MATCH: 100% Exact Match on all fields!
+
+======================================== request_17 (User: user_17) ========================================
+REQUEST INFO: Date=2026-03-01 | Amount=274,600.00 | Deadline=2026-05-04 | AllowsPartial=False
+PROFILE: StartBal=550,379.58 INR | MinKeep=166,100.00 | GrossHeadroom=384,279.58
+FUTURE EVENTS: Income=3 (618,000.00) | MandatoryDebits=38 (493,377.03) | FlexibleDebits=12 (42,716.46)
+BASELINE FORECAST: LowestBal=409,809.70 on 2026-03-14 | EndingBal=632,286.09 | Safe=True
+BASELINE SAFE AMOUNT: Actual=243709.7 | Expected=243849.58
+EARLIEST FULL DATE:   Actual=2026-03-15 | Expected=2026-03-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=135,209.70 | Total=274,600.00
+  Plan: installments     | Safe=True | DeadlineOk=True | Eligible=True | MinBal=188,222.47 | Total=285,584.01
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=392,418.37 | Total=313,043.94
+  Plan: wait             | Safe=True | DeadlineOk=True | Eligible=False | MinBal=167,208.09 | Total=274,600.00
+SPENDING CHANGE CANDIDATES (3): ['reduce:event_1542(dining)', 'stop:event_1476(music_subscription)', 'stop:event_1477(delivery_membership)']
+EXPECTED OUTPUT: affordable_with_plan | installments | 2026-03-01:95194.67|2026-03-31:95194.67|2026-04-30:95194.67 | Changes=none
+ACTUAL OUTPUT:   affordable_with_plan | installments | 2026-03-01:95194.67|2026-03-31:95194.67|2026-04-30:95194.67 | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='243849.58' vs Actual='243709.7'
+
+======================================== request_18 (User: user_18) ========================================
+REQUEST INFO: Date=2026-07-07 | Amount=3,246.10 | Deadline=2026-09-15 | AllowsPartial=False
+PROFILE: StartBal=2,486.00 EUR | MinKeep=1,400.00 | GrossHeadroom=1,086.00
+FUTURE EVENTS: Income=3 (6,930.00) | MandatoryDebits=27 (2,707.20) | FlexibleDebits=9 (700.02)
+BASELINE FORECAST: LowestBal=1,930.21 on 2026-07-14 | EndingBal=6,008.78 | Safe=True
+BASELINE SAFE AMOUNT: Actual=530.21 | Expected=462
+EARLIEST FULL DATE:   Actual=2026-09-15 | Expected=2026-09-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=-1,315.89 | Total=3,246.10
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=1,747.81 | Total=3,830.40
+  Plan: wait             | Safe=True | DeadlineOk=True | Eligible=True | MinBal=1,930.21 | Total=3,246.10
+SPENDING CHANGE CANDIDATES (3): ['stop:event_1576(streaming)', 'reduce:event_1576(streaming)', 'reduce:event_1621(dining)']
+EXPECTED OUTPUT: affordable_later | wait | 2026-09-15:3246.10 | Changes=none
+ACTUAL OUTPUT:   affordable_later | wait | 2026-09-15:3246.1 | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='462' vs Actual='530.21'
+  * payment_plan: Expected='2026-09-15:3246.10' vs Actual='2026-09-15:3246.1'
+
+======================================== request_19 (User: user_19) ========================================
+REQUEST INFO: Date=2024-09-04 | Amount=39,660.00 | Deadline=2024-10-04 | AllowsPartial=True
+PROFILE: StartBal=199,545.00 INR | MinKeep=92,800.00 | GrossHeadroom=106,745.00
+FUTURE EVENTS: Income=3 (393,000.00) | MandatoryDebits=34 (305,170.82) | FlexibleDebits=3 (1,185.00)
+BASELINE FORECAST: LowestBal=124,185.75 on 2024-09-14 | EndingBal=286,189.18 | Safe=True
+BASELINE SAFE AMOUNT: Actual=31385.75 | Expected=28820
+EARLIEST FULL DATE:   Actual=2024-09-15 | Expected=2024-09-15
+CANDIDATE PLANS EVALUATION:
+  Plan: full_payment     | Safe=False | DeadlineOk=True | Eligible=False | MinBal=84,525.75 | Total=39,660.00
+  Plan: installments     | Safe=True | DeadlineOk=True | Eligible=True | MinBal=103,562.55 | Total=41,246.40
+  Plan: installments     | Safe=True | DeadlineOk=False | Eligible=False | MinBal=110,172.55 | Total=42,039.60
+  Plan: partial_payment  | Safe=True | DeadlineOk=True | Eligible=True | MinBal=92,800.00 | Total=39,660.00
+  Plan: wait             | Safe=True | DeadlineOk=True | Eligible=False | MinBal=115,028.49 | Total=39,660.00
+SPENDING CHANGE CANDIDATES (1): ['stop:event_1660(cloud_storage)']
+EXPECTED OUTPUT: affordable_with_plan | partial_payment | 2024-09-04:28820|2024-09-15:10840 | Changes=none
+ACTUAL OUTPUT:   affordable_with_plan | partial_payment | 2024-09-04:31385.75|2024-09-15:8274.25 | Changes=none
+DIFFERENCES FOUND:
+  * amount_safe_to_pay: Expected='28820' vs Actual='31385.75'
+  * payment_plan: Expected='2024-09-04:28820|2024-09-15:10840' vs Actual='2024-09-04:31385.75|2024-09-15:8274.25'
